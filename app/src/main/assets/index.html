@@ -1,0 +1,192 @@
+<!doctype html>
+<html>
+<head>
+    <title>Все доставки на карте</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width,height=device-height, user-scalable=no" />
+
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+    <script type="text/javascript">
+
+        ymaps.ready(init);
+
+        var myMap,
+            myPlacemark;
+
+        var jsonString = getDeliveriesData();
+        var deliveries = JSON.parse(jsonString);
+
+        var fromLongLat;
+
+        var multiRoute;
+        var multiRoutesCollection;
+
+        function init() {
+
+            multiRoutesCollection = new ymaps.GeoObjectCollection();
+
+            // (DONE) Поменять точки местами: https://tech.yandex.ru/maps/jsbox/2.1/route_button_control
+            // Автоматически определять позицию: https://tech.yandex.ru/maps/jsbox/2.1/geolocation
+
+            // ПОДСКАЗКИ АДРЕСОВ!!!!
+
+            var clearButton = new ymaps.control.Button({
+                data: { content: "Очистить маршрут"},
+                options: { selectOnClick: false }
+            });
+
+            clearButton.events.add('click', function () {
+                myMap.geoObjects.remove(multiRoutesCollection.getLength());
+                multiRoutesCollection.remove(multiRoutesCollection.getLength());
+            });
+
+            myMap = new ymaps.Map("map", {
+                center: [55.753559,37.609218],
+                zoom: 9,
+                controls: ['geolocationControl', 'trafficControl', 'routeButtonControl', 'rulerControl', 'zoomControl']
+            }, {
+                suppressMapOpenBlock: true,
+                avoidFractionalZoom: true,
+                balloonPanelMaxMapArea: Infinity
+            });
+
+            for (var i = 0; i < deliveries.length; i++) {
+                var longlat = deliveries[i].longLat.split(' ', 2);
+                myPlacemark = new ymaps.Placemark([longlat[1], longlat[0]], {
+                    balloonContentBody: '<div style="font-size: 150%;">' + deliveries[i].itemName + ' <b>' + deliveries[i].itemPrice + '</b> ' + deliveries[i].clientName +
+                    ' <span style="color:red; font-weight:bold">' +
+                    deliveries[i].deliveryTimeLimit +
+                    '</span>' + '</div><br /><div><button class="itm btn-from" onclick="fromClicked(deliveries[' +
+                    i + '].longLat)">Отсюда</button><button class="itm btn-to" onclick="myMap.balloon.close();toClicked(deliveries[' +
+                    i + '].longLat)">Сюда</button><button class="btn-options" onclick="showOptions(JSON.stringify(deliveries[' +
+                    i + ']));getDeliveryNumberInMapCollection('
+                    + i + ')">Опции</button></div>',
+                    balloonContentFooter: deliveries[i].clientComment
+                });
+                myMap.geoObjects.add(myPlacemark);
+            }
+
+            myMap.controls.add(clearButton);
+
+            // Устанавливаем карте центр и масштаб так, чтобы охватить коллекцию целиком.
+            myMap.setBounds(myMap.geoObjects.getBounds());
+
+        }
+
+        function toClicked(argument) {
+            var longlatFROM = this.fromLongLat.split(' ', 2);
+            var longlatTO = argument.split(' ', 2);
+
+            multiRoute = new ymaps.multiRouter.MultiRoute({
+                referencePoints: [
+                    [longlatFROM[1], longlatFROM[0]],
+                    [longlatTO[1], longlatTO[0]]
+                ],
+                params: {
+                    routingMode: 'masstransit'
+
+                }
+            }, {
+                //routeActiveStrokeColor: "#E63E92",
+                boundsAutoApply: true
+            });
+
+            switch (multiRoutesCollection.getLength()) {
+                case 1:
+                    multiRoute.options.set('routeActiveStrokeColor', '#800000');
+                    break;
+                case 2:
+                    multiRoute.options.set('routeActiveStrokeColor', '#013220');
+                    break;
+                case 3:
+                    multiRoute.options.set('routeActiveStrokeColor', '#FF4F00');
+                    break;
+                case 4:
+                    multiRoute.options.set('routeActiveStrokeColor', '#00FFFF');
+                    break;
+                case 5:
+                    multiRoute.options.set('routeActiveStrokeColor', '#FFBCD8');
+                    break;
+            }
+
+            //myMap.geoObjects.remove(multiRoutesCollection);
+
+            multiRoutesCollection.add(multiRoute);
+            myMap.geoObjects.add(multiRoutesCollection);
+        }
+
+        function fromClicked(argument){
+            this.fromLongLat = argument;
+            myMap.balloon.close();
+        }
+
+        function getDeliveriesData() {
+            return Android.getDeliveriesData();
+        }
+
+        function showOptions(argument) {
+            myMap.balloon.close();
+            Android.showOptionsDialog(argument.toString());
+        }
+
+        function hideDelivery(placemarkNumber) {
+            myMap.balloon.close();
+            myMap.geoObjects.remove(myMap.geoObjects.get(placemarkNumber));
+        }
+
+        function getDeliveryNumberInMapCollection(argument) {
+            Android.getDeliveryNumberInMapCollection(argument);
+        }
+
+    </script>
+    <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #map {
+            background-color: white;
+        }
+        .btns {
+            margin-top: 6px;
+        }
+        .btn-from {
+            width: 76px;
+            height: 38px;
+            color: #000;
+            background-color: #ffcc00;
+            border-top-left-radius: 30px 20px;
+            border: solid 3px;
+        }
+        .btn-to {
+            width: 76px;
+            height: 38px;
+            color: #000;
+            background-color: #ffcc00;
+            border-top-right-radius: 30px 20px;
+            border: solid 3px;
+        }
+        .btn-options {
+            width: 76px;
+            height: 38px;
+            color: #fff;
+            background-color: #ff0000;
+            border: solid 3px #000;
+        }
+        .itm {
+            margin-right: 12px;
+        }
+    </style>
+</head>
+<body>
+<div id="map"></div>
+</body>
+</html>
+
+<!-- java.net.UnknownHostException: Unable to resolve host "test.courierhelper.ru": No address associated with hostname
+08-29 23:07:04.709 19109-19225/? W/System.err:     at ru.courierhelper.pro.JSONDeliveriesGetter.doInBackground(JSONDeliveriesGetter.java:46)
+08-29 23:07:04.709 19109-19225/? W/System.err:     at ru.courierhelper.pro.JSONDeliveriesGetter.doInBackground(JSONDeliveriesGetter.java:20) -->
+<!--
+java.lang.IllegalStateException: Can not perform this action after onSaveInstanceState -->

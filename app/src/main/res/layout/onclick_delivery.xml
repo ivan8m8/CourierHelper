@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:background="@drawable/dialog_rc">
+
+    <TextView
+        android:id="@+id/client_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Иван"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        android:paddingBottom="8dp"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/button_call"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_call"
+            android:padding="23dp"
+            android:background="@drawable/border_lb"
+            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
+            />
+
+        <ImageButton
+            android:id="@+id/button_sms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_sms"
+            android:padding="23dp"
+            android:background="@drawable/border_cb"
+            android:layout_marginLeft="3dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
+            />
+
+        <ImageButton
+            android:id="@+id/button_map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_on_map"
+            android:padding="23dp"
+            android:background="@drawable/border_rb"
+            android:layout_marginLeft="3dp"
+            android:layout_marginStart="3dp"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

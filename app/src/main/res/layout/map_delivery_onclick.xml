@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@drawable/dialog_rc">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/client_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Иван"
+            android:textSize="23sp"
+            android:textStyle="bold"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_dots_vertical_grey600_24dp"
+            android:contentDescription="@string/desc_overflow_button"
+            android:id="@+id/mapDeliveryOptionsImageButton"
+            android:background="#00000000"
+            android:layout_marginRight="-12dp"
+            android:layout_marginEnd="-12dp"
+            android:paddingRight="8dp"
+            android:paddingEnd="8dp"
+            android:paddingLeft="38dp"
+            android:paddingStart="38dp"
+            android:paddingBottom="28dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/map_button_call"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_call"
+            android:padding="23dp"
+            android:background="@drawable/border_lb"
+            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
+            />
+
+        <ImageButton
+            android:id="@+id/map_button_sms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_sms"
+            android:padding="23dp"
+            android:background="@drawable/border_rb"
+            android:layout_marginLeft="3dp"
+            android:layout_marginStart="3dp"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>
