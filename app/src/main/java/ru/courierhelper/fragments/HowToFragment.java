@@ -4,14 +4,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 
 import ru.courierhelper.R;
 
@@ -24,9 +22,6 @@ public class HowToFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.how_to_fragment, container, false);
-        AdView adView = (AdView)rootView.findViewById(R.id.adView3);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        adView.loadAd(adRequest);
         TextView watchVideoTextView = (TextView)rootView.findViewById(R.id.watchVideoTitle);
         watchVideoTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,12 +32,15 @@ public class HowToFragment extends Fragment {
                 startActivity(youtubeIntent);
             }
         });
+        setHasOptionsMenu(false);
         return rootView;
     }
 
     @Override
     public void onStart() {
-        getActivity().setTitle(getActivity().getResources().getString(R.string.how_to_title));
+        NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
+        navigationView.setCheckedItem(R.id.about_nav_item);
+        getActivity().setTitle(getResources().getString(R.string.how_to_title));
         super.onStart();
     }
 }

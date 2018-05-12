@@ -5,8 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Ivan on 12.09.17.
@@ -120,58 +124,134 @@ public class DBHandler extends SQLiteOpenHelper {
 
     /*
      * 0 for uncompleted
-     * 1 for completed
+     * 1 for completed 12.10.1994
      */
 
     public ArrayList<Delivery> getAllDeliveries(int status){
         ArrayList<Delivery> deliveryArrayList = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
 
-        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_DELIVERY_STATUS + " = " + "\"" + status + "\"";
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_DELIVERY_STATUS + " = " + "\"" + status +
+                "\" ORDER BY SUBSTR( " + COLUMN_DELIVERY_DATE + " , 7, 4) ASC, SUBSTR( "
+                + COLUMN_DELIVERY_DATE + " , 4, 2) ASC, SUBSTR( "
+                + COLUMN_DELIVERY_DATE + " , 1, 2) ASC";
         Cursor cursor = sqLiteDatabase.rawQuery(query, null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            if (cursor.getString(cursor.getColumnIndex(COLUMN_ID)) != null) {
-                String clientComment = cursor.getString(cursor.getColumnIndex(COLUMN_CLIENT_COMMENT));
-                String deliveryTimelimit = cursor.getString(cursor.getColumnIndex(COLUMN_DELIVERY_TIME_LIMIT));
-                String clientName = cursor.getString(cursor.getColumnIndex(COLUMN_CLIENT_NAME));
-                String clientPhoneNumber = cursor.getString(cursor.getColumnIndex(COLUMN_CLIENT_PHONE_NUMBER));
-                String deliveryAddress = cursor.getString(cursor.getColumnIndex(COLUMN_DELIVERY_ADDRESS));
-                String longLat = cursor.getString(cursor.getColumnIndex(COLUMN_LONG_LAT));
-                String deliveryDate = cursor.getString(cursor.getColumnIndex(COLUMN_DELIVERY_DATE));
-                String deliveryUndergroundStation1 = cursor.getString(cursor.getColumnIndex(COLUMN_DELIVERY_UNDERGROUND_STATION1));
-                String deliveryUndergroundStation1Color = cursor.getString(cursor.getColumnIndex(COLUMN_DELIVERY_UNDERGROUND_STATION1_COLOR));
-                String deliveryUndergroundStation1Distance = cursor.getString(cursor.getColumnIndex(COLUMN_DELIVERY_UNDERGROUND_STATION1_DISTANCE));
-                String deliveryUndergroundStation2Distance = cursor.getString(cursor.getColumnIndex(COLUMN_DELIVERY_UNDERGROUND_STATION2_DISTANCE));
-                String deliveryUndergroundStation2 = cursor.getString(cursor.getColumnIndex(COLUMN_DELIVERY_UNDERGROUND_STATION2));
-                String deliveryUndergroundStation2Color = cursor.getString(cursor.getColumnIndex(COLUMN_DELIVERY_UNDERGROUND_STATION2_COLOR));
-                String itemName = cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_NAME));
-                String itemPrice = cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_PRICE));
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                if (cursor.getString(cursor.getColumnIndex(COLUMN_ID)) != null) {
+                    String clientComment = cursor.getString(cursor.getColumnIndex(COLUMN_CLIENT_COMMENT));
+                    String deliveryTimeLimit = cursor.getString(cursor.getColumnIndex(COLUMN_DELIVERY_TIME_LIMIT));
+                    String clientName = cursor.getString(cursor.getColumnIndex(COLUMN_CLIENT_NAME));
+                    String clientPhoneNumber = cursor.getString(cursor.getColumnIndex(COLUMN_CLIENT_PHONE_NUMBER));
+                    String deliveryAddress = cursor.getString(cursor.getColumnIndex(COLUMN_DELIVERY_ADDRESS));
+                    String longLat = cursor.getString(cursor.getColumnIndex(COLUMN_LONG_LAT));
+                    String deliveryDate = cursor.getString(cursor.getColumnIndex(COLUMN_DELIVERY_DATE));
+                    String deliveryUndergroundStation1 = cursor.getString(cursor.getColumnIndex(COLUMN_DELIVERY_UNDERGROUND_STATION1));
+                    String deliveryUndergroundStation1Color = cursor.getString(cursor.getColumnIndex(COLUMN_DELIVERY_UNDERGROUND_STATION1_COLOR));
+                    String deliveryUndergroundStation1Distance = cursor.getString(cursor.getColumnIndex(COLUMN_DELIVERY_UNDERGROUND_STATION1_DISTANCE));
+                    String deliveryUndergroundStation2Distance = cursor.getString(cursor.getColumnIndex(COLUMN_DELIVERY_UNDERGROUND_STATION2_DISTANCE));
+                    String deliveryUndergroundStation2 = cursor.getString(cursor.getColumnIndex(COLUMN_DELIVERY_UNDERGROUND_STATION2));
+                    String deliveryUndergroundStation2Color = cursor.getString(cursor.getColumnIndex(COLUMN_DELIVERY_UNDERGROUND_STATION2_COLOR));
+                    String itemName = cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_NAME));
+                    String itemPrice = cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_PRICE));
 
-                cursor.moveToNext();
-                delivery = new Delivery(clientName,
-                        clientPhoneNumber,
-                        deliveryAddress,
-                        longLat,
-                        deliveryUndergroundStation1,
-                        deliveryUndergroundStation1Color,
-                        deliveryUndergroundStation1Distance,
-                        deliveryUndergroundStation2,
-                        deliveryUndergroundStation2Color,
-                        deliveryUndergroundStation2Distance,
-                        clientComment,
-                        deliveryTimelimit,
-                        itemName,
-                        itemPrice,
-                        deliveryDate,
-                        status);
-                deliveryArrayList.add(delivery);
+                    cursor.moveToNext();
+                    delivery = new Delivery(clientName,
+                            clientPhoneNumber,
+                            deliveryAddress,
+                            longLat,
+                            deliveryUndergroundStation1,
+                            deliveryUndergroundStation1Color,
+                            deliveryUndergroundStation1Distance,
+                            deliveryUndergroundStation2,
+                            deliveryUndergroundStation2Color,
+                            deliveryUndergroundStation2Distance,
+                            clientComment,
+                            deliveryTimeLimit,
+                            itemName,
+                            itemPrice,
+                            deliveryDate,
+                            status);
+                    deliveryArrayList.add(delivery);
+                }
             }
+        } finally {
+            cursor.close();
         }
-        cursor.close();
         sqLiteDatabase.close();
-        return  deliveryArrayList;
+        return deliveryArrayList;
     }
+
+//    /*
+//    This method is overloaded by second parameter, that:
+//    1: to sort the deliveries by price desc
+//    2: asc
+//     */
+//    public ArrayList<Delivery> getAllDeliveries(int status, int sortType) throws Exception{
+//        ArrayList<Delivery> deliveryArrayList = new ArrayList<>();
+//        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+//
+//        String query;
+//
+//        if (sortType == 1) {
+//            query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_DELIVERY_STATUS + " = " + "\"" + status +
+//                    "\" ORDER BY " + COLUMN_ITEM_PRICE + " DESC";
+//        } else if (sortType == 2) {
+//            query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_DELIVERY_STATUS + " = " + "\"" + status +
+//                    "\" ORDER BY " + COLUMN_ITEM_PRICE + " ASC";
+//        } else {
+//            Log.d("KSI8", "asssdsadsadasdasdsadsadsa");
+//            throw new Exception();
+//        }
+//
+//        Cursor cursor = sqLiteDatabase.rawQuery(query, null);
+//        try {
+//            cursor.moveToFirst();
+//            while (!cursor.isAfterLast()) {
+//                if (cursor.getString(cursor.getColumnIndex(COLUMN_ID)) != null) {
+//                    String clientComment = cursor.getString(cursor.getColumnIndex(COLUMN_CLIENT_COMMENT));
+//                    String deliveryTimeLimit = cursor.getString(cursor.getColumnIndex(COLUMN_DELIVERY_TIME_LIMIT));
+//                    String clientName = cursor.getString(cursor.getColumnIndex(COLUMN_CLIENT_NAME));
+//                    String clientPhoneNumber = cursor.getString(cursor.getColumnIndex(COLUMN_CLIENT_PHONE_NUMBER));
+//                    String deliveryAddress = cursor.getString(cursor.getColumnIndex(COLUMN_DELIVERY_ADDRESS));
+//                    String longLat = cursor.getString(cursor.getColumnIndex(COLUMN_LONG_LAT));
+//                    String deliveryDate = cursor.getString(cursor.getColumnIndex(COLUMN_DELIVERY_DATE));
+//                    String deliveryUndergroundStation1 = cursor.getString(cursor.getColumnIndex(COLUMN_DELIVERY_UNDERGROUND_STATION1));
+//                    String deliveryUndergroundStation1Color = cursor.getString(cursor.getColumnIndex(COLUMN_DELIVERY_UNDERGROUND_STATION1_COLOR));
+//                    String deliveryUndergroundStation1Distance = cursor.getString(cursor.getColumnIndex(COLUMN_DELIVERY_UNDERGROUND_STATION1_DISTANCE));
+//                    String deliveryUndergroundStation2Distance = cursor.getString(cursor.getColumnIndex(COLUMN_DELIVERY_UNDERGROUND_STATION2_DISTANCE));
+//                    String deliveryUndergroundStation2 = cursor.getString(cursor.getColumnIndex(COLUMN_DELIVERY_UNDERGROUND_STATION2));
+//                    String deliveryUndergroundStation2Color = cursor.getString(cursor.getColumnIndex(COLUMN_DELIVERY_UNDERGROUND_STATION2_COLOR));
+//                    String itemName = cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_NAME));
+//                    String itemPrice = cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_PRICE));
+//
+//                    cursor.moveToNext();
+//                    delivery = new Delivery(clientName,
+//                            clientPhoneNumber,
+//                            deliveryAddress,
+//                            longLat,
+//                            deliveryUndergroundStation1,
+//                            deliveryUndergroundStation1Color,
+//                            deliveryUndergroundStation1Distance,
+//                            deliveryUndergroundStation2,
+//                            deliveryUndergroundStation2Color,
+//                            deliveryUndergroundStation2Distance,
+//                            clientComment,
+//                            deliveryTimeLimit,
+//                            itemName,
+//                            itemPrice,
+//                            deliveryDate,
+//                            status);
+//                    deliveryArrayList.add(delivery);
+//                }
+//            }
+//        } finally {
+//            cursor.close();
+//        }
+//        sqLiteDatabase.close();
+//        return deliveryArrayList;
+//    }
 
     public double getSumTotalByDate(String date){
         double result = -1;
@@ -180,26 +260,34 @@ public class DBHandler extends SQLiteOpenHelper {
                 COLUMN_DELIVERY_STATUS + " = " + "\"1\" AND "
                 + COLUMN_DELIVERY_DATE + " LIKE " + "\"" + date + "%\"";
         Cursor cursor = sqLiteDatabase.rawQuery(query, null);
-        if (cursor.moveToFirst()) {
-            result = cursor.getDouble(cursor.getColumnIndex("SUM_TOTAL_BY_DATE"));
+        try {
+            if (cursor.moveToFirst()) {
+                result = cursor.getDouble(cursor.getColumnIndex("SUM_TOTAL_BY_DATE"));
+            }
+        } finally {
+            cursor.close();
         }
-        cursor.close();
         return result;
     }
 
     public String getLastWorkDay(){
         String result = null;
-        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         String query = "SELECT " + COLUMN_DELIVERY_DATE + " AS LAST_WORK_DAY FROM " + TABLE_NAME +
-                " ORDER BY " + COLUMN_DELIVERY_DATE + " DESC LIMIT 1;";
+                " ORDER BY SUBSTR( " + COLUMN_DELIVERY_DATE + " , 7, 4) DESC, SUBSTR( "
+                + COLUMN_DELIVERY_DATE + " , 4, 2) DESC, SUBSTR( "
+                + COLUMN_DELIVERY_DATE + " , 1, 2) DESC LIMIT 1";
         Cursor cursor = sqLiteDatabase.rawQuery(query, null);
-        if (cursor.moveToFirst()){
-            result = cursor.getString(cursor.getColumnIndex("LAST_WORK_DAY"));
+        try {
+            if (cursor.moveToFirst()) {
+                result = cursor.getString(cursor.getColumnIndex("LAST_WORK_DAY"));
+            }
+            if (result != null) {
+                result = result.split(" ")[0];
+            }
+        } finally {
+            cursor.close();
         }
-        if (result != null){
-            result = result.split(" ")[0];
-        }
-        cursor.close();
         return result;
     }
 
@@ -210,10 +298,13 @@ public class DBHandler extends SQLiteOpenHelper {
                 + COLUMN_DELIVERY_STATUS + " = 1 AND "
                 + COLUMN_DELIVERY_DATE + " LIKE " + "\"" + date + "%\"";
         Cursor cursor = sqLiteDatabase.rawQuery(query, null);
-        if (cursor.moveToFirst()) {
-            result = cursor.getInt(cursor.getColumnIndex("NUMBER_OF_COMPLETED_DELIVERIES_BY_DATE"));
+        try {
+            if (cursor.moveToFirst()) {
+                result = cursor.getInt(cursor.getColumnIndex("NUMBER_OF_COMPLETED_DELIVERIES_BY_DATE"));
+            }
+        } finally {
+            cursor.close();
         }
-        cursor.close();
         return result;
     }
 
@@ -223,10 +314,13 @@ public class DBHandler extends SQLiteOpenHelper {
         String query = "SELECT COUNT ( " + COLUMN_ID + " ) AS ALL_COMPLETED_DELIVERIES_COUNT FROM " + TABLE_NAME
                 + " WHERE " + COLUMN_DELIVERY_STATUS + " = " + "\"1\";";
         Cursor cursor = sqLiteDatabase.rawQuery(query, null);
-        if (cursor.moveToFirst()){
-            result = cursor.getInt(cursor.getColumnIndex("ALL_COMPLETED_DELIVERIES_COUNT"));
+        try {
+            if (cursor.moveToFirst()) {
+                result = cursor.getInt(cursor.getColumnIndex("ALL_COMPLETED_DELIVERIES_COUNT"));
+            }
+        } finally {
+            cursor.close();
         }
-        cursor.close();
         sqLiteDatabase.close();
         return result;
     }
@@ -237,26 +331,32 @@ public class DBHandler extends SQLiteOpenHelper {
         String query = "SELECT SUM ( " + COLUMN_ITEM_PRICE + " ) AS ALL_COMPLETED_DELIVERIES_SUM FROM " + TABLE_NAME
                 + " WHERE " + COLUMN_DELIVERY_STATUS + " = " + "\"1\";";
         Cursor cursor = sqLiteDatabase.rawQuery(query, null);
-        if (cursor.moveToFirst()){
-            result = cursor.getDouble(cursor.getColumnIndex("ALL_COMPLETED_DELIVERIES_SUM"));
+        try {
+            if (cursor.moveToFirst()){
+                result = cursor.getDouble(cursor.getColumnIndex("ALL_COMPLETED_DELIVERIES_SUM"));
+            }
+        } finally {
+            cursor.close();
         }
-        cursor.close();
         sqLiteDatabase.close();
         return result;
     }
 
     public String getMostHauntedUndergroundStation(){
-        String result = null;
+        String result = "Не удалось определить";
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         String query = "SELECT " + COLUMN_DELIVERY_UNDERGROUND_STATION1 + " AS MOST_HAUNTED_UNDERGROUND_STATION FROM "
                 + TABLE_NAME + " WHERE " + COLUMN_DELIVERY_STATUS + " = " + "\"1\" GROUP BY ( "
                 + COLUMN_DELIVERY_UNDERGROUND_STATION1 + " ) ORDER BY COUNT ("
                 + COLUMN_DELIVERY_UNDERGROUND_STATION1 + " ) DESC LIMIT 1";
         Cursor cursor = sqLiteDatabase.rawQuery(query, null);
-        if (cursor.moveToFirst()){
-            result = cursor.getString(cursor.getColumnIndex("MOST_HAUNTED_UNDERGROUND_STATION"));
+        try {
+            if (cursor.moveToFirst()){
+                result = cursor.getString(cursor.getColumnIndex("MOST_HAUNTED_UNDERGROUND_STATION"));
+            }
+        } finally {
+            cursor.close();
         }
-        cursor.close();
         sqLiteDatabase.close();
         return result;
     }
@@ -269,71 +369,120 @@ public class DBHandler extends SQLiteOpenHelper {
                 + COLUMN_DELIVERY_UNDERGROUND_STATION1 + " ) ORDER BY COUNT ("
                 + COLUMN_DELIVERY_UNDERGROUND_STATION1 + " ) DESC LIMIT 1";
         Cursor cursor = sqLiteDatabase.rawQuery(query, null);
-        if (cursor.moveToFirst()){
-            result = cursor.getInt(cursor.getColumnIndex("MOST_HAUNTED_UNDERGROUND_STATION_COUNT"));
+        try {
+            if (cursor.moveToFirst()) {
+                result = cursor.getInt(cursor.getColumnIndex("MOST_HAUNTED_UNDERGROUND_STATION_COUNT"));
+            }
+        } finally {
+            cursor.close();
         }
-        cursor.close();
         sqLiteDatabase.close();
         return result;
     }
 
     public String getMostHauntedUndergroundLine(){
-        String result = null;
+        String result = "Не удалось определить";
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         String query = "SELECT " + COLUMN_DELIVERY_UNDERGROUND_STATION1_COLOR + " AS MOST_HAUNTED_UNDERGROUND_LINE FROM "
                 + TABLE_NAME + " WHERE " + COLUMN_DELIVERY_STATUS + " = " + "\"1\" GROUP BY ( "
                 + COLUMN_DELIVERY_UNDERGROUND_STATION1_COLOR + " ) ORDER BY COUNT ("
                 + COLUMN_DELIVERY_UNDERGROUND_STATION1_COLOR + " ) DESC LIMIT 1";
         Cursor cursor = sqLiteDatabase.rawQuery(query, null);
-        if (cursor.moveToFirst()){
-            result = cursor.getString(cursor.getColumnIndex("MOST_HAUNTED_UNDERGROUND_LINE"));
-        }
-        if (result != null) {
-            switch (result) {
-                case "#cc0000":
-                    result = "Сокольническая";
-                    break;
-                case "#0a6f20":
-                    result = "Замоскворецкая";
-                    break;
-                case "#003399":
-                    result = "Арбатско-Покровская";
-                    break;
-                case "#0099cc":
-                    result = "Филёвская";
-                    break;
-                case "#7f0000":
-                    result = "Кольцевая";
-                    break;
-                case "#ff7f00":
-                    result = "Калужско-Рижская";
-                    break;
-                case "#92007b":
-                    result = "Таганско-Краснопресненская";
-                    break;
-                case "#ffdd03":
-                    result = "Калининская";
-                    break;
-                case "#A2A5B4":
-                    result = "Серпуховско-Тимирязевская";
-                    break;
-                case "#99cc33":
-                    result = "Люблинско-Дмитровская";
-                    break;
-                case "#29b1a6":
-                    result = "Каховская";
-                    break;
-                case "#b2dae7":
-                    result = "Бутовская";
-                    break;
-                case "#F47D87":
-                    result = "Московское центральное кольцо";
-                    break;
-                default:
-                    result = "Не удалось определить";
+        try {
+            if (cursor.moveToFirst()) {
+                result = cursor.getString(cursor.getColumnIndex("MOST_HAUNTED_UNDERGROUND_LINE"));
             }
+            if (result != null) {
+                switch (result) {
+                    case "#cc0000":
+                        result = "Сокольническая";
+                        break;
+                    case "#0a6f20":
+                        result = "Замоскворецкая";
+                        break;
+                    case "#003399":
+                        result = "Арбатско-Покровская";
+                        break;
+                    case "#0099cc":
+                        result = "Филёвская";
+                        break;
+                    case "#7f0000":
+                        result = "Кольцевая";
+                        break;
+                    case "#ff7f00":
+                        result = "Калужско-Рижская";
+                        break;
+                    case "#92007b":
+                        result = "Таганско-Краснопресненская";
+                        break;
+                    case "#ffdd03":
+                        result = "Калининская";
+                        break;
+                    case "#A2A5B4":
+                        result = "Серпуховско-Тимирязевская";
+                        break;
+                    case "#99cc33":
+                        result = "Люблинско-Дмитровская";
+                        break;
+                    case "#29b1a6":
+                        result = "Каховская / Большая кольцевая";
+                        break;
+                    case "#b2dae7":
+                        result = "Бутовская";
+                        break;
+                    case "#F47D87":
+                        result = "Московское центральное кольцо";
+                        break;
+
+                    case "#EF1E25":
+                        result = "1 линия";
+                        break;
+                    case "#019EE0":
+                        result = "2 линия";
+                        break;
+                    case "#029A55":
+                        result = "3 линия";
+                        break;
+                    case "#FBAA33":
+                        result = "4 линия";
+                        break;
+                    case "#B61D8E":
+                        result = "5 линия";
+                        break;
+
+                    case "#f11013":
+                        result = "Автозаводская";
+                        break;
+                    case "#137cb5":
+                        result = "Сормовско-Мещерская";
+                        break;
+
+                    case "#da3a2f":
+                        result = "Ленинская";
+                        break;
+                    case "#61be53":
+                        result = "Дзержинская";
+                        break;
+
+                    case "#dd0000":
+                        result = "Первая";
+                        break;
+
+                    case "#ea3f33":
+                        result = "Первая";
+                        break;
+
+                    case "#be2d2c":
+                        result = "Центральная";
+                        break;
+
+                    default:
+                        result = "Не удалось определить";
+                }
+            }
+        } finally {
+            cursor.close();
         }
-        cursor.close();
         sqLiteDatabase.close();
         return result;
     }
@@ -346,10 +495,13 @@ public class DBHandler extends SQLiteOpenHelper {
                 + COLUMN_DELIVERY_UNDERGROUND_STATION1_COLOR + " ) ORDER BY COUNT ("
                 + COLUMN_DELIVERY_UNDERGROUND_STATION1_COLOR + " ) DESC LIMIT 1";
         Cursor cursor = sqLiteDatabase.rawQuery(query, null);
-        if (cursor.moveToFirst()){
-            result = cursor.getInt(cursor.getColumnIndex("MOST_HAUNTED_UNDERGROUND_LINE_COUNT"));
+        try {
+            if (cursor.moveToFirst()) {
+                result = cursor.getInt(cursor.getColumnIndex("MOST_HAUNTED_UNDERGROUND_LINE_COUNT"));
+            }
+        } finally {
+            cursor.close();
         }
-        cursor.close();
         sqLiteDatabase.close();
         return result;
     }
@@ -363,23 +515,29 @@ public class DBHandler extends SQLiteOpenHelper {
                 + "\"1\" AND " + COLUMN_ITEM_PRICE + " < 99999999999999999 ) ORDER BY "
                 + COLUMN_ITEM_PRICE + " DESC LIMIT 1;";
         Cursor cursor = sqLiteDatabase.rawQuery(query, null);
-        if (cursor.moveToFirst()){
-            result = cursor.getDouble(cursor.getColumnIndex("MOST_EXPENSIVE_ORDER"));
+        try {
+            if (cursor.moveToFirst()) {
+                result = cursor.getDouble(cursor.getColumnIndex("MOST_EXPENSIVE_ORDER"));
+            }
+        } finally {
+            cursor.close();
         }
-        cursor.close();
         return result;
     }
 
     public double getCheapestOrder(){
         double result = -1;
-        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         String query = "SELECT MIN (NULLIF ( " + COLUMN_ITEM_PRICE + " ,0)) AS CHEAPEST_ORDER FROM " + TABLE_NAME
                 + " WHERE " + COLUMN_DELIVERY_STATUS + " = " + "\"1\" LIMIT 1;";
         Cursor cursor = sqLiteDatabase.rawQuery(query, null);
-        if (cursor.moveToFirst()){
-            result = cursor.getDouble(cursor.getColumnIndex("CHEAPEST_ORDER"));
+        try {
+            if (cursor.moveToFirst()) {
+                result = cursor.getDouble(cursor.getColumnIndex("CHEAPEST_ORDER"));
+            }
+        } finally {
+            cursor.close();
         }
-        cursor.close();
         return result;
     }
 
@@ -445,6 +603,37 @@ public class DBHandler extends SQLiteOpenHelper {
                 + COLUMN_ITEM_PRICE + " = \"" + itemPrice + "\""
                 + " WHERE "
                 + COLUMN_DELIVERY_DATE + " = \"" + deliveryDate + "\" ;";
+        sqLiteDatabase.execSQL(query);
+        sqLiteDatabase.close();
+    }
+
+    public String getTheFirstDeliveryAddress(){
+        String result = "s";
+        String query = "SELECT " + COLUMN_DELIVERY_ADDRESS + " AS TFDA FROM " + TABLE_NAME
+                + " WHERE " + "1 ORDER BY " + COLUMN_ID + " DESC";
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery(query, null);
+        try {
+            if (cursor.moveToFirst()){
+                result = cursor.getString(cursor.getColumnIndex("TFDA"));
+            }
+        } finally {
+            cursor.close();
+        }
+        return result;
+    }
+
+    public void editDeliveryDateByOldDate(
+            String deliveryOldDate,
+            String deliveryNewDate
+    ){
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        String query = "UPDATE "
+                + TABLE_NAME
+                + " SET "
+                + COLUMN_DELIVERY_DATE + " = \"" + deliveryNewDate + "\""
+                + " WHERE "
+                + COLUMN_DELIVERY_DATE + " = \"" + deliveryOldDate + "\" ;";
         sqLiteDatabase.execSQL(query);
         sqLiteDatabase.close();
     }

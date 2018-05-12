@@ -43,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <android.support.design.widget.TextInputEditText
                     android:id="@+id/clientPhoneNumberEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <android.support.design.widget.TextInputEditText
                     android:id="@+id/itemPriceEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <android.support.design.widget.TextInputEditText
                     android:id="@+id/itemNameEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <android.support.design.widget.TextInputEditText
                     android:id="@+id/deliveryTimeLimitEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <android.support.design.widget.TextInputEditText
                     android:id="@+id/clientCommentEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -103,12 +103,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <android.support.design.widget.TextInputEditText
                     android:id="@+id/clientNameEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_client_name"
-                    android:singleLine="true"/>
+                    android:singleLine="true"
+                    android:inputType="textPersonName"/>
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
 
@@ -143,14 +144,14 @@
                 android:visibility="gone" />
         </LinearLayout>
 
-        <com.google.android.gms.ads.AdView
-            android:id="@+id/adView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:adSize="BANNER"
-            app:adUnitId="ca-app-pub-8841373819902454/9892986609"
-            android:layout_gravity="bottom|center_horizontal">
-        </com.google.android.gms.ads.AdView>
+        <!--<com.google.android.gms.ads.AdView-->
+            <!--android:id="@+id/adView2"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--app:adSize="BANNER"-->
+            <!--app:adUnitId="ca-app-pub-8841373819902454/9892986609"-->
+            <!--android:layout_gravity="bottom|center_horizontal">-->
+        <!--</com.google.android.gms.ads.AdView>-->
 
     </LinearLayout>
 </ScrollView>

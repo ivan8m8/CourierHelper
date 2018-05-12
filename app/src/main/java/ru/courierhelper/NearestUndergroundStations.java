@@ -27,7 +27,7 @@ public class NearestUndergroundStations extends AsyncTask<Void, Void, String[]> 
 
     private NearestUnderGroundStationsResponse nearestUnderGroundStationsResponse = null;
 
-    public NearestUndergroundStations(String longLat, NearestUnderGroundStationsResponse nearestUnderGroundStationsResponse) {
+    NearestUndergroundStations(String longLat, NearestUnderGroundStationsResponse nearestUnderGroundStationsResponse) {
         this.longLat = longLat;
         this.nearestUnderGroundStationsResponse = nearestUnderGroundStationsResponse;
     }
@@ -129,6 +129,26 @@ public class NearestUndergroundStations extends AsyncTask<Void, Void, String[]> 
                         colorOfLine1 = "#F47D87";
                         nearestUndergroundStation1 = nearestUndergroundStation1.replace("станция ", "");
                         break;
+                    case "Большая кольцевая линия, Москва, Россия": colorOfLine1 = "#29b1a6"; break;
+
+                    case "1 линия, Санкт-Петербург, Россия": colorOfLine1 = "#EF1E25"; break;
+                    case "2 линия, Санкт-Петербург, Россия": colorOfLine1 = "#019EE0"; break;
+                    case "3 линия, Санкт-Петербург, Россия": colorOfLine1 = "#029A55"; break;
+                    case "4 линия, Санкт-Петербург, Россия": colorOfLine1 = "#FBAA33"; break;
+                    case "5 линия, Санкт-Петербург, Россия": colorOfLine1 = "#B61D8E"; break;
+
+                    case "Автозаводская линия, Нижний Новгород, Россия": colorOfLine1 = "#f11013"; break;
+                    case "Сормовско-Мещерская линия, Нижний Новгород, Россия": colorOfLine1 = "#137cb5"; break;
+
+                    case "Ленинская линия, Новосибирск, Россия": colorOfLine1 = "#da3a2f"; break;
+                    case "Дзержинская линия, Новосибирск, Россия": colorOfLine1 = "#61be53"; break;
+
+                    case "Первая линия, Самара, Россия": colorOfLine1 = "#dd0000"; break;
+
+                    case "Первая линия, Екатеринбург, Свердловская область, Россия": colorOfLine1 = "#ea3f33"; break;
+
+                    case "Центральная линия, Казань, Республика Татарстан, Россия": colorOfLine1 = "#be2d2c"; break;
+
                     default: colorOfLine1 = "#000000";
                 }
 
@@ -191,6 +211,26 @@ public class NearestUndergroundStations extends AsyncTask<Void, Void, String[]> 
                         colorOfLine2 = "#F47D87";
                         nearestUndergroundStation2 = nearestUndergroundStation2.replace("станция ", "");
                         break;
+                    case "Большая кольцевая линия, Москва, Россия": colorOfLine2 = "#29b1a6"; break;
+
+                    case "1 линия, Санкт-Петербург, Россия": colorOfLine2 = "#EF1E25"; break;
+                    case "2 линия, Санкт-Петербург, Россия": colorOfLine2 = "#019EE0"; break;
+                    case "3 линия, Санкт-Петербург, Россия": colorOfLine2 = "#029A55"; break;
+                    case "4 линия, Санкт-Петербург, Россия": colorOfLine2 = "#FBAA33"; break;
+                    case "5 линия, Санкт-Петербург, Россия": colorOfLine2 = "#B61D8E"; break;
+
+                    case "Автозаводская линия, Нижний Новгород, Россия": colorOfLine2 = "#f11013"; break;
+                    case "Сормовско-Мещерская линия, Нижний Новгород, Россия": colorOfLine2 = "#137cb5"; break;
+
+                    case "Ленинская линия, Новосибирск, Россия": colorOfLine2 = "#da3a2f"; break;
+                    case "Дзержинская линия, Новосибирск, Россия": colorOfLine2 = "#61be53"; break;
+
+                    case "Первая линия, Самара, Россия": colorOfLine2 = "#dd0000"; break;
+
+                    case "Первая линия, Екатеринбург, Свердловская область, Россия": colorOfLine2 = "#ea3f33"; break;
+
+                    case "Центральная линия, Казань, Республика Татарстан, Россия": colorOfLine2 = "#be2d2c"; break;
+
                     default: colorOfLine2 = "#000000";
                 }
 

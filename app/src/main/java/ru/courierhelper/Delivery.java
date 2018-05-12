@@ -29,10 +29,9 @@ public class Delivery implements Parcelable {
     private String deliveryDate;
     private int deliveryStatus;
 
-
     /**
      * This constructor is for a just added delivery
-     * Here the current date is obtained
+     * The current date is obtained in here
      */
 
     public Delivery(String clientName,
@@ -50,6 +49,10 @@ public class Delivery implements Parcelable {
         this.itemName = itemName;
         this.itemPrice = itemPrice;
         Calendar calendar = Calendar.getInstance();
+        /**
+         * DO NOT EVER STORE DATE IN A STRING WITH SimpleDateFormat.
+         * Date should always BE (long) calendar.getTimeInMillis();
+         */
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy 'at' HH:mm:ss"); // set the locale
         this.deliveryDate = simpleDateFormat.format(calendar.getTime());
         this.deliveryStatus = 0;
@@ -72,6 +75,20 @@ public class Delivery implements Parcelable {
         this.itemPrice = itemPrice;
         this.deliveryDate = deliveryDate;
         this.deliveryStatus = deliveryStatus;
+    }
+
+    // fot sending to the stats server
+    public Delivery(
+            String clientPhoneNumber,
+            String deliveryAddress,
+            String deliveryDate,
+            String itemName,
+            String itemPrice) {
+        this.clientPhoneNumber = clientPhoneNumber;
+        this.deliveryAddress = deliveryAddress;
+        this.deliveryDate = deliveryDate;
+        this.itemName = itemName;
+        this.itemPrice = itemPrice;
     }
 
     protected Delivery(Parcel in) {

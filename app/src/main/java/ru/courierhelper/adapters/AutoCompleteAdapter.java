@@ -13,7 +13,6 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -35,6 +34,12 @@ import ru.courierhelper.R;
  */
 
 public class AutoCompleteAdapter extends ArrayAdapter<AutocompletePrediction> implements Filterable {
+
+    public interface AutoCompleteAdapterCallback {
+        void showErrorSnackbar(String s);
+    }
+
+    AutoCompleteAdapterCallback autoCompleteAdapterCallback;
 
     private static final CharacterStyle STYLE_BOLD = new StyleSpan(Typeface.BOLD);
 
@@ -71,7 +76,11 @@ public class AutoCompleteAdapter extends ArrayAdapter<AutocompletePrediction> im
 
     @Override
     public int getCount() {
-        return predictions.size();
+        if (predictions != null) {
+            return predictions.size();
+        } else {
+            return 0;
+        }
     }
 
     @Nullable
@@ -102,6 +111,16 @@ public class AutoCompleteAdapter extends ArrayAdapter<AutocompletePrediction> im
             imageView.setVisibility(View.GONE);
         }
 
+        /*
+        Check if we ain't forgot to implement this interface in the activity
+         */
+        try {
+            autoCompleteAdapterCallback = (AutoCompleteAdapterCallback) getContext();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(getContext().toString()
+                    + " must implement the OnHowToTitleClickedListener interface");
+        }
+
         return row;
     }
 
@@ -123,7 +142,9 @@ public class AutoCompleteAdapter extends ArrayAdapter<AutocompletePrediction> im
 
                 // Skip the autocomplete query if no constraints are given
                 if (constraint != null){
-                    autocompletePredictions = getAutocomplete(constraint);
+                    if (getAutocomplete(constraint) != null) {
+                        autocompletePredictions = getAutocomplete(constraint);
+                    }
                 }
 
                 results.values = autocompletePredictions;
@@ -179,9 +200,8 @@ public class AutoCompleteAdapter extends ArrayAdapter<AutocompletePrediction> im
 
             Status status = autocompletePredictions.getStatus();
             if (!status.isSuccess()) {
-                Toast.makeText(getContext(),
-                        "Error contacting API. " + status.toString(),
-                        Toast.LENGTH_SHORT).show();
+
+                autoCompleteAdapterCallback.showErrorSnackbar(status.toString());
 
                 /**
                  * According to https://developers.google.com/places/android-api/buffers

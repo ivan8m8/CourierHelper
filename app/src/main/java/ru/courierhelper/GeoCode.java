@@ -65,6 +65,7 @@ public class GeoCode extends AsyncTask<Void, Void, String> {
 
         } catch (java.io.IOException | JSONException e) {
             e.printStackTrace();
+            return longLat;
         }
         return longLat;
     }

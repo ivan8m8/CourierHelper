@@ -63,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/most_haunted_underground_station_textview"
-            android:text="Пятницкое шоссе"
+            android:text="Не удалось определить"
             android:textStyle="bold"
             android:paddingStart="4dp"
             android:paddingLeft="4dp"/>
@@ -103,7 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/most_haunted_underground_line_textview"
-            android:text="Арбатско-Покровская"
+            android:text="Не удалось определить"
             android:textStyle="bold"
             android:paddingStart="4dp"
             android:paddingLeft="4dp"/>
@@ -168,15 +168,5 @@
             android:paddingStart="4dp"
             android:paddingLeft="4dp"/>
     </LinearLayout>
-
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        app:adSize="BANNER"
-        app:adUnitId="ca-app-pub-8841373819902454/9892986609"
-        android:layout_gravity="center_horizontal">
-    </com.google.android.gms.ads.AdView>
 
 </LinearLayout>

@@ -10,12 +10,12 @@ import android.view.View;
  * Created by Ivan on 25.09.17.
  */
 
-public final class Tools {
+public  class Tools {
 
     public static boolean isOnline(Context context){
         ConnectivityManager connectivityManager =
                 (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        NetworkInfo networkInfo = connectivityManager != null ? connectivityManager.getActiveNetworkInfo() : null;
         return networkInfo != null && networkInfo.isConnectedOrConnecting();
     }
 

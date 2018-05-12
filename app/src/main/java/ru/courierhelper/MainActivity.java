@@ -1,9 +1,8 @@
 package ru.courierhelper;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -16,42 +15,30 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
-import com.google.gson.Gson;
+//import com.google.android.gms.ads.AdListener;
+//import com.google.android.gms.ads.AdRequest;
+//import com.google.android.gms.ads.InterstitialAd;
+//import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
 
 import ru.courierhelper.fragments.AboutFragment;
 import ru.courierhelper.fragments.DeliveriesFragment;
+import ru.courierhelper.fragments.HowToFragment;
 import ru.courierhelper.fragments.SettingsFragment;
 import ru.courierhelper.fragments.StatisticsFragment;
 import ru.courierhelper.fragments.WalletFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AboutFragment.OnHowToTitleClickedListener {
 
     private Toolbar toolbar;
-    private NavigationView navigationView;
 
-    private SharedPreferences sharedPreferences;
-
-    private FragmentManager fragmentManager;
-
-    private ArrayList<Delivery> deliveries;
-    private DBHandler dbHandler;
-
-    private InterstitialAd interstitialAd;
-
-    // TODO(2): ADD CHOOSE CITY OPTION TO PREFERENCES
-    // TODO(2): В архиве по датам
+    //private InterstitialAd interstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,113 +46,95 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        MobileAds.initialize(this, "ca-app-pub-8841373819902454~9526903525");
+        //MobileAds.initialize(this, "ca-app-pub-8841373819902454~9526903525");
 
-        initToolbar();
+        //initToolbar();
+
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         initNavigationView();
 
         initDeliveriesFragment();
 
-        interstitialAd = new InterstitialAd(this);
-        interstitialAd.setAdUnitId("ca-app-pub-8841373819902454/2724146860");
-        interstitialAd.loadAd(new AdRequest.Builder().build());
-        interstitialAd.setAdListener(new AdListener(){
-            @Override
-            public void onAdClosed() {
-                interstitialAd.loadAd(new AdRequest.Builder().build());
-            }
-        });
-    }
+        //a1111();
 
-    private void sendSmsToRecipients(String recipients){
-        Intent smsToEveryoneIntent = new Intent(Intent.ACTION_SENDTO);
-        smsToEveryoneIntent.setData(Uri.parse("sms:" + recipients));
-        smsToEveryoneIntent.putExtra("sms_body", sharedPreferences.getString("pref_sms_to_everyone", ""));
-        startActivity(smsToEveryoneIntent);
-    }
+        initStats(this);
 
-    private void sendSmsToEveryoneClicked(){
+        //initAd();
 
-        deliveries = new ArrayList<>();
-        dbHandler = new DBHandler(this, null, null, 1);
-        deliveries = dbHandler.getAllDeliveries(0);
-
-        // checks if there is at least one delivery without a phone number
-        boolean flag = false; // looks like boolean doesn't initialized itself as false by default
-
-        final StringBuilder smsRecipientsStringBuilder = new StringBuilder();
-        for (int i = 0; i<deliveries.size(); i++) {
-            if (deliveries.get(i).getClientPhoneNumber().equals("")){
-                flag = true;
-            }
-
-            smsRecipientsStringBuilder.append(deliveries.get(i).getClientPhoneNumber());
-            smsRecipientsStringBuilder.append(",");
-        }
-        smsRecipientsStringBuilder.setLength(smsRecipientsStringBuilder.length() - 1);
-
-        if (flag){
-            DialogInterface.OnClickListener listener =
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            switch (i){
-                                case DialogInterface.BUTTON_POSITIVE:
-                                    dialogInterface.dismiss();
-                                    String recipients = smsRecipientsStringBuilder.toString().trim().replaceAll("^\\D+", "");
-                                    recipients = recipients.replaceAll("\\D+$", "");
-                                    // thx to http://kesh.kz/blog/замена-и-удаление-повторяющихся-симв/
-                                    recipients = recipients.replaceAll("(,)\\1+", "$1");
-                                    sendSmsToRecipients(recipients);
-                                    break;
-                                case DialogInterface.BUTTON_NEGATIVE:
-                                    dialogInterface.dismiss();
-                                    break;
+        // If Yandex blocks the user's IP
+        if (getIntent().getExtras() != null) {
+            if (getIntent().getExtras().getInt("error") == 3){
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder
+                        .setMessage(R.string.long_lat_error)
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
                             }
-                        }
-                    };
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder
-                    .setMessage(this.getResources().getString(R.string.are_you_sure_sms_to_everyone))
-                    .setPositiveButton(this.getResources().getString(R.string.yes), listener)
-                    .setNegativeButton(this.getResources().getString(R.string.cancel), listener)
-                    .show();
-        } else {
-            sendSmsToRecipients(smsRecipientsStringBuilder.toString().trim());
+                        })
+                        .show();
+            }
         }
     }
 
-    private void showYandexMapActivity(){
-        deliveries = new ArrayList<>();
-        dbHandler = new DBHandler(this, null, null, 1);
-        deliveries = dbHandler.getAllDeliveries(0);
-        String jsonString = new Gson().toJson(deliveries);
-        Intent intent = new Intent(this, YandexMapActivity.class);
-        intent.putExtra("JSON_deliveries_data", jsonString);
-        startActivity(intent);
+    @Override
+    protected void onTitleChanged(CharSequence title, int color) {
+        super.onTitleChanged(title, color);
+        RateMyApp.onTitleChanged(this);
     }
 
-    private void initToolbar(){
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.inflateMenu(R.menu.toolbar_nav);
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+    private void initStats(final Context context) {
+        new Thread(new Runnable() {
             @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.smsToEveryone:
-                        sendSmsToEveryoneClicked();
-                        break;
-                    case R.id.showMap:
-                        showYandexMapActivity();
-                        break;
+            public void run() {
+                DBHandler dbHandler = new DBHandler(context, null, null, 1);
+                int numberOfDeliveries = dbHandler.getAllCompletedDeliveriesCount();
+                if (numberOfDeliveries > 20) {
+                    if (Tools.isOnline(context)){
+                        StatsDBHandler statsDBHandler = new StatsDBHandler(context, null, null, 1);
+                        if (statsDBHandler.getDeliveriesCount() > 0) {
+                            sendAllTheDeliveriesFromStatsDBToServer(context, statsDBHandler);
+                        }
+                    }
                 }
-                return true;
             }
-        });
+        }).start();
     }
+
+    // has to be called from a thread not from the UI
+    private void sendAllTheDeliveriesFromStatsDBToServer(final Context context, final StatsDBHandler statsDBHandler){
+        final ArrayList<Delivery> deliveriesToSendToStatServerArrayList = statsDBHandler.getAllDeliveries();
+        for (int i = 0; i < deliveriesToSendToStatServerArrayList.size(); i++) {
+            CollectStats.addDeliveryToStatServer(deliveriesToSendToStatServerArrayList.get(i), context, statsDBHandler);
+        }
+    }
+
+//    void a1111() {
+//        //DBHandler dbHandler = new DBHandler(this, null, null, 1);
+//        StatsDBHandler statsDBHandler = new StatsDBHandler(this, null, null, 1);
+//        statsDBHandler.deleteAll();
+//        Log.d("KSI8", "DONE::111::");
+//    }
+
+//    public void sendAllTheArchiveDeliveriesToServer(final Context context) {
+//        DBHandler dbHandler1 = new DBHandler(context, null, null, 1);
+//        final ArrayList<Delivery> deliveries1 = dbHandler1.getAllDeliveries(1);
+//        // Do I need a thread right here?
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                for (int i = 0; i < deliveries1.size(); i++) {
+//                    // вроде и этот дбхэнлер можно юзать
+//                    //CollectStats.addDeliveryToStatServer(deliveries1.get(i), context);
+//                }
+//            }
+//        }).start();
+//    }
+
+    // cut
 
     private void initNavigationView(){
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -174,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
         View header = navigationView.getHeaderView(0);
         TextView myDeliveriesTextView = (TextView) header.findViewById(R.id.myDeliveriesNavHeader);
@@ -182,8 +151,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 drawer.closeDrawer(GravityCompat.START);
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 finish();
+                startActivity(new Intent(getApplicationContext(), MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 
             }
         });
@@ -242,29 +211,39 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 try {
-                    fragment = (Fragment)fragmentClass.newInstance();
+                    if (fragmentClass != null) {
+                        fragment = (Fragment)fragmentClass.newInstance();
+                    } else {
+                        finish();
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    }
                 } catch (InstantiationException e) {
                     e.printStackTrace();
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
 
-                fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.container, fragment, "NOT_MAIN").commit();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.container, fragment, "NOT_MAIN")
+                        .addToBackStack(null)
+                        .commit();
 
                 item.setChecked(true);
+
                 toolbar.getMenu().clear();
+
                 setTitle(item.getTitle());
 
                 drawer.closeDrawer(GravityCompat.START);
 
-                if (interstitialAd.isLoaded()){
-                    double randomNumber = Math.random();
-                    Log.i("cour8 ", String.valueOf(randomNumber));
-                    if (randomNumber > 0.6) {
-                        interstitialAd.show();
-                    }
-                }
+//                if (interstitialAd.isLoaded()){
+//                    double randomNumber = Math.random();
+//                    Log.i("cour8 ", String.valueOf(randomNumber));
+//                    if (randomNumber > 0.876) {
+//                        interstitialAd.show();
+//                    }
+//                }
 
                 return true;
             }
@@ -272,12 +251,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initDeliveriesFragment(){
-
         DeliveriesFragment deliveriesFragment = new DeliveriesFragment();
 
-        fragmentManager = getSupportFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container, deliveriesFragment).commit();
     }
+
+//    private void initAd(){
+//        MobileAds.initialize(this, "ca-app-pub-8841373819902454~9526903525");
+//        interstitialAd = new InterstitialAd(this);
+//        interstitialAd.setAdUnitId("ca-app-pub-8841373819902454/2724146860");
+//        interstitialAd.loadAd(new AdRequest.Builder().build());
+//        interstitialAd.setAdListener(new AdListener(){
+//            @Override
+//            public void onAdClosed() {
+//                interstitialAd.loadAd(new AdRequest.Builder()
+//                        .build());
+//            }
+//        });
+//    }
 
     @Override
     public void onBackPressed() {
@@ -296,4 +288,13 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public void onHowToTitleClicked() {
+        HowToFragment howToFragment = new HowToFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, howToFragment)
+                .addToBackStack(null)
+                .commit();
+    }
 }

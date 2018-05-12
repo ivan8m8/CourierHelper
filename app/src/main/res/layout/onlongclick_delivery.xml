@@ -30,27 +30,32 @@
         android:paddingEnd="10dp"
         android:paddingTop="6dp" />
 
-    <Button
-        android:id="@+id/deleteDeliveryButton"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="?android:attr/buttonBarButtonStyle"
-        android:text="@string/delete_button"
-        android:textStyle="bold"
-        android:layout_below="@id/onLongClickDeliveryTitle"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_below="@id/onLongClickDeliveryTitle">
 
-    <Button
-        android:id="@+id/editDeliveryButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="?android:attr/buttonBarButtonStyle"
-        android:text="@string/edit_button"
-        android:textStyle="bold"
-        android:layout_alignBaseline="@id/deleteDeliveryButton"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        <Button
+            android:id="@+id/deleteDeliveryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="@string/delete_button"
+            android:textStyle="bold"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
+
+        <Button
+            android:id="@+id/editDeliveryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="@string/edit_button"
+            android:textStyle="bold"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
 
 </RelativeLayout>
 

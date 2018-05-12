@@ -12,7 +12,7 @@
             android:icon="@mipmap/ic_archive_black_24dp"/>
 
         <item android:id="@+id/stats_nav_item"
-            android:title="@string/stat_nav_item_title"
+            android:title="@string/stats_nav_item_title"
             android:icon="@mipmap/ic_insert_chart_black_24dp"/>
 
         <item android:id="@+id/settings_nav_item"

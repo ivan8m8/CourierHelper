@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">CourierHelper</string>
-    <string name="by_author_name">by Ivan Makachka &#169; 2017</string>
-    <string name="about_ver">Версия 1.0</string>
+    <string name="by_author_name">by Ivan Makachka © 2017–2018</string>
+    <string name="about_ver_title">Версия</string>
+    <string name="prefs_name" translatable="false">MyPrefsFile</string>
+
     <string name="add_new_delivery">Добавить доставку</string>
     <string name="edit_delivery">Изменить доставку</string>
     <string name="yandex_map_activity">Все доставки на карте</string>
@@ -14,7 +16,7 @@
 
     <string name="wallet_nav_item_title">Кошелёк</string>
     <string name="archive_nav_item_title">Архив</string>
-    <string name="stat_nav_item_title">Статистика</string>
+    <string name="stats_nav_item_title">Статистика</string>
     <string name="about_nav_item_title">О приложении</string>
     <string name="settings_nav_item_title">Настройки</string>
     <string name="how_to_title">Как пользоваться</string>
@@ -22,10 +24,16 @@
     <string name="desc_overflow_button">Статус доставки</string>
 
     <string name="completed">Выполнил</string>
+    <string name="change_date">Перенести</string>
 
     <string name="are_you_sure">Вы уверены?</string>
     <string name="yes">Да</string>
     <string name="cancel">Отмена</string>
+
+    <string name="ok">Ок</string>
+    <string name="rate">Оценить</string>
+    <string name="later">Позже</string>
+    <string name="never">Никогда</string>
 
     <string name="are_you_sure_delete">Вы уверены, что хотите удлаить эту доставку?</string>
 
@@ -68,7 +76,6 @@
     Продолжить?</string>
 
     <string name="empty_delivery_address">Укажите адрес, на который нужно доставить товар.</string>
-    <string name="ok">Ок</string>
 
     <string name="no_internet">Сначала включите интернет</string>
 
@@ -78,22 +85,27 @@
     <string name="on_long_click_delivery_title2">Её адрес:</string>
     <string name="on_long_click_delivery_title3">Что хотите сделать с ней?</string>
     <string name="delete_button">Удалить</string>
-    <string name="edit_button">Редактировать</string>
+    <string name="edit_button">Изменить</string>
 
     <string name="wait_delivery_is_being_added">Подождите, пока добавится доставка</string>
 
+    <string name="only_for_moscow_and_mo">ВНИМАНИЕ! Корректная работа приложения гарантирована
+        только для доставок по Москве и МО.</string>
+
     <string name="about_services">Пользуясь <b>CourierHelper Android Application</b>,
-        Вы подтврждаете своё согласие c условиями использования нижеперечисленных сервисов,
+        Вы подтврждаете, во-первых, своё согласие с тем, что данные о доставках
+        могут собираться для ведения статистики;
+        во-вторых, своё согласие c условиями использования нижеперечисленных сервисов,
         задействованных в данном приложении:</string>
     <string name="about_how_to_desc">Прежде всего <b>для Вашего удобства</b>
         мы настоятельно рекомендуем Вам ознакомиться со
         всеми возможностями данного приложения.</string>
     <string name="about_courier_helper_pro_desc"><b>Лень вручную добавлять доставки?</b>
-        Понимаем! Именно поэтому мы разработали сервис <a href="https://courierhelper.ru/">CourierHelper.ru</a>,
+        Понимаем! Именно поэтому мы разработали сервис <a href="https://courierhelper.is88.ru/">CourierHelper.is88.ru</a>,
         где курьерам приходят доставки по воздуху.
         Посмотрите сами и <b>обязательно покажите</b> своему менеджеру.</string>
     <string name="write_to">Связаться с разработчиком: <b>is-smari@yandex.ru</b></string>
-    <string name="how_to"><a href="https://courierhelper.ru/">Как пользоваться?</a></string>
+    <string name="how_to"><u>Как пользоваться?</u></string>
 
     <string name="how_to_watch_video"><b><u>Смотреть видео</u></b></string>
     <string name="how_to_0"><i><b>Жирным шрифтом</b> выделены функции приложения
@@ -108,8 +120,8 @@
         если хотите добавить несколько доставок, не возвращаясь на главный экран.</string>
     <string name="how_to_2"><b>\t 2. Одиночное нажатие на доставку</b> открывает диалог,
         из которого Вы можете: <b>позвонить</b> клиенту, <b>отправить</b> ему <b>SMS</b>
-        или открыть <b>адрес доставки на карте</b>.\n\t
-        В текст сообщения автоматически вставляется <b>шаблон</b>,
+        или открыть <b>адрес доставки на карте</b>.</string>
+    <string name="how_to_2a">\tВ текст сообщения автоматически вставляется <b>шаблон</b>,
         который Вы можете редактировать в <b>настройках</b>.</string>
     <string name="how_to_3"><b>\t 3. Настройки </b></string>
     <string name="how_to_3a">\t Также в настройках Вы можете редактировать <b>шаблон</b> текста
@@ -151,5 +163,43 @@
         между двумя касаниями на карте будет <b>рассчитано расстояние</b>, изображённое возле последней точки.
         Любую из точек, между которыми уже рассчитано расстояние, можно <b>перетаскивать</b>,
         что приводит к динамическому перерасчёту расстояния.</string>
+
+    <string name="rate_us"><u>Оценить приложение в Play Market</u></string>
+
+    <string name="ask_to_rate">Нам очень приятно, что Вы уже некоторое время пользуетесь нашим приложением.
+    Найдёте пару минут, чтобы оценить его в Play Market?
+    Мы были бы очень Вам признательны :)</string>
+
+    <string name="location_access_required">Необходимо разрешение для определения локации</string>
+    <string name="permission_access_required_title">Необходимо разрешение</string>
+    <string name="why_need_location">Приложению нужен доступ к геолокации, чтобы при вводе адреса отображать
+    подсказки, на основании города в котором Вы работаете.</string>
+
+    <string name="functionality_limitation_title">Ограничение функционала</string>
+    <string name="unable_to_show_predictions">К сожалению, мы не знаем в каком городе Вы находитесь, поэтому
+    подсказки при вводе адреса могу быть показаны для чужого города, или не показаны вообще.
+        Может всё-таки разрешите приложению определять город, в котором Вы работаете?</string>
+    <string name="never_mind">Пофиг</string>
+
+    <string name="gps_disabled_title">GPS очключена</string>
+    <string name="gps_disabled_msg">Пожалуйста, включите GPS, иначе мы не сможем Вам показать
+    правильные подсказки при вводе адреса. Включить?</string>
+
+    <string name="wait_a_second">Секундочку</string>
+    <string name="receiving_the_delivery_phone_numbers">Получаю список номеров…</string>
+    <string name="receiving_the_delivery_addresses">Получаю список адресов…</string>
+
+    <string name="no_current_deliveries">У Вас нет ни одной текущей доставки. Добавить?</string>
+
+    <string name="number_not_specified">Для этой доставки не указан номер телефона. Указать?</string>
+
+    <string name="long_lat_error">Яндекс.Карты API не вернул координаты Вашего запроса.
+        Возможно, Ваш IP в их блок-листе.</string>
+
+    <string name="sort_by_toolbar_title">Сначала ⬇</string>
+    <string name="sort_by_date_desc">новые</string>
+    <string name="sort_by_date_asc">старые</string>
+    <string name="sort_by_price_desc">дорогие</string>
+    <string name="sort_by_price_asc">дешёвые</string>
 
 </resources>

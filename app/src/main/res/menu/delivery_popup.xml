@@ -5,4 +5,8 @@
         android:id="@+id/completed"
         android:title="@string/completed"/>
 
+    <item
+        android:id="@+id/changeDate"
+        android:title="@string/change_date"/>
+
 </menu>

@@ -4,6 +4,11 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- recommended and looks like it really needs to determine location faster -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!-- Needed only if your app targets Android 5.0 (API level 21) or higher. -->
+    <uses-feature android:name="android.hardware.location.gps" />
 
     <application
         android:allowBackup="true"
@@ -26,7 +31,8 @@
         </activity>
         <activity
             android:name=".AddOrEditDeliveryActivity"
-            android:label="@string/add_new_delivery" >
+            android:label="@string/add_new_delivery"
+            android:screenOrientation="portrait">
         </activity>
 
         <meta-data
