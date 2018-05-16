@@ -2,8 +2,8 @@
 <ScrollView
 
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -33,9 +33,9 @@
                     android:id="@+id/deliveryAddressAutoCompleteTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_delivery_address"
+                    android:drawableEnd="@drawable/places_ic_clear"
                     android:drawableRight="@drawable/places_ic_clear"
-                    android:drawableEnd="@drawable/places_ic_clear" />
+                    android:hint="@string/hint_delivery_address" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -47,8 +47,8 @@
                     android:id="@+id/clientPhoneNumberEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="phone"
-                    android:hint="@string/hint_client_phone" />
+                    android:hint="@string/hint_client_phone"
+                    android:inputType="phone" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -59,8 +59,8 @@
                     android:id="@+id/itemPriceEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:hint="@string/hint_item_price" />
+                    android:hint="@string/hint_item_price"
+                    android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -72,7 +72,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_item_name"
-                    android:singleLine="true"/>
+                    android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -84,7 +84,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_delivery_time_limit"
-                    android:singleLine="true"/>
+                    android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -96,7 +96,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_client_comment"
-                    android:singleLine="true"/>
+                    android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -108,49 +108,49 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_client_name"
-                    android:singleLine="true"
-                    android:inputType="textPersonName"/>
+                    android:inputType="textPersonName"
+                    android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
 
         <LinearLayout
+            style="?android:attr/buttonBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="@dimen/activity_vertical_margin"
             android:gravity="end"
-            style="?android:attr/buttonBarStyle">
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/activity_vertical_margin">
 
             <Button
                 android:id="@+id/addButton"
+                style="?android:buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/button_add"
-                style="?android:buttonBarButtonStyle" />
+                android:text="@string/button_add" />
 
             <Button
                 android:id="@+id/addMoreButton"
+                style="?android:buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/button_add_more"
-                style="?android:buttonBarButtonStyle" />
+                android:text="@string/button_add_more" />
 
             <Button
                 android:id="@+id/editButton"
+                style="?android:buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/button_edits_are_ready"
-                style="?android:buttonBarButtonStyle"
                 android:visibility="gone" />
         </LinearLayout>
 
         <!--<com.google.android.gms.ads.AdView-->
-            <!--android:id="@+id/adView2"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--app:adSize="BANNER"-->
-            <!--app:adUnitId="ca-app-pub-8841373819902454/9892986609"-->
-            <!--android:layout_gravity="bottom|center_horizontal">-->
+        <!--android:id="@+id/adView2"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:adSize="BANNER"-->
+        <!--app:adUnitId="ca-app-pub-8841373819902454/9892986609"-->
+        <!--android:layout_gravity="bottom|center_horizontal">-->
         <!--</com.google.android.gms.ads.AdView>-->
 
     </LinearLayout>
