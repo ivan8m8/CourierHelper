@@ -28,6 +28,7 @@ abstract class BaseOsmMapFragment: BaseMapFragment() {
         minZoomLevel = 2.0
 
         isTilesScaledToDpi = true
+        setZoomRounding(true)
         zoomController.setVisibility(CustomZoomButtonsController.Visibility.NEVER)
 
         setMultiTouchControls(true)
