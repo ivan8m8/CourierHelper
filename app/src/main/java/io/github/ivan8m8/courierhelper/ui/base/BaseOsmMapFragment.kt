@@ -6,6 +6,7 @@ import org.osmdroid.config.Configuration
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.CustomZoomButtonsController
 import org.osmdroid.views.MapView
+import org.osmdroid.views.overlay.gestures.RotationGestureOverlay
 
 abstract class BaseOsmMapFragment: BaseMapFragment() {
 
@@ -27,8 +28,10 @@ abstract class BaseOsmMapFragment: BaseMapFragment() {
         minZoomLevel = 2.0
 
         isTilesScaledToDpi = true
-        setMultiTouchControls(true)
         zoomController.setVisibility(CustomZoomButtonsController.Visibility.NEVER)
+
+        setMultiTouchControls(true)
+        this.overlays.add(RotationGestureOverlay(this))
 
         controller.setCenter(GeoPoint(55.7, 37.5)) //todo: should depend on location
         controller.setZoom(5.0)
