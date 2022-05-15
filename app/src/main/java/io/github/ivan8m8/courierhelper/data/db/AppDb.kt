@@ -11,6 +11,9 @@ import io.github.ivan8m8.courierhelper.data.models.Delivery
     ],
     version = 1
 )
-abstract class DeliveriesDb: RoomDatabase() {
+abstract class AppDb: RoomDatabase() {
     abstract fun deliveriesDao(): DeliveriesDao
+    companion object {
+        const val NAME = "CourierHelper_DB"
+    }
 }
