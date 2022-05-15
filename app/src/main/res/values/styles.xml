@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="DeliveriesBottomSheet" parent="RoundedBottomSheet">
+        <item name="backgroundTint">#f8f8f8</item>
+    </style>
+
+    <style name="RoundedBottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="shapeAppearanceOverlay">@style/RoundedBottomSheetShapeAppearanceOverlay</item>
+    </style>
+
+    <style name="RoundedBottomSheetShapeAppearanceOverlay" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+</resources>
