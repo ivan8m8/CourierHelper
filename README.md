@@ -25,3 +25,7 @@ An android app that makes it easy for couriers to do their job.
 - [ ] Yandex Map support
 - [ ] Google Map support
 - [ ] Single route across all the deliveries
+- [ ] A branch, where deliveries are being recieved via REST API
+
+## Download
+- [ ] Google Play
