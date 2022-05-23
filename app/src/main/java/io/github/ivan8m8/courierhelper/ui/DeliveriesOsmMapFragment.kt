@@ -34,6 +34,12 @@ class DeliveriesOsmMapFragment: BaseOsmMapFragment() {
         super.onPause()
     }
 
+    override fun onDestroyView() {
+        _binding = null
+
+        super.onDestroyView()
+    }
+
     companion object {
         fun newInstance(): DeliveriesOsmMapFragment {
             return DeliveriesOsmMapFragment()
