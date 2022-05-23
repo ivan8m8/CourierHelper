@@ -7,6 +7,7 @@ An android app that makes it easy for couriers to do their job.
 - RxJava3
 - Room
 - Koin
+- Cicerone
 - Adapter Delegates
 
 ## Task list
