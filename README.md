@@ -25,6 +25,7 @@ An android app that makes it easy for couriers to do their job.
   - [ ] wallet
 - [ ] Yandex Map support
 - [ ] Google Map support
+- [ ] White theme (as option)
 - [ ] Single route across all the deliveries
 - [ ] A branch, where deliveries are being recieved via REST API
 
