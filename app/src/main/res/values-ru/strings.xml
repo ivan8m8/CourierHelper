@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="address">Адрес</string>
+    <string name="phone">Телефон</string>
+    <string name="item_price">Цена товара</string>
+    <string name="item_name">Название товара</string>
+    <string name="order_number">Номер заказа</string>
+    <string name="client_name">Имя клиента</string>
+    <string name="comment">Комментарий</string>
+    <string name="add_delivery">Добавить доставку</string>
+    <string name="back">Назад</string>
+    <string name="save">Сохранить</string>
+</resources>

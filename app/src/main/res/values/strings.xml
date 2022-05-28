@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">CourierHelper</string>
+    <string name="app_name" translatable="false">CourierHelper</string>
+    <string name="address">Address</string>
+    <string name="phone">Phone</string>
+    <string name="item_price">Item price</string>
+    <string name="item_name">Item name</string>
+    <string name="order_number">Order number</string>
+    <string name="client_name">Client name</string>
+    <string name="comment">Comment</string>
+    <string name="add_delivery">Add delivery</string>
+    <string name="back">Back</string>
+    <string name="save">Save</string>
 </resources>
