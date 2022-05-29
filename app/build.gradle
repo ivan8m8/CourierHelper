@@ -52,6 +52,13 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-rxjava3:$room_version"
 
+    implementation "com.hannesdorfmann:adapterdelegates4-kotlin-dsl:4.3.2"
+    implementation "com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:4.3.2"
+
+    implementation "com.github.terrakok:cicerone:7.1"
+
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.9.1'
+
     def koin_version = "3.2.0"
     implementation "io.insert-koin:koin-core:$koin_version"
     implementation "io.insert-koin:koin-android:$koin_version"
