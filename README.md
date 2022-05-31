@@ -1,11 +1,12 @@
 # CourierHelper
 An android app that makes it easy for couriers to do their job.
 
-## Tech stack
+## Stack
 - Kotlin
 - MVVM
 - RxJava3
 - Room
+- Retrofit, OkHttp
 - Koin
 - Cicerone
 - Adapter Delegates
@@ -23,6 +24,7 @@ An android app that makes it easy for couriers to do their job.
   - [ ] sms text settings
   - [ ] history
   - [ ] wallet
+- [ ] Google Analytics
 - [ ] Yandex Map support
 - [ ] Google Map support
 - [ ] White theme (as option)
