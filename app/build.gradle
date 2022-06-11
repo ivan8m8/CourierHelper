@@ -48,6 +48,7 @@ dependencies {
 
     implementation "io.reactivex.rxjava3:rxjava:3.1.4"
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation "io.reactivex.rxjava3:rxkotlin:3.0.1"
 
     def room_version = "2.4.2"
     implementation "androidx.room:room-runtime:$room_version"
@@ -67,6 +68,9 @@ dependencies {
 
     implementation "com.squareup.okhttp3:okhttp:4.9.3"
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
+    implementation "com.squareup.okhttp3:logging-interceptor:4.9.3"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
