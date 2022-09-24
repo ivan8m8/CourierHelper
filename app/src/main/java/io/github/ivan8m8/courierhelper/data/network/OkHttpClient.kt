@@ -4,7 +4,6 @@ import okhttp3.OkHttpClient
 
 object OkHttpClient {
     val instance by lazy {
-        OkHttpClient.Builder()
-            .build()
+        OkHttpClient()
     }
 }

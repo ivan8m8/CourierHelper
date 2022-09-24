@@ -1,6 +1,7 @@
 package io.github.ivan8m8.courierhelper.data.di
 
 import io.github.ivan8m8.courierhelper.data.network.KladrApi
+import io.github.ivan8m8.courierhelper.data.network.KladrApiInterceptor
 import io.github.ivan8m8.courierhelper.data.network.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -16,6 +17,9 @@ object NetworkModule {
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(
                     OkHttpClient.instance.newBuilder()
+                        .addInterceptor(
+                            KladrApiInterceptor()
+                        )
                         .addInterceptor(
                             HttpLoggingInterceptor()
                                 .setLevel(HttpLoggingInterceptor.Level.BODY)
