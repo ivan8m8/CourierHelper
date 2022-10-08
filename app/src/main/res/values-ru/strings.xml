@@ -10,4 +10,5 @@
     <string name="add_delivery">Добавить доставку</string>
     <string name="back">Назад</string>
     <string name="save">Сохранить</string>
+    <string name="region">Регион</string>
 </resources>
