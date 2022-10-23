@@ -10,9 +10,7 @@
         <item name="colorSecondaryVariant">@color/amber_900</item>
         <item name="colorOnSecondary">@color/white</item>
         <!-- Customize your theme here. -->
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:statusBarColor">@color/amber_900</item>
-        <item name="android:navigationBarColor">@color/amber_900</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
 </resources>
