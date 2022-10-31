@@ -39,7 +39,6 @@ class AutocompleteTextInputEditText(
         set(value) {
             popupAdapter.clear()
             popupAdapter.addAll(value)
-            //todo: possibly, we have to update suggestions over calling show()
             popupWindow.show()
         }
 
