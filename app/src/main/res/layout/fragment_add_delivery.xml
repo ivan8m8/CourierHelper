@@ -2,172 +2,210 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f2f2f2"
     >
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/toolbarHeight"
+        android:orientation="vertical"
         >
-        <LinearLayout
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="8dp"
-            android:paddingBottom="72dp"
+            app:navigationContentDescription="@string/back"
+            app:navigationIcon="?homeAsUpIndicator"
+            app:title="@string/add_delivery"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             >
-            <com.google.android.material.card.MaterialCardView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="24dp"
-                app:cardElevation="0dp"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:paddingBottom="72dp"
                 >
-                <LinearLayout
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="24dp"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="0dp"
                     >
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/regionTextInputLayout"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/region"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:orientation="vertical"
+                        android:padding="24dp"
                         >
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/regionTextInputEditText"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/regionTextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/addressTextInputLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/address"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        >
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/addressTextInputEditText"
+                            android:hint="@string/region"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            >
+                            <io.github.ivan8m8.courierhelper.ui.custom.AutocompleteTextInputEditText
+                                android:id="@+id/regionTextInputEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                />
+                        </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/addressTextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/phoneTextInputLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/phone"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        >
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/phoneTextInputEditText"
-                            android:layout_width="match_parent"
+                            android:hint="@string/address"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            >
+                            <io.github.ivan8m8.courierhelper.ui.custom.AutocompleteTextInputEditText
+                                android:id="@+id/addressTextInputEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                />
+                        </com.google.android.material.textfield.TextInputLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:paddingHorizontal="4dp"
+                            android:text="@string/kladr_api_copyright"
+                            style="@style/TextAppearance.MaterialComponents.Caption"
                             />
-                    </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/orderNumberTextInputLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/order_number"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        >
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/orderNumberTextInputEditText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                app:cardCornerRadius="24dp"
-                app:cardElevation="0dp"
-                >
-                <LinearLayout
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="24dp"
+                    android:layout_marginTop="4dp"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="0dp"
                     >
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/itemNameTextInputLayout"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/item_name"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:orientation="vertical"
+                        android:padding="24dp"
                         >
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/itemNameTextInputEditText"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/phoneTextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/itemPriceTextInputLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/item_price"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        >
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/itemPriceTextInputEditText"
+                            android:hint="@string/phone"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            >
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/phoneTextInputEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                />
+                        </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/orderNumberTextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                app:cardCornerRadius="24dp"
-                app:cardElevation="0dp"
-                >
-                <LinearLayout
+                            android:hint="@string/order_number"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            >
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/orderNumberTextInputEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="24dp"
+                    android:layout_marginTop="4dp"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="0dp"
                     >
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/clientNameTextInputLayout"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/client_name"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:orientation="vertical"
+                        android:padding="24dp"
                         >
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/clientNameTextInputEditText"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/itemNameTextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/commentTextInputLayout"
+                            android:hint="@string/item_name"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            >
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/itemNameTextInputEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                />
+                        </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/itemPriceTextInputLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/item_price"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            >
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/itemPriceTextInputEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="0dp"
+                    >
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/comment"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:orientation="vertical"
+                        android:padding="24dp"
                         >
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/commentTextInputEditText"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/clientNameTextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-        </LinearLayout>
-    </ScrollView>
+                            android:hint="@string/client_name"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            >
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/clientNameTextInputEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                />
+                        </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/commentTextInputLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/comment"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            >
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/commentTextInputEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
@@ -175,15 +213,8 @@
         android:layout_gravity="bottom|center_horizontal"
         android:layout_marginBottom="16dp"
         android:text="@string/save"
+        android:visibility="gone"
         style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
-        />
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbarHeight"
-        app:title="@string/add_delivery"
-        app:navigationIcon="?homeAsUpIndicator"
-        app:navigationContentDescription="@string/back"
-        style="@style/Widget.MaterialComponents.Toolbar.Primary"
+        tools:visibility="visible"
         />
 </FrameLayout>
