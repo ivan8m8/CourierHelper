@@ -1,7 +1,9 @@
 package io.github.ivan8m8.courierhelper.data.di
 
+import io.github.ivan8m8.courierhelper.data.network.GeoTreeApi
 import io.github.ivan8m8.courierhelper.data.network.KladrApi
-import io.github.ivan8m8.courierhelper.data.network.KladrApiInterceptor
+import io.github.ivan8m8.courierhelper.data.network.interceptors.GeoTreeInterceptor
+import io.github.ivan8m8.courierhelper.data.network.interceptors.KladrApiInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -12,7 +14,27 @@ import retrofit2.converter.gson.GsonConverterFactory
 object NetworkModule {
     val networkModule = module {
         single {
-            OkHttpClient()
+            OkHttpClient.Builder()
+                .addInterceptor(
+                    HttpLoggingInterceptor()
+                        .setLevel(HttpLoggingInterceptor.Level.BODY)
+                )
+                .build()
+        }
+        single {
+            Retrofit.Builder()
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(
+                    get<OkHttpClient>().newBuilder()
+                        .addInterceptor(
+                            GeoTreeInterceptor()
+                        )
+                        .build()
+                )
+                .baseUrl(GeoTreeApi.BASE_URL)
+                .build()
+                .create(GeoTreeApi::class.java)
         }
         single {
             Retrofit.Builder()
@@ -22,10 +44,6 @@ object NetworkModule {
                     get<OkHttpClient>().newBuilder()
                         .addInterceptor(
                             KladrApiInterceptor()
-                        )
-                        .addInterceptor(
-                            HttpLoggingInterceptor()
-                                .setLevel(HttpLoggingInterceptor.Level.BODY)
                         )
                         .build()
                 )
