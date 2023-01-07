@@ -24,7 +24,7 @@ object MainModule {
             get<AppDb>().deliveriesDao()
         }
         single {
-            DeliveriesRepository(get())
+            DeliveriesRepository(get(), androidApplication())
         }
         single {
             AutocompleteRepository(get())

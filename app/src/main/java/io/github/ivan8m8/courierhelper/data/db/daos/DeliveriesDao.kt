@@ -4,7 +4,7 @@ import androidx.room.*
 import io.github.ivan8m8.courierhelper.data.models.Delivery
 import io.github.ivan8m8.courierhelper.data.models.Models
 import io.reactivex.rxjava3.core.Completable
-import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Flowable
 
 @Dao
 interface DeliveriesDao {
@@ -18,6 +18,9 @@ interface DeliveriesDao {
     @Delete
     fun delete(item: Delivery): Completable
 
+    @Query("SELECT * FROM Delivery WHERE id = :id")
+    fun get(id: Int): Flowable<Delivery>
+
     @Query("SELECT * FROM Delivery WHERE status = :status")
-    fun getAll(status: Models.DeliveryStatus): Observable<List<Delivery>>
+    fun getAll(status: Models.DeliveryStatus): Flowable<List<Delivery>>
 }
