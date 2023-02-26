@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.appcompat.widget.ListPopupWindow
 import androidx.core.widget.addTextChangedListener
+import com.google.android.material.R.attr.editTextStyle
 import com.google.android.material.textfield.TextInputEditText
 import io.github.ivan8m8.courierhelper.R
 
@@ -15,26 +16,31 @@ class AutocompleteTextInputEditText(
     defStyleAttr: Int
 ) : TextInputEditText(context, attrs, defStyleAttr) {
 
+    // TODO: popupWindow gets leaked when the user switches to the Recent
+
     constructor(context: Context): this(context, null)
-    constructor(context: Context, attrs: AttributeSet?): this(context, attrs, com.google.android.material.R.attr.editTextStyle)
+    constructor(context: Context, attrs: AttributeSet?): this(context, attrs, editTextStyle)
 
     // Indicates that the last user action was a suggestion click,
-    // so we do not have to show the suggestion list. As well
-    // as we do not want to send a server request.
+    // so we do not have to show the suggestion list and send a
+    // server request.
+    // Defined public, since it's used within an inline function.
     var isLastActionSuggestionClick = false
     private val popupAdapter = ArrayAdapter<String>(context, R.layout.item_autocomplete)
     private val popupWindow = ListPopupWindow(context).apply {
         anchorView = this@AutocompleteTextInputEditText.rootView
-        setAdapter(this@AutocompleteTextInputEditText.popupAdapter)
-        setOnItemClickListener { _, view, _, _ ->
+        setAdapter(popupAdapter)
+        setOnItemClickListener { _, view, pos, _ ->
             isLastActionSuggestionClick = true
             with(this@AutocompleteTextInputEditText) {
                 setText((view as TextView).text)
                 setSelection(length())
             }
+            onSuggestionItemClickAction?.invoke(pos)
             dismiss()
         }
     }
+    private var onSuggestionItemClickAction: ((Int) -> Unit)? = null
     var items: List<String> = ArrayList()
         set(value) {
             popupAdapter.clear()
@@ -57,4 +63,10 @@ class AutocompleteTextInputEditText(
                 isLastActionSuggestionClick = false
         }
     )
+
+    fun onSuggestionItemClick(
+        action: (Int) -> Unit
+    ) {
+        onSuggestionItemClickAction = action
+    }
 }
