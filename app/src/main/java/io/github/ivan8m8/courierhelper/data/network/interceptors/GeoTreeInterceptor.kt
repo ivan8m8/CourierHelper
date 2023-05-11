@@ -10,7 +10,7 @@ class GeoTreeInterceptor : Interceptor {
             chain.request().newBuilder()
                 .url(
                     chain.request().url.newBuilder()
-                        .addQueryParameter("token", BuildConfig.GEO_TREE_TOKEN)
+                        .addQueryParameter("key", BuildConfig.GEO_TREE_TOKEN)
                         .build()
                 )
                 .build()
