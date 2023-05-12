@@ -111,7 +111,7 @@ class AddDeliveryViewModel(
         comment = text
     }
 
-    fun saveDeliveryClicked() {
+    fun addDeliveryClicked() {
         val address = address ?: return //todo: set error text under the address field
         val delivery = Delivery(
             address,
