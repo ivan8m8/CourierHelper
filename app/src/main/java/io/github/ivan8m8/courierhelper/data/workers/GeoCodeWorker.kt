@@ -33,10 +33,10 @@ class GeoCodeWorker(
                     .map { result ->
                         result.latLng
                     }
-                    .flatMapCompletable { latLng ->
+                    .flatMap { latLng ->
                         deliveriesRepository.save(delivery.copy(latLng = latLng))
                     }
-                    .toSingle { Result.success() }
+                    .map { Result.success() }
                     .onErrorReturn { throwable ->
                         if (throwable is NoSuchElementException)
                             Result.failure()
