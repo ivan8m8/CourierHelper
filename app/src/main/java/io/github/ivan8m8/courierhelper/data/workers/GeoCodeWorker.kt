@@ -16,8 +16,8 @@ class GeoCodeWorker(
 
     override fun createWork(): Single<Result> {
 
-        val tmp = -1
-        val deliveryId = inputData.getInt(DELIVERY_ID_KEY, tmp)
+        val tmp = -1L
+        val deliveryId = inputData.getLong(DELIVERY_ID_KEY, tmp)
         if (deliveryId == tmp)
             return Single.just(Result.failure())
 
@@ -28,12 +28,27 @@ class GeoCodeWorker(
             .flatMap { delivery ->
                 geoCodeRepository.decode(delivery.address)
                     .map { result ->
+                        result.first()
+                    }
+                    .map { result ->
                         result.latLng
                     }
                     .flatMapCompletable { latLng ->
                         deliveriesRepository.save(delivery.copy(latLng = latLng))
                     }
                     .toSingle { Result.success() }
+                    .onErrorReturn { throwable ->
+                        if (throwable is NoSuchElementException)
+                            Result.failure()
+                        else
+                            throw throwable
+                    }
+            }
+            .onErrorReturn { throwable ->
+                if (throwable is NoSuchElementException)
+                    Result.failure()
+                else
+                    throw throwable
             }
     }
 

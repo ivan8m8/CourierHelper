@@ -5,12 +5,13 @@ import io.github.ivan8m8.courierhelper.data.models.Delivery
 import io.github.ivan8m8.courierhelper.data.models.Models
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.core.Single
 
 @Dao
 interface DeliveriesDao {
 
-    @Insert
-    fun insert(item: Delivery): Completable
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(item: Delivery): Single<Long>
 
     @Update
     fun update(item: Delivery): Completable
@@ -19,7 +20,7 @@ interface DeliveriesDao {
     fun delete(item: Delivery): Completable
 
     @Query("SELECT * FROM Delivery WHERE id = :id")
-    fun get(id: Int): Flowable<Delivery>
+    fun get(id: Long): Flowable<Delivery>
 
     @Query("SELECT * FROM Delivery WHERE status = :status")
     fun getAll(status: Models.DeliveryStatus): Flowable<List<Delivery>>

@@ -16,5 +16,5 @@ data class Delivery(
     val latLng: LatitudeLongitude? = null,
     val status: Models.DeliveryStatus = Models.DeliveryStatus.IN_PROGRESS,
     val added: Long = System.currentTimeMillis(),
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
 )
