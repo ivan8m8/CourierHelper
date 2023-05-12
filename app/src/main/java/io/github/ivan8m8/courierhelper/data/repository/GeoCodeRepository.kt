@@ -8,11 +8,11 @@ class GeoCodeRepository(
     private val geoTreeApi: GeoTreeApi
 ) {
 
-    fun decode(address: String): Single<Address> {
-        //todo: on error switch to another API
+    /**
+     * The result list may be empty. The API user must decide
+     * how to handle such case.
+     */
+    fun decode(address: String): Single<List<Address>> {
         return geoTreeApi.decode(address)
-            .map { result ->
-                result.first()
-            }
     }
 }
