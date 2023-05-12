@@ -1,5 +1,6 @@
 package io.github.ivan8m8.courierhelper.data.models
 
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import io.github.ivan8m8.courierhelper.data.models.Models.LatitudeLongitude
@@ -13,7 +14,7 @@ data class Delivery(
     val itemName: String? = null,
     val clientName: String? = null,
     val comment: String? = null,
-    val latLng: LatitudeLongitude? = null,
+    @Embedded val latLng: LatitudeLongitude? = null,
     val status: Models.DeliveryStatus = Models.DeliveryStatus.IN_PROGRESS,
     val added: Long = System.currentTimeMillis(),
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
