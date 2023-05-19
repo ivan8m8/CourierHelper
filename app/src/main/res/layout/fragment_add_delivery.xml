@@ -45,27 +45,27 @@
                         android:padding="24dp"
                         >
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/regionTextInputLayout"
+                            android:id="@+id/regionInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/region"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             >
                             <io.github.ivan8m8.courierhelper.ui.custom.AutocompleteTextInputEditText
-                                android:id="@+id/regionTextInputEditText"
+                                android:id="@+id/regionEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 />
                         </com.google.android.material.textfield.TextInputLayout>
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/addressTextInputLayout"
+                            android:id="@+id/addressInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/address"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             >
                             <io.github.ivan8m8.courierhelper.ui.custom.AutocompleteTextInputEditText
-                                android:id="@+id/addressTextInputEditText"
+                                android:id="@+id/addressEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 />
@@ -94,27 +94,27 @@
                         android:padding="24dp"
                         >
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/phoneTextInputLayout"
+                            android:id="@+id/phoneInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/phone"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             >
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/phoneTextInputEditText"
+                                android:id="@+id/phoneEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 />
                         </com.google.android.material.textfield.TextInputLayout>
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/orderNumberTextInputLayout"
+                            android:id="@+id/orderNumberInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/order_number"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             >
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/orderNumberTextInputEditText"
+                                android:id="@+id/orderNumberEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 />
@@ -135,27 +135,27 @@
                         android:padding="24dp"
                         >
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/itemNameTextInputLayout"
+                            android:id="@+id/itemNameInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/item_name"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             >
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/itemNameTextInputEditText"
+                                android:id="@+id/itemNameEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 />
                         </com.google.android.material.textfield.TextInputLayout>
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/itemPriceTextInputLayout"
+                            android:id="@+id/itemPriceInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/item_price"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             >
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/itemPriceTextInputEditText"
+                                android:id="@+id/itemPriceEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 />
@@ -176,27 +176,27 @@
                         android:padding="24dp"
                         >
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/clientNameTextInputLayout"
+                            android:id="@+id/clientNameInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/client_name"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             >
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/clientNameTextInputEditText"
+                                android:id="@+id/clientNameEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 />
                         </com.google.android.material.textfield.TextInputLayout>
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/commentTextInputLayout"
+                            android:id="@+id/commentInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/comment"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             >
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/commentTextInputEditText"
+                                android:id="@+id/commentEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 />
@@ -207,13 +207,13 @@
         </ScrollView>
     </LinearLayout>
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/saveButton"
+        android:id="@+id/addButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
         android:layout_marginBottom="16dp"
-        android:text="@string/save"
-        android:visibility="gone"
+        android:text="@string/add"
+        android:visibility="visible"
         style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
         tools:visibility="visible"
         />
