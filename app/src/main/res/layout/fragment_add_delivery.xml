@@ -55,8 +55,8 @@
                                 android:id="@+id/regionEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:drawableEnd="@drawable/ic_round_clear_24"
                                 android:drawableTint="@drawable/selector_drawable_tint_light"
+                                tools:drawableEnd="@drawable/ic_round_clear_24"
                                 />
                         </com.google.android.material.textfield.TextInputLayout>
                         <com.google.android.material.textfield.TextInputLayout
@@ -70,8 +70,8 @@
                                 android:id="@+id/addressEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:drawableEnd="@drawable/ic_round_clear_24"
                                 android:drawableTint="@drawable/selector_drawable_tint_light"
+                                tools:drawableEnd="@drawable/ic_round_clear_24"
                                 />
                         </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
