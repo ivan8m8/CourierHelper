@@ -26,8 +26,6 @@ class AddDeliveryViewModel(
     private var regionSuggestions: List<Region> = ArrayList()
     val regionSuggestionsLiveData = MutableLiveData<List<String>>()
     val addressSuggestionsLiveData = MutableLiveData<List<String>>()
-    val isClearRegionVisible = MutableLiveData<Boolean>()
-    val isClearAddressVisible = MutableLiveData<Boolean>()
 
     private var address: String? = null
     private var phoneNumber: String? = null
@@ -85,12 +83,7 @@ class AddDeliveryViewModel(
             .addTo(compositeDisposable)
     }
 
-    fun regionChanged(text: String?) {
-        isClearRegionVisible.value = text?.isNotEmpty() ?: false
-    }
-
     fun addressChanged(text: String?) {
-        isClearAddressVisible.value = text?.isNotEmpty() ?: false
         address = text
     }
 
