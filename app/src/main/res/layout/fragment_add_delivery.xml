@@ -70,14 +70,6 @@
                                 android:layout_height="wrap_content"
                                 />
                         </com.google.android.material.textfield.TextInputLayout>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:paddingHorizontal="4dp"
-                            android:text="@string/kladr_api_copyright"
-                            style="@style/TextAppearance.MaterialComponents.Caption"
-                            />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
                 <com.google.android.material.card.MaterialCardView
