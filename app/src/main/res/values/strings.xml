@@ -11,5 +11,6 @@
     <string name="back">Back</string>
     <string name="add">Add</string>
     <string name="region">Region</string>
-    <string name="kladr_api_copyright">Region and address suggestions are provided by kladr-api.ru</string>
+    <string name="kladr_api_copyright">Region and address suggestions are provided by kladr-api.ru.</string>
+    <string name="geotree_copyright">Address coordinates are provided by geotree.ru.</string>
 </resources>
