@@ -1,4 +1,4 @@
-package io.github.ivan8m8.courierhelper.utils
+package io.github.ivan8m8.courierhelper.ui
 
 import android.graphics.Color
 import android.graphics.Rect

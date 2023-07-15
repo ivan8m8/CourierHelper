@@ -1,4 +1,4 @@
-package io.github.ivan8m8.courierhelper.ui.base
+package io.github.ivan8m8.courierhelper.ui.fragments.base
 
 import android.Manifest
 import android.os.Bundle
