@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             app:navigationContentDescription="@string/back"
             app:navigationIcon="?homeAsUpIndicator"
+            app:navigationIconTint="@color/colorSecondary"
             app:title="@string/add_delivery"
             style="@style/Widget.MaterialComponents.Toolbar.Primary"
             />
@@ -50,7 +51,8 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/region"
                             app:endIconMode="clear_text"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            app:startIconDrawable="@drawable/round_location_city_24"
+                            style="@style/DeliveryTextInputLayout"
                             >
                             <io.github.ivan8m8.courierhelper.ui.custom.AutocompleteTextInputEditText
                                 android:id="@+id/regionEditText"
@@ -62,9 +64,11 @@
                             android:id="@+id/addressInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
                             android:hint="@string/address"
                             app:endIconMode="clear_text"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            app:startIconDrawable="@drawable/round_place_24"
+                            style="@style/DeliveryTextInputLayout"
                             >
                             <io.github.ivan8m8.courierhelper.ui.custom.AutocompleteTextInputEditText
                                 android:id="@+id/addressEditText"
@@ -77,7 +81,7 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="8dp"
                     app:cardCornerRadius="24dp"
                     app:cardElevation="0dp"
                     >
@@ -92,7 +96,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/phone"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            app:startIconDrawable="@drawable/round_phone_24"
+                            style="@style/DeliveryTextInputLayout"
                             >
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/phoneEditText"
@@ -102,14 +107,16 @@
                                 />
                         </com.google.android.material.textfield.TextInputLayout>
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/orderNumberInputLayout"
+                            android:id="@+id/clientNameInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/order_number"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_marginTop="4dp"
+                            android:hint="@string/client_name"
+                            app:startIconDrawable="@drawable/round_person_24"
+                            style="@style/DeliveryTextInputLayout"
                             >
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/orderNumberEditText"
+                                android:id="@+id/clientNameEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 />
@@ -119,7 +126,7 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="8dp"
                     app:cardCornerRadius="24dp"
                     app:cardElevation="0dp"
                     >
@@ -130,11 +137,27 @@
                         android:padding="24dp"
                         >
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/orderNumberInputLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/order_number"
+                            app:startIconDrawable="@drawable/round_numbers_24"
+                            style="@style/DeliveryTextInputLayout"
+                            >
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/orderNumberEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                />
+                        </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/itemNameInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
                             android:hint="@string/item_name"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            app:startIconDrawable="@drawable/round_card_giftcard_24"
+                            style="@style/DeliveryTextInputLayout"
                             >
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/itemNameEditText"
@@ -146,8 +169,10 @@
                             android:id="@+id/itemPriceInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
                             android:hint="@string/item_price"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            app:startIconDrawable="@drawable/round_attach_money_24"
+                            style="@style/DeliveryTextInputLayout"
                             >
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/itemPriceEditText"
@@ -160,7 +185,7 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="8dp"
                     app:cardCornerRadius="24dp"
                     app:cardElevation="0dp"
                     >
@@ -171,24 +196,12 @@
                         android:padding="24dp"
                         >
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/clientNameInputLayout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/client_name"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                            >
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/clientNameEditText"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                />
-                        </com.google.android.material.textfield.TextInputLayout>
-                        <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/commentInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/comment"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            app:startIconDrawable="@drawable/round_short_text_24"
+                            style="@style/DeliveryTextInputLayout"
                             >
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/commentEditText"
@@ -209,6 +222,7 @@
         android:layout_marginBottom="16dp"
         android:text="@string/add"
         android:visibility="visible"
+        app:icon="@drawable/round_add_24"
         style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
         tools:visibility="visible"
         />

@@ -16,4 +16,9 @@
         <item name="cornerSizeBottomLeft">0dp</item>
         <item name="cornerSizeBottomRight">0dp</item>
     </style>
+
+    <style name="DeliveryTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxStrokeColor">@color/colorBaseBlack</item>
+        <item name="hintTextColor">@color/colorBaseBlack</item>
+    </style>
 </resources>
