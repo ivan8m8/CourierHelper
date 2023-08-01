@@ -5,7 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 
 /**
- * If a regular Fragment lays on top of another one (e.g. committed via transaction.add()),
+ * If a regular Fragment lies on top of another one (e.g. committed via transaction.add()),
  * the behind one receives the unconsumed touch events of the top one.
  * BaseTopFragment prevents this issue by consuming all the touch events.
  */
