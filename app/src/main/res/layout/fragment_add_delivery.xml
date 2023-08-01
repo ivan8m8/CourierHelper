@@ -27,12 +27,13 @@
             android:layout_height="match_parent"
             >
             <LinearLayout
+                android:id="@+id/scrollableContentLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingHorizontal="8dp"
                 android:paddingTop="8dp"
-                android:paddingBottom="72dp"
+                android:paddingBottom="96dp"
                 >
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
