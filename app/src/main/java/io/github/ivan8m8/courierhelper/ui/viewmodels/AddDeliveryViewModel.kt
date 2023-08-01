@@ -140,10 +140,8 @@ class AddDeliveryViewModel(
             .enqueue(
                 OneTimeWorkRequestBuilder<GeoCodeWorker>()
                     .setInputData(
-                        Data(
-                            mapOf(
-                                GeoCodeWorker.DELIVERY_ID_KEY to deliveryId
-                            )
+                        workDataOf(
+                            GeoCodeWorker.DELIVERY_ID_KEY to deliveryId
                         )
                     )
                     .setConstraints(
