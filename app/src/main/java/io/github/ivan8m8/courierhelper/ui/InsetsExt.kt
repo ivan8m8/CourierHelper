@@ -15,7 +15,7 @@ import io.github.ivan8m8.courierhelper.R
 
 fun View.addSystemBottomPadding(isConsumed: Boolean = false) {
     doOnApplyWindowInsetsWithPaddings { v, windowInsets, paddings ->
-        val type = WindowInsetsCompat.Type.systemBars()
+        val type = WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime()
         val insetsRect = windowInsets.getInsets(type)
         val newBottomPadding = insetsRect.bottom + paddings.bottom
         v.updatePadding(bottom = newBottomPadding)
@@ -51,7 +51,7 @@ fun View.addSystemTopMargin(isConsumed: Boolean = false) {
 
 fun View.addSystemBottomMargin(isConsumed: Boolean = false) {
     doOnApplyWindowInsetsWithMargins { v, windowInsets, margins ->
-        val type = WindowInsetsCompat.Type.systemBars()
+        val type = WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime()
         val insetsRect = windowInsets.getInsets(type)
         val newBottomMargin = insetsRect.bottom + margins.bottom
         v.updateLayoutParams<MarginLayoutParams> { updateMargins(bottom = newBottomMargin) }
