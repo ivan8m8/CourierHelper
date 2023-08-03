@@ -4,6 +4,7 @@ import androidx.room.Room
 import io.github.ivan8m8.courierhelper.data.db.AppDb
 import io.github.ivan8m8.courierhelper.data.repository.AutocompleteRepository
 import io.github.ivan8m8.courierhelper.data.repository.DeliveriesRepository
+import io.github.ivan8m8.courierhelper.data.repository.GeoCodeRepository
 import io.github.ivan8m8.courierhelper.ui.viewmodels.AddDeliveryViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -24,13 +25,16 @@ object MainModule {
             get<AppDb>().deliveriesDao()
         }
         single {
-            DeliveriesRepository(get(), androidApplication())
+            GeoCodeRepository(get())
+        }
+        single {
+            DeliveriesRepository(get())
         }
         single {
             AutocompleteRepository(get())
         }
         viewModel {
-            AddDeliveryViewModel(get(), get())
+            AddDeliveryViewModel(get(), get(), get(), androidApplication())
         }
     }
 }
