@@ -1,9 +1,7 @@
 package io.github.ivan8m8.courierhelper.data.di
 
-import io.github.ivan8m8.courierhelper.data.network.GeoTreeApi
-import io.github.ivan8m8.courierhelper.data.network.KladrApi
-import io.github.ivan8m8.courierhelper.data.network.interceptors.GeoTreeInterceptor
-import io.github.ivan8m8.courierhelper.data.network.interceptors.KladrApiInterceptor
+import io.github.ivan8m8.courierhelper.data.network.DadataApi
+import io.github.ivan8m8.courierhelper.data.network.interceptors.DadataInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -28,28 +26,13 @@ object NetworkModule {
                 .client(
                     get<OkHttpClient>().newBuilder()
                         .addInterceptor(
-                            GeoTreeInterceptor()
+                            DadataInterceptor()
                         )
                         .build()
                 )
-                .baseUrl(GeoTreeApi.BASE_URL)
+                .baseUrl(DadataApi.BASE_URL)
                 .build()
-                .create(GeoTreeApi::class.java)
-        }
-        single {
-            Retrofit.Builder()
-                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(
-                    get<OkHttpClient>().newBuilder()
-                        .addInterceptor(
-                            KladrApiInterceptor()
-                        )
-                        .build()
-                )
-                .baseUrl(KladrApi.BASE_URL)
-                .build()
-                .create(KladrApi::class.java)
+                .create(DadataApi::class.java)
         }
     }
 }
