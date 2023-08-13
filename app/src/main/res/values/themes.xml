@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Theme.CourierHelper" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.CourierHelper" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/amber_900</item>
         <item name="colorPrimaryVariant">@color/amber_900</item>
