@@ -1,4 +1,4 @@
-package io.github.ivan8m8.courierhelper.ui
+package io.github.ivan8m8.courierhelper.ui.utils
 
 import android.view.View
 import androidx.fragment.app.Fragment

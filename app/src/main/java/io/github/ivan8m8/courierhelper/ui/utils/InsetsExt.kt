@@ -1,4 +1,4 @@
-package io.github.ivan8m8.courierhelper.ui
+package io.github.ivan8m8.courierhelper.ui.utils
 
 import android.graphics.Color
 import android.graphics.Rect
@@ -110,6 +110,10 @@ private fun View.requestApplyInsetsWhenAttached() {
 
 fun Fragment.setTransparentStatusBar() {
     requireActivity().window.statusBarColor = Color.TRANSPARENT
+}
+
+fun Fragment.setColoredStatusBar(colorString: String) {
+    requireActivity().window.statusBarColor = Color.parseColor(colorString)
 }
 
 fun Fragment.setColoredStatusBar(@ColorRes colorRes: Int = R.color.colorPrimary) {
