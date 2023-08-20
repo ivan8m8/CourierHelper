@@ -1,11 +1,23 @@
 package io.github.ivan8m8.courierhelper.data.utils
 
 import io.github.ivan8m8.courierhelper.data.models.Models.LatitudeLongitude
+import kotlin.math.acos
 import kotlin.math.cos
 import kotlin.math.sin
 
 //https://www.frameworks.su/article/rasstoyanie_do_bligayshih_stantsii_metro
 class MetroUtils {
+
+    fun distanceBetweenPoints(
+        one: LatitudeLongitude,
+        other: LatitudeLongitude
+    ): Double {
+        return acos(
+            sin(one.lat.toRadians()) * sin(other.lat.toRadians())
+            + cos(one.lat.toRadians()) * cos(other.lat.toRadians())
+            * cos(one.lng.toRadians() - other.lng.toRadians())
+        ) * EARTH_RADIUS
+    }
 
     fun getClosestArea(
         latLng: LatitudeLongitude,
@@ -23,9 +35,8 @@ class MetroUtils {
         angleDegree: Double,
         distanceM: Int
     ): LatitudeLongitude {
-        val angleRad = Math.toRadians(angleDegree)
-        val latRad = Math.toRadians(latLng.lat)
-        val dx = distanceM / (LAT_1_DEGREE_LENGTH * cos(latRad)) * cos(angleRad)
+        val angleRad = angleDegree.toRadians()
+        val dx = distanceM / (LAT_1_DEGREE_LENGTH * cos(latLng.lat.toRadians())) * cos(angleRad)
         val dy = distanceM / LAT_1_DEGREE_LENGTH * sin(angleRad)
         return LatitudeLongitude(
             latLng.lat + dy,
@@ -46,5 +57,7 @@ class MetroUtils {
          * Meridian length of 1 degree of latitude on the sphere in meters.
          */
         private const val LAT_1_DEGREE_LENGTH: Double = 40075 * 1000 / 360.0
+
+        private const val EARTH_RADIUS = 6371.0072
     }
 }
