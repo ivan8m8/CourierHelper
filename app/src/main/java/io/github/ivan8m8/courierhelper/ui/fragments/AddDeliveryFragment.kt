@@ -3,6 +3,7 @@ package io.github.ivan8m8.courierhelper.ui.fragments
 import android.os.Bundle
 import android.telephony.PhoneNumberFormattingTextWatcher
 import android.view.View
+import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import io.github.ivan8m8.courierhelper.R
 import io.github.ivan8m8.courierhelper.databinding.FragmentAddDeliveryBinding
@@ -31,6 +32,7 @@ class AddDeliveryFragment: BaseTopFragment(R.layout.fragment_add_delivery) {
             toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
             addressEditText.doOnRealUserInput { text -> viewModel.onAddressInput(text) }
             addressEditText.doAfterTextChanged { text -> viewModel.addressChanged(text?.toString()) }
+            addressEditText.onSuggestionItemClick { pos -> viewModel.onAddressSuggestionClicked(pos) }
             phoneEditText.doAfterTextChanged { text -> viewModel.phoneNumberChanged(text?.toString()) }
             phoneEditText.addTextChangedListener(PhoneNumberFormattingTextWatcher())
             orderNumberEditText.doAfterTextChanged { text -> viewModel.orderNumberChanged(text?.toString()) }
@@ -46,6 +48,13 @@ class AddDeliveryFragment: BaseTopFragment(R.layout.fragment_add_delivery) {
             }
             addressErrorTextLiveData.observe(viewLifecycleOwner) { error ->
                 binding.addressEditText.error = error
+            }
+            errorsLiveData.observe(viewLifecycleOwner) { event ->
+                event.getContentIfNotHandled()?.let { message ->
+                    Toast
+                        .makeText(requireContext(), message, Toast.LENGTH_SHORT)
+                        .show()
+                }
             }
         }
     }
