@@ -4,9 +4,14 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import io.github.ivan8m8.courierhelper.R
+import io.github.ivan8m8.courierhelper.data.models.DadataModels.Suggestion
 import io.github.ivan8m8.courierhelper.data.models.Delivery
+import io.github.ivan8m8.courierhelper.data.models.Models.LatitudeLongitude
 import io.github.ivan8m8.courierhelper.data.repository.AutocompleteRepository
 import io.github.ivan8m8.courierhelper.data.repository.DeliveriesRepository
+import io.github.ivan8m8.courierhelper.data.repository.MetroRepository
+import io.github.ivan8m8.courierhelper.data.utils.Event
+import io.github.ivan8m8.courierhelper.data.utils.clearAndAddAll
 import io.github.ivan8m8.courierhelper.data.utils.getString
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -17,20 +22,25 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class AddDeliveryViewModel(
     private val deliveriesRepository: DeliveriesRepository,
     private val autocompleteRepository: AutocompleteRepository,
+    private val metroRepository: MetroRepository,
     application: Application
 ) : AndroidViewModel(application) {
 
     private val compositeDisposable = CompositeDisposable()
-    val addressSuggestionsLiveData = MutableLiveData<List<String>>()
-    val addressErrorTextLiveData = MutableLiveData<String?>()
+    private val addressSuggestions = ArrayList<Suggestion>()
 
     private var address: String? = null
+    private var latLng: LatitudeLongitude? = null
     private var phoneNumber: String? = null
     private var orderNumber: String? = null
     private var itemPrice: Double? = null
     private var itemName: String? = null
     private var clientName: String? = null
     private var comment: String? = null
+
+    val addressSuggestionsLiveData = MutableLiveData<List<String>>()
+    val addressErrorTextLiveData = MutableLiveData<String?>()
+    val errorsLiveData = MutableLiveData<Event<String>>()
 
     override fun onCleared() {
         compositeDisposable.dispose()
@@ -42,16 +52,27 @@ class AddDeliveryViewModel(
             return
         autocompleteRepository.autocompleteAddress(text)
             .subscribeOn(Schedulers.io())
-            .map { suggestions ->
-                suggestions.suggestions.map { suggestion -> suggestion.value }
-            }
+            .map { response -> response.suggestions }
             .observeOn(AndroidSchedulers.mainThread())
+            .doOnSuccess { suggestions -> addressSuggestions.clearAndAddAll(suggestions) }
+            .map { suggestions ->
+                suggestions.map { suggestion -> suggestion.value }
+            }
             .subscribeBy(
-                onSuccess = { addressNames ->
-                    addressSuggestionsLiveData.value = addressNames
+                onSuccess = { suggestions ->
+                    addressSuggestionsLiveData.value = suggestions
+                },
+                onError = { throwable ->
+                    errorsLiveData.value = Event(throwable.localizedMessage ?: "Error")
                 }
             )
             .addTo(compositeDisposable)
+    }
+
+    fun onAddressSuggestionClicked(pos: Int) {
+        latLng = with(addressSuggestions[pos].data) {
+            LatitudeLongitude(lat, lng)
+        }
     }
 
     fun addressChanged(text: String?) {
@@ -85,25 +106,48 @@ class AddDeliveryViewModel(
     fun addDeliveryClicked() {
 
         val address = address
+        val latLng = latLng
 
         addressErrorTextLiveData.value = if (address.isNullOrBlank())
             getString(R.string.incorrect_value)
         else
             null
 
-        if (address == null)
+        if (address == null || latLng == null)
             return
 
-        val delivery = Delivery(
-            address = address,
-            phoneNumber = phoneNumber,
-            clientName = clientName,
-            orderNumber = orderNumber,
-            itemName = itemName,
-            itemPrice = itemPrice,
-            comment = comment
-        )
-        deliveriesRepository.save(delivery)
+        metroRepository.getClosestStations(latLng, 2)
+            .map { stations ->
+
+                val firstStation = stations.firstOrNull()
+                val secondStation = stations.getOrNull(1)
+
+                val metro = firstStation?.second?.name
+                val metroColor = firstStation?.second?.line?.color
+                val metroDistance = firstStation?.first
+
+                val metro2 = secondStation?.second?.name
+                val metro2Color = secondStation?.second?.line?.color
+                val metro2Distance = secondStation?.first
+
+                Delivery(
+                    address = address,
+                    metro = metro,
+                    metroColor = metroColor,
+                    metroDistance = metroDistance,
+                    metro2 = metro2,
+                    metro2Color = metro2Color,
+                    metro2Distance = metro2Distance,
+                    phoneNumber = phoneNumber,
+                    orderNumber = orderNumber,
+                    itemPrice = itemPrice,
+                    itemName = itemName,
+                    clientName = clientName,
+                    comment = comment,
+                    latLng = latLng
+                )
+            }
+            .flatMap { delivery -> deliveriesRepository.save(delivery) }
             .subscribeOn(Schedulers.io())
             .subscribeBy(
                 onSuccess = {
