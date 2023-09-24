@@ -1,7 +1,8 @@
 package io.github.ivan8m8.courierhelper.data.repository
 
 import io.github.ivan8m8.courierhelper.data.db.daos.DeliveriesDao
-import io.github.ivan8m8.courierhelper.data.models.Delivery
+import io.github.ivan8m8.courierhelper.data.models.DeliveryModels.Delivery
+import io.github.ivan8m8.courierhelper.data.models.DeliveryModels.DeliveryStatus
 import io.reactivex.rxjava3.core.Single
 
 class DeliveriesRepository(

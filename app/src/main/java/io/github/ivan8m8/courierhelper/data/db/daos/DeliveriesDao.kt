@@ -1,8 +1,8 @@
 package io.github.ivan8m8.courierhelper.data.db.daos
 
 import androidx.room.*
-import io.github.ivan8m8.courierhelper.data.models.Delivery
-import io.github.ivan8m8.courierhelper.data.models.Models
+import io.github.ivan8m8.courierhelper.data.models.DeliveryModels.Delivery
+import io.github.ivan8m8.courierhelper.data.models.DeliveryModels.DeliveryStatus
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
@@ -23,5 +23,5 @@ interface DeliveriesDao {
     fun get(id: Long): Flowable<Delivery>
 
     @Query("SELECT * FROM Delivery WHERE status = :status")
-    fun getAll(status: Models.DeliveryStatus): Flowable<List<Delivery>>
+    fun getAll(status: DeliveryStatus): Flowable<List<Delivery>>
 }
