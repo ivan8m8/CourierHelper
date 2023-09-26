@@ -27,5 +27,6 @@
         parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
         <item name="boxStrokeColor">@color/colorBaseBlack</item>
         <item name="hintTextColor">@color/colorBaseBlack</item>
+        <item name="endIconTint">@color/colorBaseBlack</item>
     </style>
 </resources>
