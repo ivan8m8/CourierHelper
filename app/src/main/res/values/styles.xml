@@ -21,4 +21,11 @@
         <item name="boxStrokeColor">@color/colorBaseBlack</item>
         <item name="hintTextColor">@color/colorBaseBlack</item>
     </style>
+
+    <style
+        name="DeliveryDropdownMenuInputLayout"
+        parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
+        <item name="boxStrokeColor">@color/colorBaseBlack</item>
+        <item name="hintTextColor">@color/colorBaseBlack</item>
+    </style>
 </resources>
