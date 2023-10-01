@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import io.github.ivan8m8.courierhelper.R
+import io.github.ivan8m8.courierhelper.data.mappers.PaymentMethodsMapper
 import io.github.ivan8m8.courierhelper.data.models.DadataModels.Suggestion
 import io.github.ivan8m8.courierhelper.data.models.DeliveryModels.Delivery
 import io.github.ivan8m8.courierhelper.data.models.Models.LatitudeLongitude
@@ -12,8 +13,12 @@ import io.github.ivan8m8.courierhelper.data.repository.DeliveriesRepository
 import io.github.ivan8m8.courierhelper.data.repository.MetroRepository
 import io.github.ivan8m8.courierhelper.data.utils.Event
 import io.github.ivan8m8.courierhelper.data.utils.clearAndAddAll
+import io.github.ivan8m8.courierhelper.data.utils.getDrawable
 import io.github.ivan8m8.courierhelper.data.utils.getString
+import io.github.ivan8m8.courierhelper.data.utils.getStringArray
+import io.github.ivan8m8.courierhelper.ui.models.UiModels.UiPaymentMethod
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.kotlin.subscribeBy
@@ -23,6 +28,7 @@ class AddDeliveryViewModel(
     private val deliveriesRepository: DeliveriesRepository,
     private val autocompleteRepository: AutocompleteRepository,
     private val metroRepository: MetroRepository,
+    private val paymentMethodsMapper: PaymentMethodsMapper,
     application: Application
 ) : AndroidViewModel(application) {
 
@@ -40,7 +46,12 @@ class AddDeliveryViewModel(
 
     val addressSuggestionsLiveData = MutableLiveData<List<String>>()
     val addressErrorTextLiveData = MutableLiveData<String?>()
+    val paymentMethodsLiveData = MutableLiveData<List<UiPaymentMethod>>()
     val errorsLiveData = MutableLiveData<Event<String>>()
+
+    init {
+        retrievePaymentMethods()
+    }
 
     override fun onCleared() {
         compositeDisposable.dispose()
@@ -152,6 +163,29 @@ class AddDeliveryViewModel(
             .subscribeBy(
                 onSuccess = {
                     // router to main screen
+                }
+            )
+            .addTo(compositeDisposable)
+    }
+
+    private fun retrievePaymentMethods() {
+        Single.fromCallable {
+            val names = getStringArray(R.array.payment_methods).toList()
+            val drawables = listOf(
+                getDrawable(R.drawable.round_payment_24),
+                getDrawable(R.drawable.round_payments_24),
+                getDrawable(R.drawable.round_send_to_mobile_24)
+            )
+            names to drawables
+        }
+            .subscribeOn(Schedulers.io())
+            .map { (names, drawables) ->
+                paymentMethodsMapper.toUiPaymentMethods(names, drawables)
+            }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(
+                onSuccess = { paymentMethods ->
+                    paymentMethodsLiveData.value = paymentMethods
                 }
             )
             .addTo(compositeDisposable)
