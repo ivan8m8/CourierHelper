@@ -175,6 +175,7 @@
                             android:hint="@string/payment_method"
                             android:labelFor="@id/paymentMethodAutoComplete"
                             app:startIconDrawable="@drawable/round_payment_24"
+                            app:endIconTint="#99000000"
                             style="@style/DeliveryDropdownMenuInputLayout">
                             <AutoCompleteTextView
                                 android:id="@+id/paymentMethodAutoComplete"
