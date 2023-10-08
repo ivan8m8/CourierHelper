@@ -1,5 +1,6 @@
 package io.github.ivan8m8.courierhelper.data.repository
 
+import io.github.ivan8m8.courierhelper.data.models.DadataModels.LocationBoost
 import io.github.ivan8m8.courierhelper.data.models.DadataModels.RequestBody
 import io.github.ivan8m8.courierhelper.data.models.DadataModels.SuggestionsResponse
 import io.github.ivan8m8.courierhelper.data.network.DadataApi
@@ -10,8 +11,18 @@ class AutocompleteRepository(
 ) {
 
     fun autocompleteAddress(
-        query: String
+        query: String,
+        priorities: List<String>? = null
     ): Single<SuggestionsResponse> {
-        return dadataApi.suggestions(RequestBody(query))
+        val locationBoost = priorities
+            ?.map { id ->
+                LocationBoost(id)
+            }
+        return dadataApi.suggestions(
+            RequestBody(
+                query,
+                locationBoost
+            )
+        )
     }
 }
