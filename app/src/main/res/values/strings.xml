@@ -13,4 +13,12 @@
     <string name="region">Region</string>
     <string name="kladr_api_copyright">Region and address suggestions are provided by kladr-api.ru.</string>
     <string name="geotree_copyright">Address coordinates are provided by geotree.ru.</string>
+    <string name="incorrect_value">Incorrect value</string>
+    <string name="side_menu">Side menu</string>
+    <string name="payment_method">Payment method</string>
+    <string-array name="payment_methods">
+        <item>Card</item>
+        <item>Cash</item>
+        <item>Transfer</item>
+    </string-array>
 </resources>

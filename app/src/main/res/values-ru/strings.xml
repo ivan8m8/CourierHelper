@@ -13,4 +13,12 @@
     <string name="region">Регион</string>
     <string name="kladr_api_copyright">Подсказки при вводе региона и адреса предоставляются сервисом kladr-api.ru.</string>
     <string name="geotree_copyright">Координаты адресов предоставляются сервисом geotree.ru.</string>
+    <string name="incorrect_value">Некорректное значение</string>
+    <string name="side_menu">Боковое меню</string>
+    <string name="payment_method">Способ оплаты</string>
+    <string-array name="payment_methods">
+        <item>Картой</item>
+        <item>Наличными</item>
+        <item>Переводом</item>
+    </string-array>
 </resources>
