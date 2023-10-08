@@ -47,6 +47,21 @@
                         android:orientation="vertical"
                         android:padding="24dp"
                         >
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/priorityButton"
+                            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
+                            android:layout_width="wrap_content"
+                            android:layout_height="24dp"
+                            android:layout_gravity="end"
+                            android:foreground="?attr/selectableItemBackgroundBorderless"
+                            android:gravity="center"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:text="@string/priority"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                            android:textColor="@color/colorSecondary"
+                            app:rippleColor="@color/colorSecondaryRipple" />
+
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/addressInputLayout"
                             android:layout_width="match_parent"
@@ -175,7 +190,7 @@
                             android:hint="@string/payment_method"
                             android:labelFor="@id/paymentMethodAutoComplete"
                             app:startIconDrawable="@drawable/round_payment_24"
-                            app:endIconTint="#99000000"
+                            app:endIconTint="@color/colorSafeGrey"
                             style="@style/DeliveryDropdownMenuInputLayout">
                             <AutoCompleteTextView
                                 android:id="@+id/paymentMethodAutoComplete"
