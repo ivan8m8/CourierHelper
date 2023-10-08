@@ -1,31 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f2f2f2"
-    >
+    android:background="#f2f2f2">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
+
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:navigationContentDescription="@string/back"
             app:navigationIcon="?homeAsUpIndicator"
             app:navigationIconTint="@color/colorSecondary"
-            app:title="@string/add_delivery"
-            style="@style/Widget.MaterialComponents.Toolbar.Primary"
-            />
+            app:title="@string/add_delivery" />
+
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="match_parent">
+
             <LinearLayout
                 android:id="@+id/scrollableContentLinearLayout"
                 android:layout_width="match_parent"
@@ -33,20 +32,20 @@
                 android:orientation="vertical"
                 android:paddingHorizontal="8dp"
                 android:paddingTop="8dp"
-                android:paddingBottom="96dp"
-                >
+                android:paddingBottom="96dp">
+
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="24dp"
-                    app:cardElevation="0dp"
-                    >
+                    app:cardElevation="0dp">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="24dp"
-                        >
+                        android:padding="24dp">
+
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/priorityButton"
                             style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
@@ -64,134 +63,135 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/addressInputLayout"
+                            style="@style/DeliveryTextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             android:hint="@string/address"
                             app:endIconMode="clear_text"
-                            app:startIconDrawable="@drawable/round_place_24"
-                            style="@style/DeliveryTextInputLayout"
-                            >
+                            app:startIconDrawable="@drawable/round_place_24">
+
                             <io.github.ivan8m8.courierhelper.ui.custom.AutocompleteTextInputEditText
                                 android:id="@+id/addressEditText"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                />
+                                android:layout_height="wrap_content" />
                         </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
+
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     app:cardCornerRadius="24dp"
-                    app:cardElevation="0dp"
-                    >
+                    app:cardElevation="0dp">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="24dp"
-                        >
+                        android:padding="24dp">
+
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/phoneInputLayout"
+                            style="@style/DeliveryTextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/phone"
-                            app:startIconDrawable="@drawable/round_phone_24"
-                            style="@style/DeliveryTextInputLayout"
-                            >
+                            app:startIconDrawable="@drawable/round_phone_24">
+
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/phoneEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:inputType="phone"
-                                />
+                                android:inputType="phone" />
                         </com.google.android.material.textfield.TextInputLayout>
+
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/clientNameInputLayout"
+                            style="@style/DeliveryTextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             android:hint="@string/client_name"
-                            app:startIconDrawable="@drawable/round_person_24"
-                            style="@style/DeliveryTextInputLayout"
-                            >
+                            app:startIconDrawable="@drawable/round_person_24">
+
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/clientNameEditText"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                />
+                                android:layout_height="wrap_content" />
                         </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
+
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     app:cardCornerRadius="24dp"
-                    app:cardElevation="0dp"
-                    >
+                    app:cardElevation="0dp">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="24dp"
-                        >
+                        android:padding="24dp">
+
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/orderNumberInputLayout"
+                            style="@style/DeliveryTextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/order_number"
-                            app:startIconDrawable="@drawable/round_numbers_24"
-                            style="@style/DeliveryTextInputLayout"
-                            >
+                            app:startIconDrawable="@drawable/round_numbers_24">
+
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/orderNumberEditText"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                />
+                                android:layout_height="wrap_content" />
                         </com.google.android.material.textfield.TextInputLayout>
+
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/itemNameInputLayout"
+                            style="@style/DeliveryTextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             android:hint="@string/item_name"
-                            app:startIconDrawable="@drawable/round_card_giftcard_24"
-                            style="@style/DeliveryTextInputLayout"
-                            >
+                            app:startIconDrawable="@drawable/round_card_giftcard_24">
+
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/itemNameEditText"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                />
+                                android:layout_height="wrap_content" />
                         </com.google.android.material.textfield.TextInputLayout>
+
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/itemPriceInputLayout"
+                            style="@style/DeliveryTextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             android:hint="@string/item_price"
-                            app:startIconDrawable="@drawable/round_attach_money_24"
-                            style="@style/DeliveryTextInputLayout"
-                            >
+                            app:startIconDrawable="@drawable/round_attach_money_24">
+
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/itemPriceEditText"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                />
+                                android:layout_height="wrap_content" />
                         </com.google.android.material.textfield.TextInputLayout>
+
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/paymentMethodInputLayout"
+                            style="@style/DeliveryDropdownMenuInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             android:hint="@string/payment_method"
                             android:labelFor="@id/paymentMethodAutoComplete"
-                            app:startIconDrawable="@drawable/round_payment_24"
                             app:endIconTint="@color/colorSafeGrey"
-                            style="@style/DeliveryDropdownMenuInputLayout">
+                            app:startIconDrawable="@drawable/round_payment_24">
+
                             <AutoCompleteTextView
                                 android:id="@+id/paymentMethodAutoComplete"
                                 android:layout_width="match_parent"
@@ -200,48 +200,47 @@
                         </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
+
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     app:cardCornerRadius="24dp"
-                    app:cardElevation="0dp"
-                    >
+                    app:cardElevation="0dp">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="24dp"
-                        >
+                        android:padding="24dp">
+
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/commentInputLayout"
+                            style="@style/DeliveryTextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/comment"
-                            app:startIconDrawable="@drawable/round_short_text_24"
-                            style="@style/DeliveryTextInputLayout"
-                            >
+                            app:startIconDrawable="@drawable/round_short_text_24">
+
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/commentEditText"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                />
+                                android:layout_height="wrap_content" />
                         </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
+
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/addButton"
+        style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
         android:layout_marginBottom="16dp"
         android:text="@string/add"
         android:visibility="visible"
-        app:icon="@drawable/round_add_24"
-        style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
-        tools:visibility="visible"
-        />
+        app:icon="@drawable/round_add_24" />
 </FrameLayout>
