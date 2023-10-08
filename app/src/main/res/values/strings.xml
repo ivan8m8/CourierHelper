@@ -21,4 +21,5 @@
         <item>Cash</item>
         <item>Transfer</item>
     </string-array>
+    <string name="priority">Priority</string>
 </resources>

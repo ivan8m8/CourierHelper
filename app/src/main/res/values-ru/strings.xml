@@ -16,6 +16,7 @@
     <string name="incorrect_value">Некорректное значение</string>
     <string name="side_menu">Боковое меню</string>
     <string name="payment_method">Способ оплаты</string>
+    <string name="priority">Приоритет</string>
     <string-array name="payment_methods">
         <item>Картой</item>
         <item>Наличными</item>
