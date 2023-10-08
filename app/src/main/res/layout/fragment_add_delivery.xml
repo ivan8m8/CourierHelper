@@ -15,8 +15,8 @@
             style="@style/Widget.MaterialComponents.Toolbar.Primary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:navigationContentDescription="@string/back"
-            app:navigationIcon="?homeAsUpIndicator"
+            app:navigationContentDescription="@string/close"
+            app:navigationIcon="@drawable/round_close_24"
             app:navigationIconTint="@color/colorSecondary"
             app:title="@string/add_delivery" />
 

@@ -22,4 +22,5 @@
         <item>Transfer</item>
     </string-array>
     <string name="priority">Priority</string>
+    <string name="close">Close</string>
 </resources>
