@@ -10,9 +10,6 @@
     <string name="add_delivery">Добавить доставку</string>
     <string name="back">Назад</string>
     <string name="add">Добавить</string>
-    <string name="region">Регион</string>
-    <string name="kladr_api_copyright">Подсказки при вводе региона и адреса предоставляются сервисом kladr-api.ru.</string>
-    <string name="geotree_copyright">Координаты адресов предоставляются сервисом geotree.ru.</string>
     <string name="incorrect_value">Некорректное значение</string>
     <string name="side_menu">Боковое меню</string>
     <string name="payment_method">Способ оплаты</string>
@@ -23,4 +20,10 @@
         <item>Наличными</item>
         <item>Переводом</item>
     </string-array>
+    <string name="choose_priority_city_desc">
+        Когда вы будете заполнять строку с адресом, в первую очередь будут
+        отображены улицы города, который вы выберете здесь
+    </string>
+    <string name="info">Инфо</string>
+    <string name="type_city_hint">Введите город</string>
 </resources>
