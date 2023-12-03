@@ -21,6 +21,8 @@ object DadataModels {
     )
 
     data class SuggestionData(
+        val city: String,
+        @SerializedName("kladr_id") val kladrId: String,
         @SerializedName("geo_lat") val lat: Double,
         @SerializedName("geo_lon") val lng: Double
     )
