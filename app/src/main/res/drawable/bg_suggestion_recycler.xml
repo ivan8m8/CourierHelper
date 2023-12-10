@@ -8,8 +8,8 @@
                 android:right="1dp" />
             <solid android:color="#07000000" />
             <corners
-                android:bottomLeftRadius="20dp"
-                android:bottomRightRadius="20dp" />
+                android:bottomLeftRadius="24dp"
+                android:bottomRightRadius="24dp" />
         </shape>
     </item>
     <item>
@@ -20,8 +20,8 @@
                 android:right="1dp" />
             <solid android:color="#08000000" />
             <corners
-                android:bottomLeftRadius="21dp"
-                android:bottomRightRadius="21dp" />
+                android:bottomLeftRadius="24dp"
+                android:bottomRightRadius="24dp" />
         </shape>
     </item>
     <item>
@@ -32,8 +32,8 @@
                 android:right="1dp" />
             <solid android:color="#0f000000" />
             <corners
-                android:bottomLeftRadius="22dp"
-                android:bottomRightRadius="22dp" />
+                android:bottomLeftRadius="24dp"
+                android:bottomRightRadius="24dp" />
         </shape>
     </item>
     <item>
@@ -44,8 +44,8 @@
                 android:right="1dp" />
             <solid android:color="#1e000000" />
             <corners
-                android:bottomLeftRadius="23dp"
-                android:bottomRightRadius="23dp" />
+                android:bottomLeftRadius="24dp"
+                android:bottomRightRadius="24dp" />
         </shape>
     </item>
     <item>
