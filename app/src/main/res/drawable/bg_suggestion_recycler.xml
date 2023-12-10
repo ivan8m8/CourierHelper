@@ -8,8 +8,8 @@
                 android:right="1dp" />
             <solid android:color="#07000000" />
             <corners
-                android:bottomLeftRadius="24dp"
-                android:bottomRightRadius="24dp" />
+                android:bottomLeftRadius="@dimen/city_suggestion_recycler_corner_radius"
+                android:bottomRightRadius="@dimen/city_suggestion_recycler_corner_radius" />
         </shape>
     </item>
     <item>
@@ -20,8 +20,8 @@
                 android:right="1dp" />
             <solid android:color="#08000000" />
             <corners
-                android:bottomLeftRadius="24dp"
-                android:bottomRightRadius="24dp" />
+                android:bottomLeftRadius="@dimen/city_suggestion_recycler_corner_radius"
+                android:bottomRightRadius="@dimen/city_suggestion_recycler_corner_radius" />
         </shape>
     </item>
     <item>
@@ -32,8 +32,8 @@
                 android:right="1dp" />
             <solid android:color="#0f000000" />
             <corners
-                android:bottomLeftRadius="24dp"
-                android:bottomRightRadius="24dp" />
+                android:bottomLeftRadius="@dimen/city_suggestion_recycler_corner_radius"
+                android:bottomRightRadius="@dimen/city_suggestion_recycler_corner_radius" />
         </shape>
     </item>
     <item>
@@ -44,16 +44,16 @@
                 android:right="1dp" />
             <solid android:color="#1e000000" />
             <corners
-                android:bottomLeftRadius="24dp"
-                android:bottomRightRadius="24dp" />
+                android:bottomLeftRadius="@dimen/city_suggestion_recycler_corner_radius"
+                android:bottomRightRadius="@dimen/city_suggestion_recycler_corner_radius" />
         </shape>
     </item>
     <item>
         <shape>
             <solid android:color="#fafafa" />
             <corners
-                android:bottomLeftRadius="24dp"
-                android:bottomRightRadius="24dp" />
+                android:bottomLeftRadius="@dimen/city_suggestion_recycler_corner_radius"
+                android:bottomRightRadius="@dimen/city_suggestion_recycler_corner_radius" />
         </shape>
     </item>
 </layer-list>
