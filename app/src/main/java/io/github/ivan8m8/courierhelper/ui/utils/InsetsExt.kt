@@ -13,6 +13,16 @@ import io.github.ivan8m8.courierhelper.R
 // https://www.youtube.com/watch?v=wcdqoTubPrU
 // https://www.youtube.com/watch?v=zEFmWTer3yo
 
+fun Fragment.showKeyboard() {
+    WindowCompat.getInsetsController(requireActivity().window, requireView())
+        .show(WindowInsetsCompat.Type.ime())
+}
+
+fun Fragment.hideKeyboard() {
+    WindowCompat.getInsetsController(requireActivity().window, requireView())
+        .hide(WindowInsetsCompat.Type.ime())
+}
+
 fun View.addSystemBottomPadding(isConsumed: Boolean = false) {
     doOnApplyWindowInsetsWithPaddings { v, windowInsets, paddings ->
         val type = WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime()
