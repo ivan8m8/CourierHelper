@@ -10,17 +10,15 @@ import androidx.core.widget.doAfterTextChanged
 import io.github.ivan8m8.courierhelper.R
 import io.github.ivan8m8.courierhelper.databinding.FragmentAddDeliveryBinding
 import io.github.ivan8m8.courierhelper.ui.adapters.PaymentMethodAdapter
+import io.github.ivan8m8.courierhelper.ui.fragments.base.BaseColoredToolbarFragment
 import io.github.ivan8m8.courierhelper.ui.utils.addSystemBottomMargin
 import io.github.ivan8m8.courierhelper.ui.utils.addSystemBottomPadding
 import io.github.ivan8m8.courierhelper.ui.utils.addSystemTopMargin
-import io.github.ivan8m8.courierhelper.ui.fragments.base.BaseTopFragment
-import io.github.ivan8m8.courierhelper.ui.utils.setColoredStatusBar
-import io.github.ivan8m8.courierhelper.ui.utils.setTransparentStatusBar
 import io.github.ivan8m8.courierhelper.ui.utils.viewBinding
 import io.github.ivan8m8.courierhelper.ui.viewmodels.AddDeliveryViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class AddDeliveryFragment: BaseTopFragment(R.layout.fragment_add_delivery) {
+class AddDeliveryFragment: BaseColoredToolbarFragment(R.layout.fragment_add_delivery) {
 
     private val binding by viewBinding(FragmentAddDeliveryBinding::bind)
     private val viewModel: AddDeliveryViewModel by viewModel()
@@ -75,16 +73,6 @@ class AddDeliveryFragment: BaseTopFragment(R.layout.fragment_add_delivery) {
                 }
             }
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        setColoredStatusBar()
-    }
-
-    override fun onStop() {
-        setTransparentStatusBar()
-        super.onStop()
     }
 
     companion object {
