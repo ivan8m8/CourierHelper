@@ -6,8 +6,8 @@ import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import io.github.ivan8m8.courierhelper.data.db.daos.MetroStationsDao
-import io.github.ivan8m8.courierhelper.data.models.HhModels.MetroStation
-import io.github.ivan8m8.courierhelper.data.models.Models.LatitudeLongitude
+import io.github.ivan8m8.courierhelper.data.models.MetroStation
+import io.github.ivan8m8.courierhelper.data.models.LatitudeLongitude
 import io.github.ivan8m8.courierhelper.data.network.HhApi
 import io.github.ivan8m8.courierhelper.data.utils.MetroUtils
 import io.github.ivan8m8.courierhelper.data.workers.FetchMetroStationsWorker

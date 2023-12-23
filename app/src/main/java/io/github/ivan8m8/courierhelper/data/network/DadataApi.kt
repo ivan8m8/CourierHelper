@@ -1,7 +1,7 @@
 package io.github.ivan8m8.courierhelper.data.network
 
-import io.github.ivan8m8.courierhelper.data.models.DadataModels.RequestBody
-import io.github.ivan8m8.courierhelper.data.models.DadataModels.SuggestionsResponse
+import io.github.ivan8m8.courierhelper.data.models.RequestBody
+import io.github.ivan8m8.courierhelper.data.models.SuggestionsResponse
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.Body
 import retrofit2.http.POST

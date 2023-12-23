@@ -1,6 +1,6 @@
 package io.github.ivan8m8.courierhelper.data.utils
 
-import io.github.ivan8m8.courierhelper.data.models.Models.LatitudeLongitude
+import io.github.ivan8m8.courierhelper.data.models.LatitudeLongitude
 import kotlin.math.acos
 import kotlin.math.cos
 import kotlin.math.sin

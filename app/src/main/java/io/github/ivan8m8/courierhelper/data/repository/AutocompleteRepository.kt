@@ -1,9 +1,9 @@
 package io.github.ivan8m8.courierhelper.data.repository
 
-import io.github.ivan8m8.courierhelper.data.models.DadataModels.Bound
-import io.github.ivan8m8.courierhelper.data.models.DadataModels.LocationBoost
-import io.github.ivan8m8.courierhelper.data.models.DadataModels.RequestBody
-import io.github.ivan8m8.courierhelper.data.models.DadataModels.SuggestionsResponse
+import io.github.ivan8m8.courierhelper.data.models.Bound
+import io.github.ivan8m8.courierhelper.data.models.LocationBoost
+import io.github.ivan8m8.courierhelper.data.models.RequestBody
+import io.github.ivan8m8.courierhelper.data.models.SuggestionsResponse
 import io.github.ivan8m8.courierhelper.data.network.DadataApi
 import io.reactivex.rxjava3.core.Single
 

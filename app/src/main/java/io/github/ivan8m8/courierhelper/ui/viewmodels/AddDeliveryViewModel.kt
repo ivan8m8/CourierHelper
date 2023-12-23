@@ -4,10 +4,10 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import io.github.ivan8m8.courierhelper.R
-import io.github.ivan8m8.courierhelper.data.mappers.PaymentMethodsMapper
-import io.github.ivan8m8.courierhelper.data.models.DadataModels.Suggestion
-import io.github.ivan8m8.courierhelper.data.models.DeliveryModels.Delivery
-import io.github.ivan8m8.courierhelper.data.models.Models.LatitudeLongitude
+import io.github.ivan8m8.courierhelper.ui.mappers.PaymentMethodsMapper
+import io.github.ivan8m8.courierhelper.data.models.Suggestion
+import io.github.ivan8m8.courierhelper.data.models.Delivery
+import io.github.ivan8m8.courierhelper.data.models.LatitudeLongitude
 import io.github.ivan8m8.courierhelper.data.repository.AutocompleteRepository
 import io.github.ivan8m8.courierhelper.data.repository.DeliveriesRepository
 import io.github.ivan8m8.courierhelper.data.repository.MetroRepository
