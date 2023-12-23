@@ -1,7 +1,7 @@
 package io.github.ivan8m8.courierhelper.data.mappers
 
 import android.graphics.drawable.Drawable
-import io.github.ivan8m8.courierhelper.ui.models.UiModels.UiPaymentMethod
+import io.github.ivan8m8.courierhelper.ui.models.UiPaymentMethod
 
 class PaymentMethodsMapper {
     fun toUiPaymentMethods(

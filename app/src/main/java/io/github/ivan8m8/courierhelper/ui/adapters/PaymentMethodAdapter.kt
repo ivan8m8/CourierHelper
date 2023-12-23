@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import io.github.ivan8m8.courierhelper.R
-import io.github.ivan8m8.courierhelper.ui.models.UiModels.UiPaymentMethod
+import io.github.ivan8m8.courierhelper.ui.models.UiPaymentMethod
 
 class PaymentMethodAdapter(
     context: Context,

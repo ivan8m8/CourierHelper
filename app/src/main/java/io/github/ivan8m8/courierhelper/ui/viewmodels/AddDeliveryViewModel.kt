@@ -16,7 +16,7 @@ import io.github.ivan8m8.courierhelper.data.utils.clearAndAddAll
 import io.github.ivan8m8.courierhelper.data.utils.getDrawable
 import io.github.ivan8m8.courierhelper.data.utils.getString
 import io.github.ivan8m8.courierhelper.data.utils.getStringArray
-import io.github.ivan8m8.courierhelper.ui.models.UiModels.UiPaymentMethod
+import io.github.ivan8m8.courierhelper.ui.models.UiPaymentMethod
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
