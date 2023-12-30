@@ -74,6 +74,9 @@ class PriorityCityFragment : BaseColoredToolbarFragment(R.layout.fragment_priori
                         .show(childFragmentManager, PriorityCityConfirmationDialog.TAG)
                 }
             }
+            isProgressLiveData.observe(viewLifecycleOwner) { isProgress ->
+                binding.progressLayout.root.isVisible = isProgress
+            }
             requestInputFocus.observe(viewLifecycleOwner) { event ->
                 event.getContentIfNotHandled()?.let {
                     binding.cityEditText.requestFocus()
