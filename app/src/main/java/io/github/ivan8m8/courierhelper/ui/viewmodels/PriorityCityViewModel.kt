@@ -6,6 +6,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.jakewharton.rxrelay3.PublishRelay
 import io.github.ivan8m8.courierhelper.data.EventBus
+import io.github.ivan8m8.courierhelper.data.models.PriorityCity
 import io.github.ivan8m8.courierhelper.ui.mappers.CitySuggestionsMapper
 import io.github.ivan8m8.courierhelper.data.repository.AutocompleteRepository
 import io.github.ivan8m8.courierhelper.data.utils.Event
@@ -31,8 +32,9 @@ class PriorityCityViewModel(
 
     private val disposables = CompositeDisposable()
     private val uiSuggestions = ArrayList<UiAutocompleteSuggestion>()
-    private lateinit var selectedCityKladrId: String
+    private lateinit var selectedCity: PriorityCity
     private val userInputSubject = PublishRelay.create<String>()
+    val isProgressLiveData = MutableLiveData<Boolean>()
     val suggestionsLiveData = MutableLiveData<List<UiAutocompleteSuggestion>>()
     val isSuggestionsVisibleLiveData = MediatorLiveData<Boolean>().apply {
         addSource(suggestionsLiveData) { suggestions ->
@@ -59,10 +61,14 @@ class PriorityCityViewModel(
     }
 
     fun suggestionClicked(pos: Int) {
-        selectedSuggestionLiveData.value = uiSuggestions[pos].city
-        selectedCityKladrId = uiSuggestions[pos].kladrId
+        val suggestion = uiSuggestions[pos]
+        selectedSuggestionLiveData.value = suggestion.city
+        selectedCity = PriorityCity(
+            suggestion.kladrId,
+            suggestion.city
+        )
         showConfirmDialog.value = Event(
-            uiSuggestions[pos].fullCity
+            suggestion.fullCity
         )
         uiSuggestions.clear()
         suggestionsLiveData.value = emptyList()
