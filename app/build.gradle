@@ -76,6 +76,7 @@ dependencies {
     def koin_version = "3.4.3"
     implementation "io.insert-koin:koin-core:$koin_version"
     implementation "io.insert-koin:koin-android:$koin_version"
+    implementation "io.insert-koin:koin-androidx-workmanager:$koin_version"
 
     implementation "com.squareup.okhttp3:okhttp:4.9.3"
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
