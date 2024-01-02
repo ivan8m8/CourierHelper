@@ -75,9 +75,19 @@ class PriorityCityViewModel(
     }
 
     fun confirmPriorityCity() {
-        val id = selectedCityKladrId
-        setPriorityCityUseCase(id)
-        eventBus.priorityCityChosen(id)
+        val city = selectedCity
+        isProgressLiveData.value = true
+        setPriorityCityUseCase(city)
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnEvent {
+                isProgressLiveData.value = false
+            }
+            .subscribeBy(
+                onComplete = {
+                    eventBus.priorityCityChosen(city)
+                }
+            )
+            .addTo(disposables)
     }
 
     fun cancelPriorityCity() {
@@ -106,8 +116,17 @@ class PriorityCityViewModel(
     }
 
     private fun retrieveCurrentPriorityCity() {
-        getPriorityCityUseCase()?.let { current ->
-            selectedSuggestionLiveData.value = current
-        }
+        isProgressLiveData.value = true
+        getPriorityCityUseCase()
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnEvent { _, _ ->
+                isProgressLiveData.value = false
+            }
+            .subscribeBy(
+                onSuccess = { city ->
+                    selectedSuggestionLiveData.value = city.name
+                }
+            )
+            .addTo(disposables)
     }
 }
