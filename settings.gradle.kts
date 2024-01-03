@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "CourierHelper"
-include ':app'
+include(":app")
