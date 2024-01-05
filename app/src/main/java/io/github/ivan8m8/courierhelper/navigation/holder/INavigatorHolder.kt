@@ -15,9 +15,29 @@ interface INavigatorHolder {
     fun removeNavigator()
 
     // Activity's lifecycle
+    /**
+     * @param initScreen is normally a lambda that sets the root screen.
+     * Usually it's something like this:
+     *
+     * ```
+     * if (savedInstanceState == null) {
+     *     supportFragmentManager
+     *         .beginTransaction()
+     *         .replace(R.id.mainContainer, MainFragment.newInstance())
+     *         .commit()
+     * }
+     * ```
+     *
+     * The main intention behind this is to couple root screen setting
+     * to `NavigatorHolder`.
+     */
     @CallSuper
-    fun onCreate(navigator: Navigator) {
+    fun onCreate(
+        navigator: Navigator,
+        initScreen: () -> Unit = {}
+    ) {
         setNavigator(navigator)
+        initScreen()
     }
     fun onResume()
     fun onPause()

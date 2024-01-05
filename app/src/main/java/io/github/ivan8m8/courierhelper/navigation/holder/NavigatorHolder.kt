@@ -14,8 +14,8 @@ class NavigatorHolder : INavigatorHolder {
         navigator = null
     }
 
-    override fun onCreate(navigator: Navigator) {
-        super.onCreate(navigator)
+    override fun onCreate(navigator: Navigator, initScreen: () -> Unit) {
+        super.onCreate(navigator, initScreen)
         this.navigator?.create()
     }
 
