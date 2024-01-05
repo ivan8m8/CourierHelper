@@ -70,8 +70,6 @@ dependencies {
     implementation("com.hannesdorfmann:adapterdelegates4-kotlin-dsl:4.3.2")
     implementation("com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:4.3.2")
 
-    implementation("com.github.terrakok:cicerone:7.1")
-
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.11")
 
     val koinVersion = "3.4.3"

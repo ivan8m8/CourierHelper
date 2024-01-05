@@ -14,6 +14,11 @@ class NavigatorHolder : INavigatorHolder {
         navigator = null
     }
 
+    override fun onCreate(navigator: Navigator) {
+        super.onCreate(navigator)
+        this.navigator?.create()
+    }
+
     override fun onResume() {
         navigator?.resume()
     }
@@ -23,7 +28,7 @@ class NavigatorHolder : INavigatorHolder {
     }
 
     override fun onDestroy() {
-        navigator?.destruct()
+        navigator?.destroy()
         super.onDestroy()
     }
 }

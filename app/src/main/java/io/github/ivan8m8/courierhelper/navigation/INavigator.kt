@@ -8,9 +8,10 @@ interface INavigator {
     val buffer: ArrayList<*>
 
     // Lifecycle
+    fun create()
     fun resume()
     fun pause()
-    fun destruct()
+    fun destroy()
 
     fun observe()
 }
