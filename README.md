@@ -8,8 +8,8 @@ An android app that makes it easy for couriers to do their job.
 - Room
 - Retrofit, OkHttp
 - Koin
-- Cicerone
 - Adapter Delegates
+- Custom Navigation
 
 ## Download
 - [ ] Google Play
