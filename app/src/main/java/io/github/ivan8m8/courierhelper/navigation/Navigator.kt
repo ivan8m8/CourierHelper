@@ -9,6 +9,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import java.util.concurrent.TimeUnit
+import kotlin.reflect.KClass
 
 abstract class Navigator(
     protected val eventBus: EventBus,
@@ -57,7 +58,7 @@ abstract class Navigator(
         transaction.commit()
     }
 
-    protected fun goBack() {
+    protected fun goBack(noFurther: KClass<Fragment>? = null) {
         fm.popBackStackImmediate()
     }
 
