@@ -16,6 +16,7 @@ import io.github.ivan8m8.courierhelper.data.utils.clearAndAddAll
 import io.github.ivan8m8.courierhelper.data.utils.getDrawable
 import io.github.ivan8m8.courierhelper.data.utils.getString
 import io.github.ivan8m8.courierhelper.data.utils.getStringArray
+import io.github.ivan8m8.courierhelper.navigation.EventBus
 import io.github.ivan8m8.courierhelper.ui.models.UiPaymentMethod
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
@@ -29,6 +30,7 @@ class AddDeliveryViewModel(
     private val autocompleteRepository: AutocompleteRepository,
     private val metroRepository: MetroRepository,
     private val paymentMethodsMapper: PaymentMethodsMapper,
+    private val eventBus: EventBus,
     application: Application
 ) : AndroidViewModel(application) {
 
@@ -158,11 +160,14 @@ class AddDeliveryViewModel(
                     latLng = latLng
                 )
             }
-            .flatMap { delivery -> deliveriesRepository.save(delivery) }
+            .flatMap { delivery ->
+                deliveriesRepository.save(delivery)
+                    .map { delivery }
+            }
             .subscribeOn(Schedulers.io())
             .subscribeBy(
-                onSuccess = {
-                    // router to main screen
+                onSuccess = { delivery ->
+                    eventBus.deliveryAdded(delivery)
                 }
             )
             .addTo(compositeDisposable)
