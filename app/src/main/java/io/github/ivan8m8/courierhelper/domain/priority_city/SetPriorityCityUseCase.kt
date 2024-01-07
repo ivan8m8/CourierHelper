@@ -10,7 +10,7 @@ class SetPriorityCityUseCase(
 ) {
 
     operator fun invoke(city: PriorityCity): Completable {
-        return dao.insert(city)
+        return Completable.fromCallable { dao.clearAndInsert(city) }
             .subscribeOn(Schedulers.io())
     }
 }
