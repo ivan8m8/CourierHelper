@@ -70,7 +70,7 @@ abstract class Navigator(
         doOnEvent: () -> Unit
     ) {
         this
-            .debounce(250, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
+            .debounce(150, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
             .subscribeBy(
                 onNext = {
                     if (isResumed) {
