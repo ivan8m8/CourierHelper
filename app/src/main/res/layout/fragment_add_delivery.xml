@@ -240,6 +240,9 @@
         android:layout_gravity="bottom|center_horizontal"
         android:layout_marginBottom="16dp"
         android:text="@string/add"
-        android:visibility="visible"
         app:icon="@drawable/round_add_24" />
+
+    <include
+        android:id="@+id/progressLayout"
+        layout="@layout/progress" />
 </FrameLayout>
