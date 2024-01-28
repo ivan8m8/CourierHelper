@@ -9,13 +9,17 @@ import io.github.ivan8m8.courierhelper.data.models.PriorityCity
  */
 class EventBus {
 
-    val addDeliveryClicked = PublishRelay.create<Unit>()
-    val deliveryAdded = PublishRelay.create<Delivery>()
-    val priorityCityClicked = PublishRelay.create<Unit>()
-    val priorityCityChosen = PublishRelay.create<PriorityCity>()
+    private val _addDeliveryClicked = PublishRelay.create<Unit>()
+    val addDeliveryClicked get() = _addDeliveryClicked.hide()
+    private val _deliveryAdded = PublishRelay.create<Delivery>()
+    val deliveryAdded get() = _deliveryAdded.hide()
+    private val _priorityCityClicked = PublishRelay.create<Unit>()
+    val priorityCityClicked get() = _priorityCityClicked.hide()
+    private val _priorityCityChosen = PublishRelay.create<PriorityCity>()
+    val priorityCityChosen = _priorityCityChosen.hide()
 
-    fun addDeliveryClicked() = addDeliveryClicked.accept(Unit)
-    fun deliveryAdded(delivery: Delivery) = deliveryAdded.accept(delivery)
-    fun priorityCityClicked() = priorityCityClicked.accept(Unit)
-    fun priorityCityChosen(city: PriorityCity) = priorityCityChosen.accept(city)
+    fun addDeliveryClicked() = _addDeliveryClicked.accept(Unit)
+    fun deliveryAdded(delivery: Delivery) = _deliveryAdded.accept(delivery)
+    fun priorityCityClicked() = _priorityCityClicked.accept(Unit)
+    fun priorityCityChosen(city: PriorityCity) = _priorityCityChosen.accept(city)
 }
