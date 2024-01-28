@@ -11,9 +11,11 @@ class EventBus {
 
     val addDeliveryClicked = PublishRelay.create<Unit>()
     val deliveryAdded = PublishRelay.create<Delivery>()
+    val priorityCityClicked = PublishRelay.create<Unit>()
     val priorityCityChosen = PublishRelay.create<PriorityCity>()
 
     fun addDeliveryClicked() = addDeliveryClicked.accept(Unit)
     fun deliveryAdded(delivery: Delivery) = deliveryAdded.accept(delivery)
+    fun priorityCityClicked() = priorityCityClicked.accept(Unit)
     fun priorityCityChosen(city: PriorityCity) = priorityCityChosen.accept(city)
 }

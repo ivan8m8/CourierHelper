@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.telephony.PhoneNumberFormattingTextWatcher
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import io.github.ivan8m8.courierhelper.R
 import io.github.ivan8m8.courierhelper.databinding.FragmentAddDeliveryBinding
@@ -38,6 +39,7 @@ class AddDeliveryFragment: BaseColoredToolbarFragment(R.layout.fragment_add_deli
             addButton.addSystemBottomMargin()
             scrollableContentLinearLayout.addSystemBottomPadding()
             toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
+            priorityButton.setOnClickListener { viewModel.priorityCityClicked() }
             addressEditText.doOnRealUserInput { text -> viewModel.onAddressInput(text) }
             addressEditText.doAfterTextChanged { text -> viewModel.addressChanged(text?.toString()) }
             addressEditText.onSuggestionItemClick { pos -> viewModel.onAddressSuggestionClicked(pos) }
@@ -55,6 +57,9 @@ class AddDeliveryFragment: BaseColoredToolbarFragment(R.layout.fragment_add_deli
             addButton.setOnClickListener { viewModel.addDeliveryClicked() }
         }
         with(viewModel) {
+            progressLiveData.observe(viewLifecycleOwner) { isProgress ->
+                binding.progressLayout.root.isVisible = isProgress
+            }
             addressSuggestionsLiveData.observe(viewLifecycleOwner) { items ->
                 binding.addressEditText.items = items
             }

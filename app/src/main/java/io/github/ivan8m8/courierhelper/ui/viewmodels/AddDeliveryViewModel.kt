@@ -8,6 +8,7 @@ import io.github.ivan8m8.courierhelper.ui.mappers.PaymentMethodsMapper
 import io.github.ivan8m8.courierhelper.data.models.Suggestion
 import io.github.ivan8m8.courierhelper.data.models.Delivery
 import io.github.ivan8m8.courierhelper.data.models.LatitudeLongitude
+import io.github.ivan8m8.courierhelper.data.models.PriorityCity
 import io.github.ivan8m8.courierhelper.data.repository.AutocompleteRepository
 import io.github.ivan8m8.courierhelper.data.repository.DeliveriesRepository
 import io.github.ivan8m8.courierhelper.data.repository.MetroRepository
@@ -16,6 +17,7 @@ import io.github.ivan8m8.courierhelper.data.utils.clearAndAddAll
 import io.github.ivan8m8.courierhelper.data.utils.getDrawable
 import io.github.ivan8m8.courierhelper.data.utils.getString
 import io.github.ivan8m8.courierhelper.data.utils.getStringArray
+import io.github.ivan8m8.courierhelper.domain.priority_city.GetPriorityCityUseCase
 import io.github.ivan8m8.courierhelper.navigation.EventBus
 import io.github.ivan8m8.courierhelper.ui.models.UiPaymentMethod
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -26,6 +28,7 @@ import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class AddDeliveryViewModel(
+    private val getPriorityCityUseCase: GetPriorityCityUseCase,
     private val deliveriesRepository: DeliveriesRepository,
     private val autocompleteRepository: AutocompleteRepository,
     private val metroRepository: MetroRepository,
@@ -45,13 +48,16 @@ class AddDeliveryViewModel(
     private var itemName: String? = null
     private var clientName: String? = null
     private var comment: String? = null
+    private var priorityCity: PriorityCity? = null
 
+    val progressLiveData = MutableLiveData(false)
     val addressSuggestionsLiveData = MutableLiveData<List<String>>()
     val addressErrorTextLiveData = MutableLiveData<String?>()
     val paymentMethodsLiveData = MutableLiveData<List<UiPaymentMethod>>()
     val errorsLiveData = MutableLiveData<Event<String>>()
 
     init {
+        observePriorityCity()
         retrievePaymentMethods()
     }
 
@@ -63,8 +69,13 @@ class AddDeliveryViewModel(
     fun onAddressInput(text: String?) {
         if (text.isNullOrBlank())
             return
-        autocompleteRepository.autocompleteAddress(text)
-            .subscribeOn(Schedulers.io())
+
+        val priorityCity = priorityCity
+        val priorities = priorityCity?.let { city ->
+            listOf(city.kladrId)
+        } ?: emptyList()
+
+        autocompleteRepository.autocompleteAddress(text, priorities)
             .map { response -> response.suggestions }
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSuccess { suggestions -> addressSuggestions.clearAndAddAll(suggestions) }
@@ -116,6 +127,10 @@ class AddDeliveryViewModel(
         comment = text
     }
 
+    fun priorityCityClicked() {
+        eventBus.priorityCityClicked()
+    }
+
     fun addDeliveryClicked() {
 
         val address = address
@@ -128,6 +143,8 @@ class AddDeliveryViewModel(
 
         if (address == null || latLng == null)
             return
+
+        progressLiveData.value = true
 
         metroRepository.getClosestStations(latLng, 2)
             .map { stations ->
@@ -165,9 +182,23 @@ class AddDeliveryViewModel(
                     .map { delivery }
             }
             .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnEvent { _, _ -> progressLiveData.value = false }
             .subscribeBy(
                 onSuccess = { delivery ->
                     eventBus.deliveryAdded(delivery)
+                }
+            )
+            .addTo(compositeDisposable)
+    }
+
+    private fun observePriorityCity() {
+        eventBus.priorityCityChosen
+            .startWith(getPriorityCityUseCase())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(
+                onNext = { city ->
+                    priorityCity = city
                 }
             )
             .addTo(compositeDisposable)
