@@ -55,6 +55,7 @@ class AddDeliveryViewModel(
     val addressErrorTextLiveData = MutableLiveData<String?>()
     val paymentMethodsLiveData = MutableLiveData<List<UiPaymentMethod>>()
     val errorsLiveData = MutableLiveData<Event<String>>()
+    val hideKeyboardLiveData = MutableLiveData<Event<Unit>>()
 
     init {
         observePriorityCity()
@@ -145,6 +146,8 @@ class AddDeliveryViewModel(
             return
 
         progressLiveData.value = true
+        // to prevent switching to another EditText
+        hideKeyboardLiveData.value = Event(Unit)
 
         metroRepository.getClosestStations(latLng, 2)
             .map { stations ->

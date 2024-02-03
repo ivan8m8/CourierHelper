@@ -15,6 +15,7 @@ import io.github.ivan8m8.courierhelper.ui.fragments.base.BaseColoredToolbarFragm
 import io.github.ivan8m8.courierhelper.ui.utils.addSystemBottomMargin
 import io.github.ivan8m8.courierhelper.ui.utils.addSystemBottomPadding
 import io.github.ivan8m8.courierhelper.ui.utils.addSystemTopMargin
+import io.github.ivan8m8.courierhelper.ui.utils.hideKeyboard
 import io.github.ivan8m8.courierhelper.ui.utils.viewBinding
 import io.github.ivan8m8.courierhelper.ui.viewmodels.AddDeliveryViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -76,6 +77,9 @@ class AddDeliveryFragment: BaseColoredToolbarFragment(R.layout.fragment_add_deli
                         .makeText(requireContext(), message, Toast.LENGTH_SHORT)
                         .show()
                 }
+            }
+            hideKeyboardLiveData.observe(viewLifecycleOwner) {
+                hideKeyboard()
             }
         }
     }
