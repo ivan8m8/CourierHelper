@@ -18,12 +18,14 @@
         <item>Cash</item>
         <item>Transfer</item>
     </string-array>
-    <string name="priority">Priority</string>
+    <string name="priority">Priority city</string>
     <string name="close">Close</string>
     <string name="choose_priority_city_desc">
         When you fill out the address line, the streets of the city
         you choose here are shown first.
     </string>
-    <string name="info">Info</string>
     <string name="type_city_hint">City</string>
+    <string name="you_chose">You chose</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
 </resources>
