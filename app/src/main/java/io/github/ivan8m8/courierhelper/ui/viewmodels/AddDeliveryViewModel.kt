@@ -54,7 +54,7 @@ class AddDeliveryViewModel(
     val addressSuggestionsLiveData = MutableLiveData<List<String>>()
     val addressErrorTextLiveData = MutableLiveData<String?>()
     val paymentMethodsLiveData = MutableLiveData<List<UiPaymentMethod>>()
-    val errorsLiveData = MutableLiveData<Event<String>>()
+    val errorsLiveData by lazy { MutableLiveData<Event<String>>() }
     val hideKeyboardLiveData = MutableLiveData<Event<Unit>>()
 
     init {
