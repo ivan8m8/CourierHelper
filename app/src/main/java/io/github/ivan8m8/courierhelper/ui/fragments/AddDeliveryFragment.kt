@@ -79,6 +79,13 @@ class AddDeliveryFragment: BaseColoredToolbarFragment(R.layout.fragment_add_deli
                         .show()
                 }
             }
+            showLatLngNotDeterminedDialog.observe(viewLifecycleOwner) { event ->
+                event.getContentIfNotHandled()?.let {
+                    LatLngNotDeterminedDialog.newInstance()
+                        .show(childFragmentManager, LatLngNotDeterminedDialog.TAG)
+                }
+            }
+
             hideKeyboardLiveData.observe(viewLifecycleOwner) {
                 hideKeyboard()
             }
