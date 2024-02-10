@@ -25,7 +25,7 @@ class PaymentMethodAdapter(
                 .inflate(R.layout.item_autocomplete_payment_method, parent, false)
                 .let { it as TextView }
                 .apply {
-                    text = item?.text ?: ""
+                    text = item?.text
                     setCompoundDrawablesRelativeWithIntrinsicBounds(item?.icon, null, null, null)
                     setOnClickListener {
                         onItemClick(item)
