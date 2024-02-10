@@ -12,6 +12,7 @@ import io.github.ivan8m8.courierhelper.R
 import io.github.ivan8m8.courierhelper.databinding.FragmentAddDeliveryBinding
 import io.github.ivan8m8.courierhelper.ui.adapters.PaymentMethodAdapter
 import io.github.ivan8m8.courierhelper.ui.fragments.base.BaseColoredToolbarFragment
+import io.github.ivan8m8.courierhelper.ui.fragments.dialogs.LatLngNotDeterminedDialog
 import io.github.ivan8m8.courierhelper.ui.utils.addSystemBottomMargin
 import io.github.ivan8m8.courierhelper.ui.utils.addSystemBottomPadding
 import io.github.ivan8m8.courierhelper.ui.utils.addSystemTopMargin

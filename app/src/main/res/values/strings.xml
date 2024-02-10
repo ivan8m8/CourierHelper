@@ -28,4 +28,6 @@
     <string name="you_chose">You chose</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
+    <string name="no_lat_lng_title">The coordinates has not been determined</string>
+    <string name="no_lat_lng_msg">Make sure you choose address from the expanded suggestion list</string>
 </resources>

@@ -55,6 +55,7 @@ class AddDeliveryViewModel(
     val addressErrorTextLiveData = MutableLiveData<String?>()
     val paymentMethodsLiveData = MutableLiveData<List<UiPaymentMethod>>()
     val errorsLiveData by lazy { MutableLiveData<Event<String>>() }
+    val showLatLngNotDeterminedDialog by lazy { MutableLiveData<Event<Unit>>() }
     val hideKeyboardLiveData = MutableLiveData<Event<Unit>>()
 
     init {
@@ -141,6 +142,10 @@ class AddDeliveryViewModel(
             getString(R.string.incorrect_value)
         else
             null
+
+        if (latLng == null) {
+            showLatLngNotDeterminedDialog.value = Event(Unit)
+        }
 
         if (address == null || latLng == null)
             return

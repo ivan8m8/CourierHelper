@@ -28,4 +28,6 @@
     <string name="you_chose">Вы выбрали</string>
     <string name="confirm">Подтвердить</string>
     <string name="cancel">Отменить</string>
+    <string name="no_lat_lng_title">Координаты не определены</string>
+    <string name="no_lat_lng_msg">Убедитесь, что вы выбираете адрес из выпадающего списка с подсказками</string>
 </resources>
