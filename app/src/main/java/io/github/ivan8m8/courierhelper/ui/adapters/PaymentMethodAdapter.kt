@@ -26,7 +26,9 @@ class PaymentMethodAdapter(
                 .let { it as TextView }
                 .apply {
                     text = item?.text
-                    setCompoundDrawablesRelativeWithIntrinsicBounds(item?.icon, null, null, null)
+                    // Calling `setCompoundDrawablesRelativeWithIntrinsicBounds` instead
+                    // causes decreasing the drop-down menu height, so a scrollbar appears.
+                    setCompoundDrawablesWithIntrinsicBounds(item?.icon, null, null, null)
                     setOnClickListener {
                         onItemClick(item)
                     }
