@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.jakewharton.rxrelay3.PublishRelay
-import io.github.ivan8m8.courierhelper.data.EventBus
+import io.github.ivan8m8.courierhelper.navigation.EventBus
 import io.github.ivan8m8.courierhelper.data.models.PriorityCity
 import io.github.ivan8m8.courierhelper.ui.mappers.CitySuggestionsMapper
 import io.github.ivan8m8.courierhelper.data.repository.AutocompleteRepository
