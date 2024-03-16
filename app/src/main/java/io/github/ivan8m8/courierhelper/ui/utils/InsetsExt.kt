@@ -99,7 +99,7 @@ fun View.doOnApplyWindowInsetsWithMargins(
 }
 
 /**
- * We should not hope that Android will send us latest insets.
+ * We should not hope that Android will send us the latest insets.
  * For example, if we create a `View` programmatically, or if we
  * do not set an insets listener right away, we have to ask Android
  * for insets on our own.
