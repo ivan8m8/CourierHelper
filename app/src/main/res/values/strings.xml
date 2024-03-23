@@ -2,7 +2,7 @@
     <string name="app_name" translatable="false">CourierHelper</string>
     <string name="address">Address</string>
     <string name="phone">Phone</string>
-    <string name="item_price">Item price</string>
+    <string name="order_price">Order price</string>
     <string name="item_name">Item name</string>
     <string name="order_number">Order number</string>
     <string name="client_name">Client name</string>
@@ -11,6 +11,7 @@
     <string name="back">Back</string>
     <string name="add">Add</string>
     <string name="incorrect_value">Incorrect value</string>
+    <string name="field_cannot_be_empty">This field cannot be empty</string>
     <string name="side_menu">Side menu</string>
     <string name="payment_method">Payment method</string>
     <string-array name="payment_methods">
@@ -30,4 +31,7 @@
     <string name="cancel">Cancel</string>
     <string name="no_lat_lng_title">The coordinates has not been determined</string>
     <string name="no_lat_lng_msg">Make sure you choose address from the expanded suggestion list</string>
+    <string name="sms" translatable="false">sms</string>
+    <string name="call">Call</string>
+    <string name="metro">Metro</string>
 </resources>

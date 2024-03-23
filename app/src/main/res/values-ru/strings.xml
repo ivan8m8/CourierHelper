@@ -2,7 +2,7 @@
 <resources>
     <string name="address">Адрес</string>
     <string name="phone">Телефон</string>
-    <string name="item_price">Цена товара</string>
+    <string name="order_price">Стоимость заказа</string>
     <string name="item_name">Название товара</string>
     <string name="order_number">Номер заказа</string>
     <string name="client_name">Имя клиента</string>
@@ -11,6 +11,7 @@
     <string name="back">Назад</string>
     <string name="add">Добавить</string>
     <string name="incorrect_value">Некорректное значение</string>
+    <string name="field_cannot_be_empty">Это поле не может быть пустым</string>
     <string name="side_menu">Боковое меню</string>
     <string name="payment_method">Способ оплаты</string>
     <string name="priority">Приоритетный город</string>
@@ -30,4 +31,6 @@
     <string name="cancel">Отменить</string>
     <string name="no_lat_lng_title">Координаты не определены</string>
     <string name="no_lat_lng_msg">Убедитесь, что вы выбираете адрес из выпадающего списка с подсказками</string>
+    <string name="call">Позвонить</string>
+    <string name="metro">Метро</string>
 </resources>
