@@ -66,7 +66,7 @@ class AddDeliveryFragment: BaseColoredToolbarFragment(R.layout.fragment_add_deli
                 binding.addressEditText.items = items
             }
             addressErrorTextLiveData.observe(viewLifecycleOwner) { error ->
-                binding.addressEditText.error = error
+                binding.addressInputLayout.error = error
             }
             paymentMethodsLiveData.observe(viewLifecycleOwner) { paymentMethods ->
                 paymentMethodArrayAdapter.clear()

@@ -118,6 +118,7 @@ class AddDeliveryViewModel(
     fun addressChanged(text: String?) {
         addressInputString = text
         deliveryAddress = null
+        addressErrorTextLiveData.value = null
     }
 
     fun phoneNumberChanged(text: String?) {
