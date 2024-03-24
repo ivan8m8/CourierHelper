@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 6,
-    "identityHash": "6807fd9cf06b8fea11870aedffa4ec6d",
+    "identityHash": "b5da55eefebb16486f0c3a04c09c4ef7",
     "entities": [
       {
         "tableName": "PriorityCity",
@@ -88,14 +88,8 @@
       },
       {
         "tableName": "Delivery",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`address` TEXT NOT NULL, `metro` TEXT, `metroColor` TEXT, `metroDistance` REAL, `metro2` TEXT, `metro2Color` TEXT, `metro2Distance` REAL, `phoneNumber` TEXT, `orderNumber` TEXT, `itemPrice` REAL, `itemName` TEXT, `paymentMethod` TEXT, `clientName` TEXT, `comment` TEXT, `status` TEXT NOT NULL, `added` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `lat` REAL, `lng` REAL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`metro` TEXT, `metroColor` TEXT, `metroDistance` REAL, `metro2` TEXT, `metro2Color` TEXT, `metro2Distance` REAL, `phoneNumber` TEXT, `orderNumber` TEXT, `itemPrice` REAL, `itemName` TEXT, `paymentMethod` TEXT, `clientName` TEXT, `comment` TEXT, `status` TEXT NOT NULL, `added` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `full` TEXT NOT NULL, `city` TEXT NOT NULL, `street` TEXT, `house` TEXT, `flat` TEXT, `lat` REAL NOT NULL, `lng` REAL NOT NULL)",
         "fields": [
-          {
-            "fieldPath": "address",
-            "columnName": "address",
-            "affinity": "TEXT",
-            "notNull": true
-          },
           {
             "fieldPath": "metro",
             "columnName": "metro",
@@ -193,16 +187,46 @@
             "notNull": true
           },
           {
-            "fieldPath": "latLng.lat",
-            "columnName": "lat",
-            "affinity": "REAL",
+            "fieldPath": "address.full",
+            "columnName": "full",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "address.city",
+            "columnName": "city",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "address.street",
+            "columnName": "street",
+            "affinity": "TEXT",
             "notNull": false
           },
           {
-            "fieldPath": "latLng.lng",
+            "fieldPath": "address.house",
+            "columnName": "house",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address.flat",
+            "columnName": "flat",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address.latLng.lat",
+            "columnName": "lat",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "address.latLng.lng",
             "columnName": "lng",
             "affinity": "REAL",
-            "notNull": false
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -218,7 +242,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6807fd9cf06b8fea11870aedffa4ec6d')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b5da55eefebb16486f0c3a04c09c4ef7')"
     ]
   }
 }

@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Delivery(
-    val address: String,
+    @Embedded val address: DeliveryAddress,
     val metro: String? = null,
     /**
      * RRGGBB
@@ -27,15 +27,23 @@ data class Delivery(
     val metro2Distance: Double? = null,
     val phoneNumber: String? = null,
     val orderNumber: String? = null,
-    val itemPrice: Double? = null,
+    val orderPrice: Double? = null,
     val itemName: String? = null,
     val paymentMethod: PaymentMethod? = null,
     val clientName: String? = null,
     val comment: String? = null,
-    @Embedded val latLng: LatitudeLongitude? = null,
     val status: DeliveryStatus = DeliveryStatus.IN_PROGRESS,
     val added: Long = System.currentTimeMillis(),
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
+)
+
+data class DeliveryAddress(
+    val full: String,
+    val city: String,
+    val street: String?,
+    val house: String?,
+    val flat: String?,
+    @Embedded val latLng: LatitudeLongitude,
 )
 
 enum class PaymentMethod {
