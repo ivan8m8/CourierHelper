@@ -1,4 +1,4 @@
-package io.github.ivan8m8.courierhelper.ui.viewmodels
+package io.github.ivan8m8.courierhelper.ui.view_models
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -7,6 +7,7 @@ import io.github.ivan8m8.courierhelper.R
 import io.github.ivan8m8.courierhelper.ui.mappers.PaymentMethodsMapper
 import io.github.ivan8m8.courierhelper.data.models.Suggestion
 import io.github.ivan8m8.courierhelper.data.models.Delivery
+import io.github.ivan8m8.courierhelper.data.models.DeliveryAddress
 import io.github.ivan8m8.courierhelper.data.models.LatitudeLongitude
 import io.github.ivan8m8.courierhelper.data.models.PriorityCity
 import io.github.ivan8m8.courierhelper.data.repository.AutocompleteRepository
@@ -40,11 +41,11 @@ class AddDeliveryViewModel(
     private val compositeDisposable = CompositeDisposable()
     private val addressSuggestions = ArrayList<Suggestion>()
 
-    private var address: String? = null
-    private var latLng: LatitudeLongitude? = null
+    private var deliveryAddress: DeliveryAddress? = null
+    private var addressInputString: String? = null
     private var phoneNumber: String? = null
     private var orderNumber: String? = null
-    private var itemPrice: Double? = null
+    private var orderPrice: Double? = null
     private var itemName: String? = null
     private var clientName: String? = null
     private var comment: String? = null
@@ -96,13 +97,27 @@ class AddDeliveryViewModel(
     }
 
     fun onAddressSuggestionClicked(pos: Int) {
-        latLng = with(addressSuggestions[pos].data) {
-            LatitudeLongitude(lat, lng)
+        deliveryAddress = with(addressSuggestions[pos]) {
+            DeliveryAddress(
+                value,
+                data.city,
+                data.cityType,
+                data.street,
+                data.streetType,
+                data.house,
+                data.houseType,
+                data.block,
+                data.blockType,
+                data.flat,
+                data.flatType,
+                LatitudeLongitude(data.lat, data.lng)
+            )
         }
     }
 
     fun addressChanged(text: String?) {
-        address = text
+        addressInputString = text
+        deliveryAddress = null
     }
 
     fun phoneNumberChanged(text: String?) {
@@ -114,7 +129,7 @@ class AddDeliveryViewModel(
     }
 
     fun itemPriceChanged(text: String?) {
-        itemPrice = text?.toDoubleOrNull()
+        orderPrice = text?.toDoubleOrNull()
     }
 
     fun itemNameChanged(text: String?) {
@@ -135,26 +150,24 @@ class AddDeliveryViewModel(
 
     fun addDeliveryClicked() {
 
-        val address = address
-        val latLng = latLng
-
-        addressErrorTextLiveData.value = if (address.isNullOrBlank())
-            getString(R.string.incorrect_value)
-        else
-            null
-
-        if (latLng == null) {
-            showLatLngNotDeterminedDialog.value = Event(Unit)
+        if (addressInputString.isNullOrBlank()) {
+            addressErrorTextLiveData.value = getString(R.string.field_cannot_be_empty)
+            return
         }
 
-        if (address == null || latLng == null)
+        val deliveryAddress = deliveryAddress
+
+        if (deliveryAddress == null) {
+            addressErrorTextLiveData.value = getString(R.string.incorrect_value)
+            showLatLngNotDeterminedDialog.value = Event(Unit)
             return
+        }
 
         progressLiveData.value = true
         // to prevent switching to another EditText
         hideKeyboardLiveData.value = Event(Unit)
 
-        metroRepository.getClosestStations(latLng, 2)
+        metroRepository.getClosestStations(deliveryAddress.latLng, 2)
             .map { stations ->
 
                 val firstStation = stations.firstOrNull()
@@ -169,7 +182,7 @@ class AddDeliveryViewModel(
                 val metro2Distance = secondStation?.first
 
                 Delivery(
-                    address = address,
+                    address = deliveryAddress,
                     metro = metro,
                     metroColor = metroColor,
                     metroDistance = metroDistance,
@@ -178,11 +191,10 @@ class AddDeliveryViewModel(
                     metro2Distance = metro2Distance,
                     phoneNumber = phoneNumber,
                     orderNumber = orderNumber,
-                    itemPrice = itemPrice,
+                    orderPrice = orderPrice,
                     itemName = itemName,
                     clientName = clientName,
                     comment = comment,
-                    latLng = latLng
                 )
             }
             .flatMap { delivery ->
