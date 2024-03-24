@@ -116,6 +116,7 @@
                             app:startIconDrawable="@drawable/round_person_24">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:inputType="textCapWords"
                                 android:id="@+id/clientNameEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content" />
@@ -166,16 +167,16 @@
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/itemPriceInputLayout"
+                            android:id="@+id/orderPriceInputLayout"
                             style="@style/DeliveryTextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:hint="@string/item_price"
+                            android:hint="@string/order_price"
                             app:startIconDrawable="@drawable/round_attach_money_24">
 
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/itemPriceEditText"
+                                android:id="@+id/orderPriceEditText"
                                 android:inputType="numberDecimal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content" />
