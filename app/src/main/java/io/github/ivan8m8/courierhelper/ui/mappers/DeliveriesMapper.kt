@@ -102,6 +102,109 @@ class DeliveriesMapper(
         }
     }
 
+    fun toDeliveryCards(deliveries: List<Delivery>): List<DeliveryCard> {
+        return deliveries
+            .map { delivery ->
+                with(delivery) {
+                    val metroName = metro
+                    val metroColor = metroColor?.let { metroColor ->
+                        ColorStateList.valueOf(
+                            Color.parseColor("#$metroColor")
+                        )
+                    }
+                    val metro2Name = metro2
+                    val metro2Color = metro2Color?.let { metro2Color ->
+                        ColorStateList.valueOf(
+                            Color.parseColor("#$metro2Color")
+                        )
+                    }
+                    val address = formatAddress(address)
+                    val itemPrice = orderPrice?.let(::formatItemPrice)
+                    DeliveryCard(
+                        id,
+                        metroName,
+                        metroColor,
+                        metro2Name,
+                        metro2Color,
+                        address,
+                        itemName,
+                        itemPrice,
+                        comment,
+                    )
+                }
+            }
+    }
+
+    private fun formatAddress(
+        deliveryAddress: DeliveryAddress,
+        keepCity: Boolean = true
+    ): String {
+        return with(deliveryAddress) {
+            buildString {
+                if (keepCity) {
+                    append(cityType)
+                    append(". ")
+                    append(city)
+                }
+                street?.let {
+                    if (isNotBlank()) {
+                        append(", ")
+                    }
+                    if (streetType != null) {
+                        when (streetType) {
+                            "ш" -> {
+                                append(street)
+                                append(" ")
+                                append("шоссе")
+                            }
+                            "проезд" -> {
+                                append(streetType)
+                                append(" ")
+                                append("проезд")
+                            }
+                            else -> {
+                                append(streetType)
+                                append(". ")
+                                append(street)
+                            }
+                        }
+                    } else {
+                        append(street)
+                    }
+                }
+                house?.let {
+                    if (isNotBlank()) {
+                        append(", ")
+                    }
+                    houseType?.let {
+                        append(houseType)
+                        append(". ")
+                    }
+                    append(house)
+                }
+                block?.let {
+                    if (blockType != null) {
+                        append(blockType)
+                    } else {
+                        // Just in case.
+                        append("с")
+                    }
+                    append(block)
+                }
+                flat?.let {
+                    if (isNotBlank()) {
+                        append(", ")
+                    }
+                    flatType?.let {
+                        append(flatType)
+                        append(". ")
+                    }
+                    append(flat)
+                }
+            }
+        }
+    }
+
     private fun formatDistance(distance: Double): String {
         return distanceDecimalFormat.format(distance)
     }
