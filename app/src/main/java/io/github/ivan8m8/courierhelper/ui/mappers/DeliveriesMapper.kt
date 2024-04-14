@@ -26,11 +26,11 @@ class DeliveriesMapper(
     private val priceDecimalFormat = DecimalFormat("#.##").apply {
         roundingMode = RoundingMode.HALF_UP
     }
+    private val distanceKm = getString(R.string.km)
 
     fun toDeliverySheetItems(delivery: Delivery): List<DeliverySheetItem> {
         with(delivery) {
             val metroItem = metro?.let { metro ->
-                val distanceKm = getString(R.string.km)
                 val title = getString(R.string.metro)
                 val value = buildString {
                     append(metro)
@@ -106,13 +106,27 @@ class DeliveriesMapper(
         return deliveries
             .map { delivery ->
                 with(delivery) {
-                    val metroName = metro
+                    val metroFullName = metro?.let { metro ->
+                        buildString {
+                            append(metro)
+                            metroDistance
+                                ?.let(::formatDistance)
+                                ?.let { distance -> append(" ($distance $distanceKm)") }
+                        }
+                    }
                     val metroColor = metroColor?.let { metroColor ->
                         ColorStateList.valueOf(
                             Color.parseColor("#$metroColor")
                         )
                     }
-                    val metro2Name = metro2
+                    val metro2FullName = metro2?.let { metro2 ->
+                        buildString {
+                            append(metro2)
+                            metro2Distance
+                                ?.let(::formatDistance)
+                                ?.let { distance2 -> append(" ($distance2 $distanceKm)") }
+                        }
+                    }
                     val metro2Color = metro2Color?.let { metro2Color ->
                         ColorStateList.valueOf(
                             Color.parseColor("#$metro2Color")
@@ -122,9 +136,9 @@ class DeliveriesMapper(
                     val itemPrice = orderPrice?.let(::formatItemPrice)
                     DeliveryCard(
                         id,
-                        metroName,
+                        metroFullName,
                         metroColor,
-                        metro2Name,
+                        metro2FullName,
                         metro2Color,
                         address,
                         itemName,
