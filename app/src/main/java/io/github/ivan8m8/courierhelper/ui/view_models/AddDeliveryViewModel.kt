@@ -129,7 +129,7 @@ class AddDeliveryViewModel(
         orderNumber = text
     }
 
-    fun itemPriceChanged(text: String?) {
+    fun orderPriceChanged(text: String?) {
         orderPrice = text?.toDoubleOrNull()
     }
 
