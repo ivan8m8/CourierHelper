@@ -16,11 +16,9 @@
     <string name="payment_method">Способ оплаты</string>
     <string name="priority">Приоритетный город</string>
     <string name="close">Закрыть</string>
-    <string-array name="payment_methods">
-        <item>Картой</item>
-        <item>Наличными</item>
-        <item>Переводом</item>
-    </string-array>
+    <string name="by_card">Картой</string>
+    <string name="by_cash">Наличными</string>
+    <string name="by_transfer">Переводом</string>
     <string name="choose_priority_city_desc">
         Когда вы будете заполнять строку с адресом, в первую очередь будут
         отображены улицы города, который вы выберете здесь

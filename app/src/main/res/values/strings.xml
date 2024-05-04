@@ -14,11 +14,9 @@
     <string name="field_cannot_be_empty">This field cannot be empty</string>
     <string name="side_menu">Side menu</string>
     <string name="payment_method">Payment method</string>
-    <string-array name="payment_methods">
-        <item>Card</item>
-        <item>Cash</item>
-        <item>Transfer</item>
-    </string-array>
+    <string name="by_card">Card</string>
+    <string name="by_cash">Cash</string>
+    <string name="by_transfer">Transfer</string>
     <string name="priority">Priority city</string>
     <string name="close">Close</string>
     <string name="choose_priority_city_desc">

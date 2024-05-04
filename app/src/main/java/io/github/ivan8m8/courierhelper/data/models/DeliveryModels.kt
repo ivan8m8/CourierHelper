@@ -1,8 +1,11 @@
 package io.github.ivan8m8.courierhelper.data.models
 
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import io.github.ivan8m8.courierhelper.R
 
 @Entity
 data class Delivery(
@@ -46,10 +49,13 @@ data class DeliveryAddress(
     @Embedded val latLng: LatitudeLongitude,
 )
 
-enum class PaymentMethod {
-    CARD,
-    CASH,
-    TRANSFER
+enum class PaymentMethod(
+    @StringRes val nameRes: Int,
+    @DrawableRes val iconRes: Int,
+) {
+    CARD(R.string.by_card, R.drawable.round_payment_24),
+    CASH(R.string.by_cash, R.drawable.round_payments_24),
+    TRANSFER(R.string.by_transfer, R.drawable.round_send_to_mobile_24),
 }
 
 enum class DeliveryStatus {
