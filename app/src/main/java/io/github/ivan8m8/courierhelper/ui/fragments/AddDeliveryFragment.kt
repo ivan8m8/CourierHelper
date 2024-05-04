@@ -18,7 +18,7 @@ import io.github.ivan8m8.courierhelper.ui.utils.addSystemBottomPadding
 import io.github.ivan8m8.courierhelper.ui.utils.addSystemTopMargin
 import io.github.ivan8m8.courierhelper.ui.utils.hideKeyboard
 import io.github.ivan8m8.courierhelper.ui.utils.viewBinding
-import io.github.ivan8m8.courierhelper.ui.viewmodels.AddDeliveryViewModel
+import io.github.ivan8m8.courierhelper.ui.view_models.AddDeliveryViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AddDeliveryFragment: BaseColoredToolbarFragment(R.layout.fragment_add_delivery) {
@@ -26,10 +26,11 @@ class AddDeliveryFragment: BaseColoredToolbarFragment(R.layout.fragment_add_deli
     private val binding by viewBinding(FragmentAddDeliveryBinding::bind)
     private val viewModel: AddDeliveryViewModel by viewModel()
     private val paymentMethodArrayAdapter by lazy {
-        PaymentMethodAdapter(requireContext()) { paymentMethod ->
+        PaymentMethodAdapter(requireContext()) { pos, paymentMethod ->
             binding.paymentMethodAutoComplete.dismissDropDown()
             binding.paymentMethodAutoComplete.setText(paymentMethod?.text, false)
             binding.paymentMethodInputLayout.startIconDrawable = paymentMethod?.icon
+            viewModel.paymentMethodSelected(pos)
         }
     }
 
@@ -68,7 +69,7 @@ class AddDeliveryFragment: BaseColoredToolbarFragment(R.layout.fragment_add_deli
             addressErrorTextLiveData.observe(viewLifecycleOwner) { error ->
                 binding.addressInputLayout.error = error
             }
-            paymentMethodsLiveData.observe(viewLifecycleOwner) { paymentMethods ->
+            uiPaymentMethodsLiveData.observe(viewLifecycleOwner) { paymentMethods ->
                 paymentMethodArrayAdapter.clear()
                 paymentMethodArrayAdapter.addAll(paymentMethods)
             }

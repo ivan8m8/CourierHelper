@@ -15,9 +15,7 @@ import io.github.ivan8m8.courierhelper.data.repository.DeliveriesRepository
 import io.github.ivan8m8.courierhelper.data.repository.MetroRepository
 import io.github.ivan8m8.courierhelper.data.utils.Event
 import io.github.ivan8m8.courierhelper.data.utils.clearAndAddAll
-import io.github.ivan8m8.courierhelper.data.utils.getDrawable
 import io.github.ivan8m8.courierhelper.data.utils.getString
-import io.github.ivan8m8.courierhelper.data.utils.getStringArray
 import io.github.ivan8m8.courierhelper.domain.priority_city.GetPriorityCityUseCase
 import io.github.ivan8m8.courierhelper.navigation.EventBus
 import io.github.ivan8m8.courierhelper.ui.models.UiPaymentMethod
@@ -46,6 +44,7 @@ class AddDeliveryViewModel(
     private var phoneNumber: String? = null
     private var orderNumber: String? = null
     private var orderPrice: Double? = null
+    private var selectedPaymentMethodPosition: Int? = null
     private var itemName: String? = null
     private var clientName: String? = null
     private var comment: String? = null
@@ -54,7 +53,7 @@ class AddDeliveryViewModel(
     val progressLiveData = MutableLiveData(false)
     val addressSuggestionsLiveData = MutableLiveData<List<String>>()
     val addressErrorTextLiveData = MutableLiveData<String?>()
-    val paymentMethodsLiveData = MutableLiveData<List<UiPaymentMethod>>()
+    val uiPaymentMethodsLiveData = MutableLiveData<List<UiPaymentMethod>>()
     val errorsLiveData by lazy { MutableLiveData<Event<String>>() }
     val showLatLngNotDeterminedDialog by lazy { MutableLiveData<Event<Unit>>() }
     val hideKeyboardLiveData = MutableLiveData<Event<Unit>>()
@@ -133,6 +132,10 @@ class AddDeliveryViewModel(
         orderPrice = text?.toDoubleOrNull()
     }
 
+    fun paymentMethodSelected(pos: Int) {
+        selectedPaymentMethodPosition = pos
+    }
+
     fun itemNameChanged(text: String?) {
         itemName = text
     }
@@ -182,6 +185,8 @@ class AddDeliveryViewModel(
                 val metro2Color = secondStation?.second?.line?.color
                 val metro2Distance = secondStation?.first
 
+                val paymentMethod = selectedPaymentMethodPosition?.let(paymentMethodsMapper::toPaymentMethod)
+
                 Delivery(
                     address = deliveryAddress,
                     metro = metro,
@@ -196,6 +201,7 @@ class AddDeliveryViewModel(
                     itemName = itemName,
                     clientName = clientName,
                     comment = comment,
+                    paymentMethod = paymentMethod
                 )
             }
             .flatMap { delivery ->
@@ -227,22 +233,16 @@ class AddDeliveryViewModel(
 
     private fun retrievePaymentMethods() {
         Single.fromCallable {
-            val names = getStringArray(R.array.payment_methods).toList()
-            val drawables = listOf(
-                getDrawable(R.drawable.round_payment_24),
-                getDrawable(R.drawable.round_payments_24),
-                getDrawable(R.drawable.round_send_to_mobile_24)
-            )
-            names to drawables
+            paymentMethodsMapper.paymentMethods
         }
             .subscribeOn(Schedulers.io())
-            .map { (names, drawables) ->
-                paymentMethodsMapper.toUiPaymentMethods(names, drawables)
+            .map { paymentMethods ->
+                paymentMethodsMapper.toUiPaymentMethods(paymentMethods)
             }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
-                onSuccess = { paymentMethods ->
-                    paymentMethodsLiveData.value = paymentMethods
+                onSuccess = { uiPaymentMethods ->
+                    uiPaymentMethodsLiveData.value = uiPaymentMethods
                 }
             )
             .addTo(compositeDisposable)

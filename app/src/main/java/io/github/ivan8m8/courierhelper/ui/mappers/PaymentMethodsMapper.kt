@@ -1,18 +1,24 @@
-package io.github.ivan8m8.courierhelper.data.mappers
+package io.github.ivan8m8.courierhelper.ui.mappers
 
-import android.graphics.drawable.Drawable
+import android.content.Context
+import io.github.ivan8m8.courierhelper.data.models.PaymentMethod
+import io.github.ivan8m8.courierhelper.data.utils.BaseMapper
 import io.github.ivan8m8.courierhelper.ui.models.UiPaymentMethod
 
-class PaymentMethodsMapper {
+class PaymentMethodsMapper(context: Context) : BaseMapper(context) {
+
+    val paymentMethods by lazy { PaymentMethod.values() }
+
+    fun toPaymentMethod(position: Int) = PaymentMethod.valueOf(paymentMethods[position].name)
+
     fun toUiPaymentMethods(
-        names: List<String>,
-        drawables: List<Drawable?>
+        paymentMethods: Array<PaymentMethod>
     ): List<UiPaymentMethod> {
-        return names
-            .mapIndexed { i, name ->
+        return paymentMethods
+            .map { paymentMethod ->
                 UiPaymentMethod(
-                    drawables.getOrNull(i),
-                    name
+                    getDrawable(paymentMethod.drawableRes),
+                    getString(paymentMethod.stringRes)
                 )
             }
     }
