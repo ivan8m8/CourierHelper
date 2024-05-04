@@ -11,7 +11,7 @@ import io.github.ivan8m8.courierhelper.ui.models.UiPaymentMethod
 
 class PaymentMethodAdapter(
     context: Context,
-    private val onItemClick: (UiPaymentMethod?) -> Unit
+    private val onItemClick: (Int, UiPaymentMethod?) -> Unit
 ) : ArrayAdapter<UiPaymentMethod>(
     context,
     R.layout.item_autocomplete_payment_method
@@ -30,7 +30,7 @@ class PaymentMethodAdapter(
                     // causes decreasing the drop-down menu height, so a scrollbar appears.
                     setCompoundDrawablesWithIntrinsicBounds(item?.icon, null, null, null)
                     setOnClickListener {
-                        onItemClick(item)
+                        onItemClick(position, item)
                     }
                 }
         }

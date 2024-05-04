@@ -17,8 +17,8 @@ class PaymentMethodsMapper(context: Context) : BaseMapper(context) {
         return paymentMethods
             .map { paymentMethod ->
                 UiPaymentMethod(
-                    getDrawable(paymentMethod.drawableRes),
-                    getString(paymentMethod.stringRes)
+                    getDrawable(paymentMethod.iconRes),
+                    getString(paymentMethod.nameRes)
                 )
             }
     }

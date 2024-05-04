@@ -50,12 +50,21 @@ data class DeliveryAddress(
 )
 
 enum class PaymentMethod(
-    @StringRes val nameRes: Int,
     @DrawableRes val iconRes: Int,
+    @StringRes val nameRes: Int,
 ) {
-    CARD(R.string.by_card, R.drawable.round_payment_24),
-    CASH(R.string.by_cash, R.drawable.round_payments_24),
-    TRANSFER(R.string.by_transfer, R.drawable.round_send_to_mobile_24),
+    CARD(
+        iconRes = R.drawable.round_payment_24,
+        nameRes = R.string.by_card
+    ),
+    CASH(
+        iconRes = R.drawable.round_payments_24,
+        nameRes = R.string.by_cash
+    ),
+    TRANSFER(
+        iconRes = R.drawable.round_send_to_mobile_24,
+        nameRes = R.string.by_transfer
+    ),
 }
 
 enum class DeliveryStatus {
