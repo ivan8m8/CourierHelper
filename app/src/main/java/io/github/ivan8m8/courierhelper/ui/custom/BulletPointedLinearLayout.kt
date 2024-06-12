@@ -51,6 +51,54 @@ class BulletPointedLinearLayout @JvmOverloads constructor(
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
         super.onLayout(changed, l, t, r, b)
+
+        val layoutMinLeft = paddingLeft
+        val layoutMinTop = paddingTop
+        val layoutMaxRight = measuredWidth - paddingRight
+        val layoutMaxBottom = measuredHeight - paddingBottom
+        val layoutMaxWidth = layoutMaxRight - layoutMinLeft
+        val layoutMaxHeight = layoutMaxBottom - layoutMinTop
+
+        var currLeft = layoutMinLeft
+        var currTop = layoutMinTop
+
+        children.forEachIndexed { i, child ->
+            if (child.visibility == GONE) return@forEachIndexed
+            child.measure(
+                MeasureSpec.makeMeasureSpec(layoutMaxWidth, MeasureSpec.AT_MOST),
+                MeasureSpec.makeMeasureSpec(layoutMaxHeight, MeasureSpec.AT_MOST)
+            )
+            val childWidth = child.measuredWidth
+            val childHeight = child.measuredHeight
+            if (i == 0) {
+                child.layout(
+                    currLeft,
+                    currTop,
+                    currLeft + childWidth,
+                    currTop + childHeight
+                )
+                if (currLeft + childWidth >= layoutMaxRight) {
+                    currLeft = layoutMinLeft
+                    currTop += childHeight
+                } else {
+                    currLeft += childWidth
+                }
+            } else {
+                if (currLeft + childWidth + bulletFullWidth >= layoutMaxWidth) {
+                    currLeft = layoutMinLeft
+                    currTop += childHeight
+                } else {
+                    currLeft += bulletFullWidth
+                }
+                child.layout(
+                    currLeft,
+                    currTop,
+                    currLeft + childWidth,
+                    currTop + childHeight
+                )
+                currLeft += childWidth
+            }
+        }
     }
 
     override fun onDrawForeground(canvas: Canvas) {
