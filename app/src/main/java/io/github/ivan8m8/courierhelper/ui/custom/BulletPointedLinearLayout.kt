@@ -6,7 +6,8 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.widget.TextView
 import androidx.appcompat.widget.LinearLayoutCompat
-import kotlin.math.min
+import androidx.core.view.children
+import kotlin.math.max
 
 class BulletPointedLinearLayout @JvmOverloads constructor(
     context: Context,
@@ -28,25 +29,39 @@ class BulletPointedLinearLayout @JvmOverloads constructor(
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
 
-        val widthSize = MeasureSpec.getSize(widthMeasureSpec)
-        val widthMode = MeasureSpec.getMode(widthMeasureSpec)
-        val heightSize = MeasureSpec.getSize(heightMeasureSpec)
-        val heightMode = MeasureSpec.getMode(heightMeasureSpec)
+        val maxAvailableWidth = MeasureSpec.getSize(widthMeasureSpec)
+        var measuredWidth = 0
+        var measuredHeight = 0
+        var currLeft = 0
 
-        val width = when (widthMode) {
-            MeasureSpec.EXACTLY -> widthSize
-            MeasureSpec.AT_MOST -> min(desiredWidth, widthSize)
-            else -> desiredWidth
+        children.forEachIndexed { i, child ->
+            if (child.visibility == GONE) return@forEachIndexed
+            measureChild(child, widthMeasureSpec, heightMeasureSpec)
+            val (childWidth, childHieght) = child.measuredWidth to child.measuredHeight
+            if (i == 0) {
+                if (currLeft + childWidth >= maxAvailableWidth) {
+                    measuredWidth = maxAvailableWidth
+                    currLeft = 0
+                } else {
+                    measuredWidth = max(measuredWidth, childWidth)
+                    currLeft += childWidth
+                }
+                measuredHeight += childHieght
+            } else {
+                if (currLeft + childWidth + bulletFullWidth >= maxAvailableWidth) {
+                    measuredWidth = maxAvailableWidth
+                    measuredHeight += childHieght
+                    currLeft = 0
+                } else {
+                    if (currLeft != 0)
+                        currLeft += bulletFullWidth
+                }
+                currLeft += childWidth
+            }
         }
-        val height = when (heightMode) {
-            MeasureSpec.EXACTLY -> heightSize
-            MeasureSpec.AT_MOST -> min(desiredHeight, heightSize)
-            else -> desiredHeight
-        }
 
-        setMeasuredDimension(width, height)
+        setMeasuredDimension(measuredWidth, measuredHeight)
     }
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
