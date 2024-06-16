@@ -56,11 +56,12 @@ class BulletPointedLinearLayout @JvmOverloads constructor(
                 } else {
                     val isFirstInTheRow = currLeft == 0
                     val resultChildWidth = childWidth + if (!isFirstInTheRow) bulletFullWidth else 0
-                    measuredWidth = max(measuredWidth + resultChildWidth, maxAvailableWidth)
-                    if (!isFirstInTheRow)
+                    measuredWidth += max(measuredWidth, currLeft + resultChildWidth)
+                    if (!isFirstInTheRow) {
                         currLeft += bulletFullWidth
+                    }
+                    currLeft += childWidth
                 }
-                currLeft += childWidth
             }
         }
 
