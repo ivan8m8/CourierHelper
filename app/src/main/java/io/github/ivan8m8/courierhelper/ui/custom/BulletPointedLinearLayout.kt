@@ -88,7 +88,8 @@ class BulletPointedLinearLayout @JvmOverloads constructor(
                     currLeft = layoutMinLeft
                     currTop += childHeight
                 } else {
-                    currLeft += bulletFullWidth
+                    if (currLeft != layoutMinLeft)
+                        currLeft += bulletFullWidth
                 }
                 child.layout(
                     currLeft,
