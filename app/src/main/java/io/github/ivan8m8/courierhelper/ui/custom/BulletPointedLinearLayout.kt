@@ -44,7 +44,7 @@ class BulletPointedLinearLayout @JvmOverloads constructor(
                     measuredWidth = maxAvailableWidth
                     currLeft = 0
                 } else {
-                    measuredWidth = max(measuredWidth, childWidth)
+                    measuredWidth = childWidth
                     currLeft += childWidth
                 }
                 measuredHeight += childHieght
@@ -83,8 +83,7 @@ class BulletPointedLinearLayout @JvmOverloads constructor(
                 MeasureSpec.makeMeasureSpec(layoutMaxWidth, MeasureSpec.AT_MOST),
                 MeasureSpec.makeMeasureSpec(layoutMaxHeight, MeasureSpec.AT_MOST)
             )
-            val childWidth = child.measuredWidth
-            val childHeight = child.measuredHeight
+            val (childWidth, childHeight) = child.measuredWidth to child.measuredHeight
             if (i == 0) {
                 child.layout(
                     currLeft,
