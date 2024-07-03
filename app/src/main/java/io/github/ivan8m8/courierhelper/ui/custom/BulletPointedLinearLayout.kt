@@ -69,12 +69,11 @@ class BulletPointedLinearLayout @JvmOverloads constructor(
     }
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
-        super.onLayout(changed, l, t, r, b)
 
         val layoutMinLeft = paddingLeft
         val layoutMinTop = paddingTop
-        val layoutMaxRight = measuredWidth - paddingRight
-        val layoutMaxBottom = measuredHeight - paddingBottom
+        val layoutMaxRight = r - l - paddingRight
+        val layoutMaxBottom = b - t - paddingBottom
         val layoutMaxWidth = layoutMaxRight - layoutMinLeft
         val layoutMaxHeight = layoutMaxBottom - layoutMinTop
 
