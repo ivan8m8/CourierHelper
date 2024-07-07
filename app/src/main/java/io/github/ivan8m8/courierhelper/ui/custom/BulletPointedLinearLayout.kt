@@ -33,37 +33,32 @@ class BulletPointedLinearLayout @JvmOverloads constructor(
         val maxAvailableWidth = MeasureSpec.getSize(widthMeasureSpec)
         var measuredWidth = 0
         var measuredHeight = 0
-        var currLeft = 0
+        var currLeft = paddingLeft
 
-        children.forEachIndexed { i, child ->
-            if (child.visibility == GONE) return@forEachIndexed
-            measureChild(child, widthMeasureSpec, heightMeasureSpec)
+        children.forEach { child ->
+            if (child.visibility == GONE) return@forEach
+            measureChildWithMargins(child, widthMeasureSpec, 0, heightMeasureSpec, 0)
             val (childWidth, childHieght) = child.measuredWidth to child.measuredHeight
-            if (i == 0) {
-                if (currLeft + childWidth >= maxAvailableWidth) {
+
+            // Check if the child should be first in the row.
+            if (currLeft == paddingLeft || currLeft + childWidth + bulletFullWidth >= maxAvailableWidth) {
+                currLeft = paddingLeft
+                val childRight = currLeft + childWidth
+                if (childRight >= maxAvailableWidth) {
                     measuredWidth = maxAvailableWidth
-                    currLeft = 0
                 } else {
-                    measuredWidth = childWidth
-                    currLeft += childWidth
+                    measuredWidth = max(measuredWidth, childRight)
+                    currLeft += childRight
                 }
                 measuredHeight += childHieght
             } else {
-                if (currLeft + childWidth + bulletFullWidth >= maxAvailableWidth) {
-                    measuredWidth = maxAvailableWidth
-                    measuredHeight += childHieght
-                    currLeft = 0
-                } else {
-                    val isFirstInTheRow = currLeft == 0
-                    val resultChildWidth = childWidth + if (!isFirstInTheRow) bulletFullWidth else 0
-                    measuredWidth += max(measuredWidth, currLeft + resultChildWidth)
-                    if (!isFirstInTheRow) {
-                        currLeft += bulletFullWidth
-                    }
-                    currLeft += childWidth
-                }
+                val resultChildWidth = bulletFullWidth + childWidth
+                currLeft += resultChildWidth
+                measuredWidth = max(measuredWidth, currLeft)
             }
         }
+
+        measuredHeight += paddingTop + paddingBottom
 
         setMeasuredDimension(measuredWidth, measuredHeight)
     }
