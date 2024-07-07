@@ -31,9 +31,10 @@ class BulletPointedLinearLayout @JvmOverloads constructor(
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
 
         val maxAvailableWidth = MeasureSpec.getSize(widthMeasureSpec)
+        var currLeft = paddingLeft
         var measuredWidth = 0
         var measuredHeight = 0
-        var currLeft = paddingLeft
+        var childState = 0
 
         children.forEach { child ->
             if (child.visibility == GONE) return@forEach
@@ -56,11 +57,16 @@ class BulletPointedLinearLayout @JvmOverloads constructor(
                 currLeft += resultChildWidth
                 measuredWidth = max(measuredWidth, currLeft)
             }
+            childState = combineMeasuredStates(childState, child.measuredState)
         }
 
         measuredHeight += paddingTop + paddingBottom
 
-        setMeasuredDimension(measuredWidth, measuredHeight)
+        setMeasuredDimension(
+            resolveSizeAndState(measuredWidth, widthMeasureSpec, childState),
+            resolveSizeAndState(measuredHeight, heightMeasureSpec,
+                childState shl MEASURED_HEIGHT_STATE_SHIFT)
+        )
     }
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
