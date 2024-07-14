@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.view.children
 import kotlin.math.max
+import kotlin.math.min
 
 class BulletPointedLinearLayout @JvmOverloads constructor(
     context: Context,
@@ -89,7 +90,7 @@ class BulletPointedLinearLayout @JvmOverloads constructor(
             if (currLeft == paddingLeft || currLeft + childWidth + bulletFullWidth > layoutMaxRight) {
                 currLeft = paddingLeft
                 currTop += prevChildHeight
-                val childRight = currLeft + childWidth
+                val childRight = min(layoutMaxRight, currLeft + childWidth)
                 child.layout(
                     currLeft,
                     currTop,
