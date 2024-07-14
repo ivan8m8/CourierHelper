@@ -39,19 +39,19 @@ class BulletPointedLinearLayout @JvmOverloads constructor(
         children.forEach { child ->
             if (child.visibility == GONE) return@forEach
             measureChildWithMargins(child, widthMeasureSpec, 0, heightMeasureSpec, 0)
-            val (childWidth, childHieght) = child.measuredWidth to child.measuredHeight
+            val (childWidth, childHeight) = child.measuredWidth to child.measuredHeight
 
             // Check if the child should be first in the row.
-            if (currLeft == paddingLeft || currLeft + childWidth + bulletFullWidth >= maxAvailableWidth) {
+            if (currLeft == paddingLeft || currLeft + childWidth + bulletFullWidth > maxAvailableWidth) {
                 currLeft = paddingLeft
                 val childRight = currLeft + childWidth
-                if (childRight >= maxAvailableWidth) {
+                if (childRight > maxAvailableWidth) {
                     measuredWidth = maxAvailableWidth
                 } else {
                     measuredWidth = max(measuredWidth, childRight)
                     currLeft += childRight
                 }
-                measuredHeight += childHieght
+                measuredHeight += childHeight
             } else {
                 val resultChildWidth = bulletFullWidth + childWidth
                 currLeft += resultChildWidth
@@ -70,45 +70,39 @@ class BulletPointedLinearLayout @JvmOverloads constructor(
     }
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
-
-        val layoutMinLeft = paddingLeft
-        val layoutMinTop = paddingTop
         val layoutMaxRight = r - l - paddingRight
         val layoutMaxBottom = b - t - paddingBottom
-        val layoutMaxWidth = layoutMaxRight - layoutMinLeft
-        val layoutMaxHeight = layoutMaxBottom - layoutMinTop
+        val layoutMaxWidth = layoutMaxRight - paddingLeft
+        val layoutMaxHeight = layoutMaxBottom - paddingTop
 
-        var currLeft = layoutMinLeft
-        var currTop = layoutMinTop
+        var currLeft = paddingLeft
+        var currTop = paddingTop
+        var prevChildHeight = 0
 
-        children.forEachIndexed { i, child ->
-            if (child.visibility == GONE) return@forEachIndexed
+        children.forEach { child ->
+            if (child.visibility == GONE) return@forEach
             child.measure(
                 MeasureSpec.makeMeasureSpec(layoutMaxWidth, MeasureSpec.AT_MOST),
                 MeasureSpec.makeMeasureSpec(layoutMaxHeight, MeasureSpec.AT_MOST)
             )
             val (childWidth, childHeight) = child.measuredWidth to child.measuredHeight
-            if (i == 0) {
+            if (currLeft == paddingLeft || currLeft + childWidth + bulletFullWidth > layoutMaxRight) {
+                currLeft = paddingLeft
+                currTop += prevChildHeight
+                val childRight = currLeft + childWidth
                 child.layout(
                     currLeft,
                     currTop,
-                    currLeft + childWidth,
+                    childRight,
                     currTop + childHeight
                 )
-                if (currLeft + childWidth >= layoutMaxRight) {
-                    currLeft = layoutMinLeft
-                    currTop += childHeight
+                if (childRight > layoutMaxRight) { // > over >= is important
+                    currLeft = paddingLeft
                 } else {
-                    currLeft += childWidth
+                    currLeft = childRight
                 }
             } else {
-                if (currLeft + childWidth + bulletFullWidth >= layoutMaxWidth) {
-                    currLeft = layoutMinLeft
-                    currTop += childHeight
-                } else {
-                    if (currLeft != layoutMinLeft)
-                        currLeft += bulletFullWidth
-                }
+                currLeft += bulletFullWidth
                 child.layout(
                     currLeft,
                     currTop,
@@ -117,6 +111,7 @@ class BulletPointedLinearLayout @JvmOverloads constructor(
                 )
                 currLeft += childWidth
             }
+            prevChildHeight = childHeight
         }
     }
 
