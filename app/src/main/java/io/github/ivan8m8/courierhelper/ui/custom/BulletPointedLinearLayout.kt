@@ -50,7 +50,7 @@ class BulletPointedLinearLayout @JvmOverloads constructor(
                     measuredWidth = maxAvailableWidth
                 } else {
                     measuredWidth = max(measuredWidth, childRight)
-                    currLeft += childRight
+                    currLeft = childRight
                 }
                 measuredHeight += childHeight
             } else {
