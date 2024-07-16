@@ -32,8 +32,9 @@ class BulletPointedLinearLayout @JvmOverloads constructor(
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
 
         val maxAvailableWidth = MeasureSpec.getSize(widthMeasureSpec)
+        val minLeft = paddingLeft
         val maxRight = maxAvailableWidth - paddingRight
-        var currLeft = paddingLeft
+        var currLeft = minLeft
         var measuredWidth = 0
         var measuredHeight = 0
         var childState = 0
@@ -44,8 +45,8 @@ class BulletPointedLinearLayout @JvmOverloads constructor(
             val (childWidth, childHeight) = child.measuredWidth to child.measuredHeight
 
             // Check if the child should be first in the row.
-            if (currLeft == paddingLeft || currLeft + childWidth + bulletFullWidth > maxRight) {
-                currLeft = paddingLeft
+            if (currLeft == minLeft || currLeft + childWidth + bulletFullWidth > maxRight) {
+                currLeft = minLeft
                 val childRight = currLeft + childWidth
                 if (childRight > maxRight) {
                     measuredWidth = maxAvailableWidth
@@ -71,12 +72,13 @@ class BulletPointedLinearLayout @JvmOverloads constructor(
     }
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
+        val layoutMinLeft = paddingLeft
         val layoutMaxRight = r - l - paddingRight
         val layoutMaxBottom = b - t - paddingBottom
-        val layoutMaxWidth = layoutMaxRight - paddingLeft
+        val layoutMaxWidth = layoutMaxRight - layoutMinLeft
         val layoutMaxHeight = layoutMaxBottom - paddingTop
 
-        var currLeft = paddingLeft
+        var currLeft = layoutMinLeft
         var currTop = paddingTop
         var prevChildHeight = 0
 
@@ -87,8 +89,8 @@ class BulletPointedLinearLayout @JvmOverloads constructor(
                 MeasureSpec.makeMeasureSpec(layoutMaxHeight, MeasureSpec.AT_MOST)
             )
             val (childWidth, childHeight) = child.measuredWidth to child.measuredHeight
-            if (currLeft == paddingLeft || currLeft + childWidth + bulletFullWidth > layoutMaxRight) {
-                currLeft = paddingLeft
+            if (currLeft == layoutMinLeft || currLeft + childWidth + bulletFullWidth > layoutMaxRight) {
+                currLeft = layoutMinLeft
                 currTop += prevChildHeight
                 val childRight = min(layoutMaxRight, currLeft + childWidth)
                 child.layout(
@@ -98,7 +100,7 @@ class BulletPointedLinearLayout @JvmOverloads constructor(
                     currTop + childHeight
                 )
                 if (childRight > layoutMaxRight) { // > over >= is important
-                    currLeft = paddingLeft
+                    currLeft = layoutMinLeft
                 } else {
                     currLeft = childRight
                 }
