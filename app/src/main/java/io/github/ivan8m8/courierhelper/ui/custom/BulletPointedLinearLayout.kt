@@ -63,6 +63,7 @@ class BulletPointedLinearLayout @JvmOverloads constructor(
         }
 
         measuredHeight += paddingTop + paddingBottom
+        measuredWidth = min(maxAvailableWidth, measuredWidth + paddingRight)
 
         setMeasuredDimension(
             resolveSizeAndState(measuredWidth, widthMeasureSpec, childState),
