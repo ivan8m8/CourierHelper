@@ -10,7 +10,8 @@ import androidx.core.view.children
 import kotlin.math.max
 import kotlin.math.min
 
-class BulletPointedLinearLayout @JvmOverloads constructor(
+// https://stacktips.com/articles/how-to-create-custom-layout-in-android-by-extending-viewgroup-class
+class BulletedLinearLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet?,
     defStyleAttrInt: Int = 0
