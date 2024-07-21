@@ -3,12 +3,14 @@ package io.github.ivan8m8.courierhelper.ui.custom
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.graphics.Rect
 import android.util.AttributeSet
 import android.widget.TextView
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.view.children
 import kotlin.math.max
 import kotlin.math.min
+import kotlin.math.roundToInt
 
 // https://stacktips.com/articles/how-to-create-custom-layout-in-android-by-extending-viewgroup-class
 class BulletedLinearLayout @JvmOverloads constructor(
@@ -17,13 +19,19 @@ class BulletedLinearLayout @JvmOverloads constructor(
     defStyleAttrInt: Int = 0
 ) : LinearLayoutCompat(context, attrs, defStyleAttrInt) {
 
+    private val bullets = mutableListOf<Rect>()
+    private val refTextView by lazy {
+        if (childCount > 0) getChildAt(0) as? TextView else null
+    }
     private val bulletPaint by lazy {
         val defaultTextColor = context.getColor(android.R.color.tab_indicator_text)
-        val textView = if (childCount > 0) getChildAt(0) as? TextView else null
-        val textViewColor = textView?.textColors?.defaultColor ?: defaultTextColor
+        val textColor = refTextView?.textColors?.defaultColor ?: defaultTextColor
         Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = textViewColor
+            color = textColor
         }
+    }
+    private val bulletFullWidth by lazy {
+        refTextView?.textSize?.roundToInt() ?: 0
     }
 
     init {
@@ -107,6 +115,14 @@ class BulletedLinearLayout @JvmOverloads constructor(
                     currLeft = childRight
                 }
             } else {
+                bullets.add(
+                    Rect(
+                        currLeft,
+                        currTop,
+                        currLeft + bulletFullWidth,
+                        currTop + childHeight
+                    )
+                )
                 currLeft += bulletFullWidth
                 child.layout(
                     currLeft,
@@ -122,5 +138,13 @@ class BulletedLinearLayout @JvmOverloads constructor(
 
     override fun onDrawForeground(canvas: Canvas) {
         super.onDrawForeground(canvas)
+        bullets.forEach { bullet ->
+            canvas.drawCircle(
+                bullet.exactCenterX(),
+                bullet.exactCenterY(),
+                bullet.width() / 8f,
+                bulletPaint
+            )
+        }
     }
 }
