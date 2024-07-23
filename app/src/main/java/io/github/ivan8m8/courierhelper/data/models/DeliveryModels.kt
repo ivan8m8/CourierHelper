@@ -58,11 +58,11 @@ enum class PaymentMethod(
         nameRes = R.string.by_card
     ),
     CASH(
-        iconRes = R.drawable.round_payments_24,
+        iconRes = R.drawable.round_money_24,
         nameRes = R.string.by_cash
     ),
     TRANSFER(
-        iconRes = R.drawable.round_send_to_mobile_24,
+        iconRes = R.drawable.round_p2p_24,
         nameRes = R.string.by_transfer
     ),
 }
