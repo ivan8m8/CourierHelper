@@ -1,8 +1,25 @@
 package io.github.ivan8m8.courierhelper.ui.mappers
 
 import io.github.ivan8m8.courierhelper.data.models.CountryData
+import io.github.ivan8m8.courierhelper.ui.models.UiCountryDataItem
+import java.util.Locale
 
 class CountryDataMapper {
+
+    fun toUiItems(countryData: List<CountryData>): List<UiCountryDataItem> {
+        return countryData
+            .map { country ->
+                val flag = country.iso2Name.toEmojiFlag()
+                val phoneCode = "+ ${country.phoneCode}"
+                val name = Locale(Locale.getDefault().language, country.iso2Name).displayCountry
+                UiCountryDataItem(flag, phoneCode, name)
+            }
+    }
+
+    private fun String.toEmojiFlag() = this
+        .map { char -> char.code - ASCII_OFFSET + FLAG_OFFSET }
+        .map { code -> Character.toChars(code) }
+        .joinToString(separator = "") { charArray -> String(charArray) }
 
     fun forCountry(
         countryIso2Name: String,
@@ -38,3 +55,6 @@ private const val GE = "GE" // 107
 private const val AM = "AM" // 115
 private const val KG = "KG" // 140
 private const val TJ = "TJ" // 141
+
+private const val ASCII_OFFSET = 0x41
+private const val FLAG_OFFSET = 0x1F1E6
