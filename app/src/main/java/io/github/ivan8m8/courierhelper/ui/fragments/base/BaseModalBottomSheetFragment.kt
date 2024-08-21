@@ -7,6 +7,7 @@ import androidx.annotation.LayoutRes
 import androidx.annotation.Px
 import androidx.core.graphics.Insets
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -56,16 +57,24 @@ open class BaseModalBottomSheetFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Our goal here is to prevent the sheet's top from reaching the status bar
         requireView().doOnApplyWindowInsetsWithPaddings { _, windowInsets, paddings ->
+
             val type = WindowInsetsCompat.Type.systemBars()
             val insetsRect = windowInsets.getInsets(type)
+
+            // Let's erase the inset bottom padding applied by BottomSheetBehavior
+            requireDialog().findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+                .updatePadding(bottom = 0)
+
+            // Let's prevent the sheet's top from reaching the status bar
             val expandedOffset = insetsRect.top * topInsetMultiplier + extraTopOffset + paddings.top
             bottomSheetBehavior.expandedOffset = expandedOffset
+
+            val bottomPadding = expandedOffset + insetsRect.bottom
             WindowInsetsCompat.Builder()
                 .setInsets(
                     type,
-                    Insets.of(insetsRect.left, 0, insetsRect.right, expandedOffset)
+                    Insets.of(insetsRect.left, 0, insetsRect.right, bottomPadding)
                 )
                 .build()
         }
