@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+    <style name="ThemeOverlay.BaseModalBottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BaseModalBottomSheetStyle</item>
+    </style>
+
+    <style name="BaseModalBottomSheetStyle" parent="Widget.Material3.BottomSheet.Modal">
+        <item name="paddingBottomSystemWindowInsets">false</item>
+    </style>
+
     <style name="DeliveriesBottomSheet" parent="RoundedBottomSheet">
         <item name="backgroundTint">#f8f8f8</item>
     </style>
