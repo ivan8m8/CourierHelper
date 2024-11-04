@@ -30,10 +30,18 @@
         <item name="colorControlActivated">@color/colorSecondary</item>
     </style>
 
+    <style name="ThemeOverlay.AppTheme.TextInputEditText.FilledBox.Dense" parent="ThemeOverlay.Material3.TextInputEditText.FilledBox.Dense">
+        <item name="colorControlActivated">@color/colorSecondary</item>
+    </style>
+
     <style name="DeliveryTextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox.Dense">
         <item name="boxStrokeColor">@color/colorBaseBlack</item>
         <item name="hintTextColor">@color/colorBaseBlack</item>
         <item name="materialThemeOverlay">@style/ThemeOverlay.AppTheme.TextInputEditText.OutlinedBox.Dense</item>
+    </style>
+    
+    <style name="Widget.AppTheme.TextInputLayout.FilledBox.Dense" parent="Widget.Material3.TextInputLayout.FilledBox.Dense">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.AppTheme.TextInputEditText.FilledBox.Dense</item>
     </style>
 
     <style
