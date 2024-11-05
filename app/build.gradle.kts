@@ -46,14 +46,14 @@ android {
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("com.google.android.material:material:1.11.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.core:core-ktx:1.15.0")
+    implementation("com.google.android.material:material:1.12.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.2.0")
 
     implementation("org.osmdroid:osmdroid-android:6.1.11")
     implementation("androidx.preference:preference-ktx:1.2.1")
 
-    val workVersion = "2.9.0"
+    val workVersion = "2.10.0"
     implementation("androidx.work:work-runtime-ktx:$workVersion")
     implementation("androidx.work:work-rxjava3:$workVersion")
 
@@ -77,11 +77,11 @@ dependencies {
     implementation("io.insert-koin:koin-android:$koinVersion")
     implementation("io.insert-koin:koin-androidx-workmanager:$koinVersion")
 
-    implementation("com.squareup.okhttp3:okhttp:4.10.0")
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
     implementation("com.squareup.retrofit2:adapter-rxjava3:2.9.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
     implementation("com.jakewharton.timber:timber:5.0.1")
 
