@@ -1,0 +1,63 @@
+[versions]
+adapterdelegates = "4.3.2"
+agp = "8.7.2"
+androidx-junit = "1.2.1"
+constraintlayout = "2.2.0"
+core-ktx = "1.15.0"
+espresso = "3.6.1"
+google-secrets = "2.0.1"
+junit = "4.13.2"
+koin = "3.4.3"
+kotlin = "2.0.21"
+ksp = "2.0.21-1.0.25"
+leakcanary = "2.14"
+material = "1.12.0"
+okhttp = "4.12.0"
+osmdroid = "6.1.11"
+preference = "1.2.1"
+retrofit = "2.11.0"
+retrofit-rxjava3-adapter = "2.9.0"
+room = "2.6.1"
+rxandroid = "3.0.0"
+rxjava = "3.1.4"
+rxkotlin = "3.0.1"
+rxrelay = "3.0.1"
+timber = "5.0.1"
+workmanager = "2.10.0"
+
+[libraries]
+adapterdelegates = { group = "com.hannesdorfmann", name = "adapterdelegates4-kotlin-dsl", version.ref = "adapterdelegates" }
+adapterdelegates-viewbinding = { group = "com.hannesdorfmann", name = "adapterdelegates4-kotlin-dsl-viewbinding", version.ref = "adapterdelegates" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
+androidx-espresso = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-junit" }
+androidx-preference = { group = "androidx.preference", name = "preference-ktx", version.ref = "preference" }
+androidx-room = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+androidx-room-rxjava3 = { group = "androidx.room", name = "room-rxjava3", version.ref = "room" }
+androidx-workmanager = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "workmanager" }
+androidx-workmanager-rxjava3 = { group = "androidx.work", name = "work-rxjava3", version.ref = "workmanager" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+koin = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
+koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
+koin-androidx-workmanager = { group = "io.insert-koin", name = "koin-androidx-workmanager", version.ref = "koin" }
+leakcanary = { group = "com.squareup.leakcanary", name = "leakcanary-android", version.ref = "leakcanary" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
+osmdroid = { group = "org.osmdroid", name = "osmdroid-android", version.ref = "osmdroid" }
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-gson-converter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
+retrofit-rxjava3-adapter = { group = "com.squareup.retrofit2", name = "adapter-rxjava3", version.ref = "retrofit-rxjava3-adapter" }
+rxandroid = { group = "io.reactivex.rxjava3", name = "rxandroid", version.ref = "rxandroid" }
+rxjava3 = { group = "io.reactivex.rxjava3", name = "rxjava", version.ref = "rxjava" }
+rxkotlin = { group = "io.reactivex.rxjava3", name = "rxkotlin", version.ref = "rxkotlin" }
+rxrelay = { group = "com.jakewharton.rxrelay3", name = "rxrelay", version.ref = "rxrelay" }
+timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+google-secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "google-secrets" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
