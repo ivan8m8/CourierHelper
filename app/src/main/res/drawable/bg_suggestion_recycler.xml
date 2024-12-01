@@ -1,59 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
-        <shape>
-            <padding
-                android:bottom="1dp"
-                android:left="1dp"
-                android:right="1dp" />
-            <solid android:color="#07000000" />
-            <corners
-                android:bottomLeftRadius="@dimen/city_suggestion_recycler_corner_radius"
-                android:bottomRightRadius="@dimen/city_suggestion_recycler_corner_radius" />
-        </shape>
-    </item>
-    <item>
-        <shape>
-            <padding
-                android:bottom="1dp"
-                android:left="1dp"
-                android:right="1dp" />
-            <solid android:color="#08000000" />
-            <corners
-                android:bottomLeftRadius="@dimen/city_suggestion_recycler_corner_radius"
-                android:bottomRightRadius="@dimen/city_suggestion_recycler_corner_radius" />
-        </shape>
-    </item>
-    <item>
-        <shape>
-            <padding
-                android:bottom="1dp"
-                android:left="1dp"
-                android:right="1dp" />
-            <solid android:color="#0f000000" />
-            <corners
-                android:bottomLeftRadius="@dimen/city_suggestion_recycler_corner_radius"
-                android:bottomRightRadius="@dimen/city_suggestion_recycler_corner_radius" />
-        </shape>
-    </item>
-    <item>
-        <shape>
-            <padding
-                android:bottom="1dp"
-                android:left="1dp"
-                android:right="1dp" />
-            <solid android:color="#1e000000" />
-            <corners
-                android:bottomLeftRadius="@dimen/city_suggestion_recycler_corner_radius"
-                android:bottomRightRadius="@dimen/city_suggestion_recycler_corner_radius" />
-        </shape>
-    </item>
-    <item>
-        <shape>
-            <solid android:color="#fafafa" />
-            <corners
-                android:bottomLeftRadius="@dimen/city_suggestion_recycler_corner_radius"
-                android:bottomRightRadius="@dimen/city_suggestion_recycler_corner_radius" />
-        </shape>
-    </item>
-</layer-list>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners android:radius="4dp" />
+    <!-- Let's set the default color so that the background,
+    backgroundTint, and elevation properties work together correctly. -->
+    <solid android:color="@macro/m3_comp_menu_container_color" />
+</shape>
