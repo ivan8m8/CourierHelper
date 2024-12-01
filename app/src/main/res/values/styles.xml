@@ -30,7 +30,7 @@
         <item name="colorControlActivated">@color/colorSecondary</item>
     </style>
 
-    <style name="ThemeOverlay.AppTheme.TextInputEditText.FilledBox.Dense" parent="ThemeOverlay.Material3.TextInputEditText.FilledBox.Dense">
+    <style name="ThemeOverlay.AppTheme.AutoCompleteTextView.OutlinedBox.Dense" parent="ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox.Dense">
         <item name="colorControlActivated">@color/colorSecondary</item>
     </style>
 
@@ -40,8 +40,8 @@
         <item name="materialThemeOverlay">@style/ThemeOverlay.AppTheme.TextInputEditText.OutlinedBox.Dense</item>
     </style>
     
-    <style name="Widget.AppTheme.TextInputLayout.FilledBox.Dense" parent="Widget.Material3.TextInputLayout.FilledBox.Dense">
-        <item name="materialThemeOverlay">@style/ThemeOverlay.AppTheme.TextInputEditText.FilledBox.Dense</item>
+    <style name="Widget.AppTheme.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu" parent="Widget.Material3.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.AppTheme.AutoCompleteTextView.OutlinedBox.Dense</item>
     </style>
 
     <style
