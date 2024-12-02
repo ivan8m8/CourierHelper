@@ -2,7 +2,6 @@ package io.github.ivan8m8.courierhelper.ui.fragments
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
@@ -12,12 +11,11 @@ import io.github.ivan8m8.courierhelper.databinding.FragmentPriorityCityBinding
 import io.github.ivan8m8.courierhelper.ui.adapter_delegates.Delegates
 import io.github.ivan8m8.courierhelper.ui.fragments.base.BaseColoredToolbarFragment
 import io.github.ivan8m8.courierhelper.ui.fragments.dialogs.PriorityCityConfirmationDialog
-import io.github.ivan8m8.courierhelper.ui.recycler.decorators.DividerRecyclerItemDecoration
 import io.github.ivan8m8.courierhelper.ui.utils.addSystemTopMargin
 import io.github.ivan8m8.courierhelper.ui.utils.hideKeyboard
 import io.github.ivan8m8.courierhelper.ui.utils.showKeyboard
 import io.github.ivan8m8.courierhelper.ui.utils.viewBinding
-import io.github.ivan8m8.courierhelper.ui.viewmodels.PriorityCityViewModel
+import io.github.ivan8m8.courierhelper.ui.view_models.PriorityCityViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PriorityCityFragment : BaseColoredToolbarFragment(R.layout.fragment_priority_city) {
@@ -37,16 +35,11 @@ class PriorityCityFragment : BaseColoredToolbarFragment(R.layout.fragment_priori
 
         with(binding) {
             toolbar.addSystemTopMargin()
+            toolbar.setNavigationOnClickListener {
+                requireActivity().onBackPressedDispatcher.onBackPressed()
+            }
             with(suggestionsRecycler) {
                 adapter = this@PriorityCityFragment.adapter
-                addItemDecoration(
-                    DividerRecyclerItemDecoration(
-                        ContextCompat.getDrawable(
-                            requireContext(),
-                            R.drawable.divider
-                        )!!
-                    )
-                )
             }
             cityEditText.doAfterTextChanged { editable ->
                 if (!isDoAfterTextChangedBlocked)
@@ -84,6 +77,12 @@ class PriorityCityFragment : BaseColoredToolbarFragment(R.layout.fragment_priori
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        viewModel.onResumed()
     }
 
     companion object {

@@ -1,18 +1,18 @@
-package io.github.ivan8m8.courierhelper.ui.viewmodels
+package io.github.ivan8m8.courierhelper.ui.view_models
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.jakewharton.rxrelay3.PublishRelay
-import io.github.ivan8m8.courierhelper.navigation.EventBus
 import io.github.ivan8m8.courierhelper.data.models.PriorityCity
-import io.github.ivan8m8.courierhelper.ui.mappers.CitySuggestionsMapper
 import io.github.ivan8m8.courierhelper.data.repository.AutocompleteRepository
 import io.github.ivan8m8.courierhelper.data.utils.Event
 import io.github.ivan8m8.courierhelper.data.utils.clearAndAddAll
 import io.github.ivan8m8.courierhelper.domain.priority_city.GetPriorityCityUseCase
 import io.github.ivan8m8.courierhelper.domain.priority_city.SetPriorityCityUseCase
+import io.github.ivan8m8.courierhelper.navigation.EventBus
+import io.github.ivan8m8.courierhelper.ui.mappers.CitySuggestionsMapper
 import io.github.ivan8m8.courierhelper.ui.models.UiAutocompleteSuggestion
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -53,6 +53,10 @@ class PriorityCityViewModel(
     override fun onCleared() {
         super.onCleared()
         disposables.clear()
+    }
+
+    fun onResumed() {
+        requestInputFocus.value = Event(Unit)
     }
 
     fun userInputs(userInput: String?) {
