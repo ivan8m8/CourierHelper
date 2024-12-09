@@ -1,11 +1,7 @@
-package io.github.ivan8m8.courierhelper.ui.fragments.base
+package io.github.ivan8m8.courierhelper.core.common.ui
 
-import android.app.Dialog
-import android.os.Bundle
-import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.annotation.Px
-import androidx.core.graphics.Insets
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -45,31 +41,14 @@ open class BaseModalBottomSheetFragment(
 
     override fun getTheme() = R.style.ThemeOverlay_BaseModalBottomSheetDialog
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val bottomSheetDialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
-        return bottomSheetDialog.apply {
-            behavior.apply {
-                // used in conjunction with expandedOffset, which is set later
-                isFitToContents = false
-            }
-        }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun onStart() {
+        super.onStart()
         requireView().doOnApplyWindowInsetsWithPaddings { _, windowInsets, paddings ->
             val type = WindowInsetsCompat.Type.systemBars()
             val insetsRect = windowInsets.getInsets(type)
             val expandedOffset = insetsRect.top * topInsetMultiplier + extraTopOffset + paddings.top
-            bottomSheetBehavior.expandedOffset = expandedOffset
-            val bottomInset = expandedOffset + insetsRect.bottom
-            WindowInsetsCompat.Builder()
-                .setInsets(
-                    type,
-                    Insets.of(insetsRect.left, 0, insetsRect.right, bottomInset)
-                )
-                .build()
+            bottomSheetBehavior.maxHeight = resources.displayMetrics.heightPixels - expandedOffset
+            windowInsets
         }
     }
 }
