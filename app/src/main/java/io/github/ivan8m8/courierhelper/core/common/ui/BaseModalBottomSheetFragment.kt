@@ -37,7 +37,7 @@ open class BaseModalBottomSheetFragment(
     @Px
     protected open val topInsetMultiplier = 1
 
-    private val bottomSheetBehavior by lazyUnsafe { (requireDialog() as BottomSheetDialog).behavior }
+    protected val bottomSheetBehavior by lazyUnsafe { (requireDialog() as BottomSheetDialog).behavior }
 
     override fun getTheme() = R.style.ThemeOverlay_BaseModalBottomSheetDialog
 
