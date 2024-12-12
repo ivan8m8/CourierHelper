@@ -72,7 +72,7 @@ dependencies {
     implementation(libs.rxrelay)
     implementation(libs.timber)
 
-    debugImplementation(libs.leakcanary)
+    //debugImplementation(libs.leakcanary)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

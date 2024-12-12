@@ -1,6 +1,6 @@
 [versions]
 adapterdelegates = "4.3.2"
-agp = "8.7.2"
+agp = "8.7.3"
 androidx-junit = "1.2.1"
 constraintlayout = "2.2.0"
 core-ktx = "1.15.0"
