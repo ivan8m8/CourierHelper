@@ -6,7 +6,6 @@ import android.view.ViewPropertyAnimator
 import androidx.core.view.updatePadding
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.textfield.TextInputLayout
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import io.github.ivan8m8.courierhelper.R
 import io.github.ivan8m8.courierhelper.core.common.ui.BaseModalBottomSheetFragment
@@ -14,6 +13,7 @@ import io.github.ivan8m8.courierhelper.data.utils.BasicDiffUtilItemCallback
 import io.github.ivan8m8.courierhelper.data.utils.dp
 import io.github.ivan8m8.courierhelper.databinding.FragmentCountryCodesBinding
 import io.github.ivan8m8.courierhelper.ui.utils.addSystemBottomPadding
+import io.github.ivan8m8.courierhelper.ui.utils.hideKeyboard
 import io.github.ivan8m8.courierhelper.ui.utils.viewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -39,7 +39,7 @@ class CountryCodesBottomSheetFragment : BaseModalBottomSheetFragment(
                 val searchTextInputHeight = searchTextInputLayout.measuredHeight
                 updatePadding(top = searchTextInputHeight + 16.dp)
                 addSystemBottomPadding()
-                tieSearchToScroll(searchTextInputLayout, searchTextInputHeight, savedInstanceState)
+                tieSearchToScroll(binding, searchTextInputHeight, savedInstanceState)
                 adapter = countryDataAdapter
                 setHasFixedSize(false)
             }
@@ -55,7 +55,7 @@ class CountryCodesBottomSheetFragment : BaseModalBottomSheetFragment(
     }
 
     private fun RecyclerView.tieSearchToScroll(
-        searchTextInputLayout: TextInputLayout,
+        binding: FragmentCountryCodesBinding,
         searchTextInputHeight: Int,
         savedInstanceState: Bundle?,
     ) {
@@ -64,26 +64,34 @@ class CountryCodesBottomSheetFragment : BaseModalBottomSheetFragment(
         var currentAnimator: ViewPropertyAnimator? = null
 
         isSearchVisible = savedInstanceState?.getBoolean(IS_SEARCH_VISIBLE) ?: isSearchVisible
-        searchTextInputLayout.translationY = if (isSearchVisible) maxTranslationY else minTranslationY
+        binding.searchTextInputLayout.translationY =
+            if (isSearchVisible) maxTranslationY else minTranslationY
 
-        fun createAnimation(show: Boolean) = searchTextInputLayout
+        fun createAnimation(isShow: Boolean) = binding.searchTextInputLayout
             .animate()
-            .translationY(if (show) maxTranslationY else minTranslationY)
+            .translationY(if (isShow) maxTranslationY else minTranslationY)
             .setDuration(300)
             .withEndAction {
                 currentAnimator = null
             }
 
+        fun toggleAnimation(isShow: Boolean) {
+            currentAnimator?.cancel()
+            isSearchVisible = isShow
+            currentAnimator = createAnimation(isShow).apply { start() }
+        }
+
         val threshold = 10
         setOnScrollChangeListener { _, _, _, _, deltaY ->
-            if (deltaY < -threshold && isSearchVisible) {
-                currentAnimator?.cancel()
-                isSearchVisible = false
-                currentAnimator = createAnimation(false).apply { start() }
+            val scrollOffset = computeVerticalScrollOffset()
+            if (scrollOffset <= searchTextInputHeight && !isSearchVisible) {
+                toggleAnimation(true)
+            } else if (deltaY < -threshold && isSearchVisible) {
+                toggleAnimation(false)
+                hideKeyboard()
+                binding.searchEditText.clearFocus()
             } else if (deltaY > threshold && !isSearchVisible) {
-                currentAnimator?.cancel()
-                isSearchVisible = true
-                currentAnimator = createAnimation(true).apply { start() }
+                toggleAnimation(true)
             }
         }
     }
