@@ -74,12 +74,13 @@ class CountryCodesBottomSheetFragment : BaseModalBottomSheetFragment(
                 currentAnimator = null
             }
 
+        val threshold = 10
         setOnScrollChangeListener { _, _, _, _, deltaY ->
-            if (deltaY < 0 && isSearchVisible) {
+            if (deltaY < -threshold && isSearchVisible) {
                 currentAnimator?.cancel()
                 isSearchVisible = false
                 currentAnimator = createAnimation(false).apply { start() }
-            } else if (deltaY > 0 && !isSearchVisible) {
+            } else if (deltaY > threshold && !isSearchVisible) {
                 currentAnimator?.cancel()
                 isSearchVisible = true
                 currentAnimator = createAnimation(true).apply { start() }
