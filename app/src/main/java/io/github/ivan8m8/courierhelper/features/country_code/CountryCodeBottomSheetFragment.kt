@@ -27,6 +27,7 @@ class CountryCodesBottomSheetFragment : BaseModalBottomSheetFragment(
         BasicDiffUtilItemCallback(),
         CountryCodeAdapterDelegate.countryCodeDelegate(),
     )
+    private var isSearchVisible = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -62,9 +63,8 @@ class CountryCodesBottomSheetFragment : BaseModalBottomSheetFragment(
         val maxTranslationY = 0f
         var currentAnimator: ViewPropertyAnimator? = null
 
-        savedInstanceState?.getFloat(SEARCH_TRANSLATION_Y)
-            ?.let { searchTextInputLayout.translationY = it }
-        var isSearchVisible = searchTextInputLayout.translationY > minTranslationY
+        isSearchVisible = savedInstanceState?.getBoolean(IS_SEARCH_VISIBLE) ?: isSearchVisible
+        searchTextInputLayout.translationY = if (isSearchVisible) maxTranslationY else minTranslationY
 
         fun createAnimation(show: Boolean) = searchTextInputLayout
             .animate()
@@ -89,11 +89,11 @@ class CountryCodesBottomSheetFragment : BaseModalBottomSheetFragment(
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putFloat(SEARCH_TRANSLATION_Y, binding.searchTextInputLayout.translationY)
+        outState.putBoolean(IS_SEARCH_VISIBLE, isSearchVisible)
     }
 
     companion object {
-        private const val SEARCH_TRANSLATION_Y = "SEARCH_TRANSLATION_Y"
+        private const val IS_SEARCH_VISIBLE = "IS_SEARCH_VISIBLE"
         fun newInstance() = CountryCodesBottomSheetFragment()
     }
 }
