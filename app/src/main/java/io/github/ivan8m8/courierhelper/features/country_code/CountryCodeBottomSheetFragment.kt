@@ -38,7 +38,7 @@ class CountryCodesBottomSheetFragment : BaseModalBottomSheetFragment(
                 val searchTextInputHeight = searchTextInputLayout.measuredHeight
                 updatePadding(top = searchTextInputHeight + 16.dp)
                 addSystemBottomPadding()
-                tieSearchToScroll(searchTextInputLayout, searchTextInputHeight)
+                tieSearchToScroll(searchTextInputLayout, searchTextInputHeight, savedInstanceState)
                 adapter = countryDataAdapter
                 setHasFixedSize(false)
             }
@@ -55,12 +55,16 @@ class CountryCodesBottomSheetFragment : BaseModalBottomSheetFragment(
 
     private fun RecyclerView.tieSearchToScroll(
         searchTextInputLayout: TextInputLayout,
-        searchTextInputHeight: Int
+        searchTextInputHeight: Int,
+        savedInstanceState: Bundle?,
     ) {
         val minTranslationY = - searchTextInputHeight * 2f
         val maxTranslationY = 0f
-        var isSearchVisible = true
         var currentAnimator: ViewPropertyAnimator? = null
+
+        savedInstanceState?.getFloat(SEARCH_TRANSLATION_Y)
+            ?.let { searchTextInputLayout.translationY = it }
+        var isSearchVisible = searchTextInputLayout.translationY > minTranslationY
 
         fun createAnimation(show: Boolean) = searchTextInputLayout
             .animate()
@@ -83,7 +87,13 @@ class CountryCodesBottomSheetFragment : BaseModalBottomSheetFragment(
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putFloat(SEARCH_TRANSLATION_Y, binding.searchTextInputLayout.translationY)
+    }
+
     companion object {
+        private const val SEARCH_TRANSLATION_Y = "SEARCH_TRANSLATION_Y"
         fun newInstance() = CountryCodesBottomSheetFragment()
     }
 }
