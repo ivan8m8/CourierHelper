@@ -81,7 +81,7 @@ class CountryCodesBottomSheetFragment : BaseModalBottomSheetFragment(
             currentAnimator = createAnimation(isShow).apply { start() }
         }
 
-        val threshold = 10
+        val threshold = 8
         setOnScrollChangeListener { _, _, _, _, deltaY ->
             val scrollOffset = computeVerticalScrollOffset()
             if (scrollOffset <= searchTextInputHeight && !isSearchVisible) {
